@@ -1,0 +1,163 @@
+body {
+  font-size: 12px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+table {
+  width: 70%;
+  border-collapse: collapse;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.grade-accurate {
+  text-align: center;
+}
+
+#grade-form-header {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+@media print {
+  .signature-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #fff;
+    border-top: 1px solid #000;
+  }
+
+  .adviser-principal-name {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .adviser-name,
+  .principals-name {
+    text-align: left;
+    margin-right: 20px; /* Adjust spacing between names */
+  }
+}
+
+th,
+td {
+  border: 1px solid #000;
+  padding: 3px;
+  padding-left: 5px;
+  font-size: 12px;
+}
+
+th:nth-child(1) {
+  width: 80%; /* First column width */
+}
+
+th:nth-child(2) {
+  width: 20%; /* Second column width */
+}
+
+#grade-th,
+#grade-td {
+  text-align: center;
+}
+
+.adviser-principal-name {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px; /* Add margin between the containers */
+}
+
+.adviser-name,
+.principals-name {
+  text-align: center; /* Center align the names */
+}
+
+.adviser-name {
+  margin-right: 20px; /* Add space between names */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  gap: 10px; /* Adjust the gap between elements */
+  margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+.logo-container img {
+  max-width: 7%;
+}
+
+.logo-container p {
+  font-size: 15px;
+  margin: 0; /* Remove default margins */
+}
+
+.title {
+  font-size: 17px;
+  margin: 0; /* Remove default margins */
+}
+
+.subtitle {
+  font-size: 12px;
+  margin: 0; /* Remove default margins */
+}
+
+.header-name {
+  margin-left: 110px;
+  margin-bottom: 0;
+}
+
+.student-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-strand {
+  margin-right: 110px;
+}
+
+#auto-date,
+.strand-name {
+  margin-right: 110px;
+  margin-bottom: 0;
+  margin-top: 2%;
+}
+
+.SHS-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.student-container,
+.SHS-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+#auto-date {
+  margin-top: 2%;
+  margin-left: auto; /* Move auto-generated date to the right */
+}
+
+#influencing-text {
+  margin-top: 0;
+  margin-bottom: 0;
+  float: right;
+}
+
+#link {
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: right;
+}
+
+.address-container {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,76 @@
+#main ul li button {
+  color: #000;
+}
+
+#borderedTabJustifiedContent ul li {
+  font-weight: bold;
+}
+
+/* Inactive tab styles */
+.nav-tabs .nav-link {
+  background-color: #f0f0f0; /* Light gray background for inactive tabs */
+  color: #000; /* Black text color for inactive tabs */
+  border-bottom: 1px solid #ddd; /* Light border for a subtle divider */
+}
+
+/* Active tab styles */
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link.active:focus,
+.nav-tabs .nav-link.active:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Default active background */
+  color: #000 !important;
+  border-bottom-color: transparent !important;
+}
+
+.tab-content {
+  background-color: rgba(0, 0, 0, 0.1); /* Fallback color */
+  padding: 20px;
+  transition: background-color 0.3s ease; /* Smooth transition for color changes */
+}
+
+/* Specific background colors for each active tab */
+#COE-tab.nav-link.active {
+  background-color: #c05779; 
+}
+
+#CASS-tab.nav-link.active {
+  background-color: #5abf50; 
+}
+
+#CCS-tab.nav-link.active {
+  background-color: #49b0bc; 
+}
+
+#CED-tab.nav-link.active {
+  background-color: #588dc2; 
+}
+
+#CHS-tab.nav-link.active {
+  background-color: #c1dfe0; 
+}
+
+#CSM-tab.nav-link.active {
+  background-color: #bd494a;
+}
+
+#CEBA-tab.nav-link.active {
+  background-color: #f3e05c; 
+}
+
+.sidebar-nav .nav-link.active {
+  background-color: #F7D953; 
+}
+
+.sidebar-nav .nav-link.active span{
+  color: #A31A23; 
+}
+
+.sidebar-nav .nav-link.active .bx.bxs-dashboard,
+.sidebar-nav .nav-link.active .ri-contacts-line,
+.sidebar-nav .nav-link.active .ri-book-open-line,
+.sidebar-nav .nav-link.active .ri-briefcase-fill,
+.sidebar-nav .nav-link.active .ri-service-fill,
+.sidebar-nav .nav-link.active .bx.bxs-business {
+  color: #A31A23; 
+}
+

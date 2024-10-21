@@ -1,0 +1,71 @@
+#main {
+  background-image: url("../../img/iit_bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+@media (max-width: 768px) {
+  #main {
+    height: 100%;
+  }
+}
+
+@media (max-width: 1000px) {
+  #main {
+    height: 100%;
+  }
+}
+
+.card p {
+  font-size: 25px;
+  font-weight: 500;
+  color: white;
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 1);
+}
+.card {
+  padding: 5px;
+  border: 1px solid #ccc;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.card2 {
+  background-color: rgba(240, 236, 236, 0.9);
+}
+
+.card2 .card-title {
+  color: #000;
+  background-color: #cdcdcd;
+}
+
+.card2 .card-body ul li {
+  color: #000;
+}
+
+.card2 .card-body ul li a {
+  color: #000;
+}
+
+.card2 .card-body ul li a:hover {
+  color: #a41d21;
+  border-color: #a41d21;
+  transition: 0.5s;
+}
+
+.sidebar-nav .nav-link.active {
+  background-color: #F7D953; 
+}
+
+.sidebar-nav .nav-link.active span{
+  color: #A31A23; 
+}
+
+.sidebar-nav .nav-link.active .bx.bxs-dashboard,
+.sidebar-nav .nav-link.active .ri-contacts-line,
+.sidebar-nav .nav-link.active .ri-book-open-line,
+.sidebar-nav .nav-link.active .ri-briefcase-fill,
+.sidebar-nav .nav-link.active .ri-service-fill,
+.sidebar-nav .nav-link.active .bx.bxs-business {
+  color: #A31A23; 
+}

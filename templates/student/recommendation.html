@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon">
+    <link href="../static/img/logo.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>    
+
+    <!-- Template Main CSS File -->
+    <link href="../static/assets2/css/style.css" rel="stylesheet">
+    <link href="../static/assets2/css/student_recommendation.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/student/dashboard" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        </li><!-- End Search Icon-->
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-user-large"></i>
+          <span class="dropdown-toggle ps-2">Account</span>
+          </a>
+          <!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ user['f_name'] }} {{ user['l_name'] }}</h6>
+              <span>{{ user['role'] }}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+                <a class="dropdown-item d-flex align-items-center transition-link" href="/student/profile">
+                  <span>Profile</span>
+                </a>
+              </li>
+              <hr class="dropdown-divider">
+            <li>
+              <a class="dropdown-item d-flex align-items-center transition-link" href="{{ url_for('logout') }}">
+                <i class="bi bi-box-arrow-right transition-link"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+      <ul class="sidebar-nav" id="sidebar-nav">
+  
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/dashboard' else '' }}" href="/student/dashboard">
+                  <i class="bx bxs-dashboard"></i>
+                  <span>Dashboard</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/profile' else '' }}" href="/student/profile">
+                  <i class="ri-contacts-line"></i>
+                  <span>Profile</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/grades' else '' }}" href="/student/grades">
+                  <i class="ri-book-open-line"></i>
+                  <span>Grades</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/recommendation' else '' }}" href="/student/recommendation">
+                  <i class="ri-briefcase-fill"></i>
+                  <span>Recommendation</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/courses' else '' }}" href="/student/courses">
+                  <i class="ri-service-fill"></i>
+                  <span>Courses</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/about' else '' }}" href="/student/about">
+                  <i class="bx bxs-business"></i>
+                  <span>About</span>
+              </a>
+          </li>
+  
+      </ul>
+  
+    </aside><!-- End Sidebar-->
+
+    <!-- Main Body -->
+    <main id="main" class="main">
+
+      <section class="section">
+        <div class="row">
+          <div class="col-lg-12 mt-2">
+  
+            <div class="card">
+              <div class="card-body mt-2">
+                  <h5 class="card-title">Your Preferred Courses</h5>
+                  <p class="custom-bullet">{{student['pref_course1']}}</p>
+                  <p class="custom-bullet_2">{{student['pref_course2']}}</p>
+                  <hr style="border-color: #000">
+                  {% if user['status'] != 'verified' %}
+                  <div class="alert alert-info" role="alert">
+                    <small><b>NOTE:</b>
+                      <!-- <p>The recommendations being shown below are provisional and may change once your SASE scores are verified by the administrator.</p> -->
+                      <p>The recommendations being shown below are provisional and may change once it is verified by the administrator.</p>
+                    </small>
+                  </div>
+                  {% endif %}
+                  <h5 class="card-title">College Recommended Courses/Programs</h5>
+                  
+                  {% if student_rc %}
+                    <!-- Recommended Courses -->
+                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                        {% for i in range(1, 11) %}
+                            {% set rc = student_rc['rc' + i|string] %}
+                            {% if rc %}
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-heading{{ i }}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ i }}" aria-expanded="false" aria-controls="flush-collapse{{ i }}">
+                                            <b class="me-2">{{ i }}.</b> 
+                                            {% set course_definition = get_course_definition(rc) %}
+                                            {{ course_definition.display_name }}
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapse{{ i }}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{ i }}" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body text-justify">
+                                            {{ course_definition.definition }}
+                                        </div>
+                                        <a href="{{ course_definition.url }}" class="btn btn-primary custom-btn mt-2 mb-4" target="_blank">Learn More</a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div><!-- End Accordion -->
+                {% else %}
+                    <p>No recommended courses available at the moment.</p>
+                {% endif %}
+              </div>
+          </div>
+  
+          </div>
+          <!--Card End-->
+          
+      </div>
+</div>
+
+      
+    </section>
+    <!--Section End-->
+    </main>
+    
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+  <!-- Vendor JS Files -->
+  <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+  <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+  <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+  <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="../static/assets2/js/main.js"></script>
+
+    <script>
+      // Define a function to update the accordion-body with course definition and a "Learn more" link
+      function updateCourseDefinition(courseId, courseDefinition) {
+          var accordionBody = document.getElementById("course-definition-" + courseId);
+          accordionBody.innerHTML = `
+            ${courseDefinition}
+            <a href="/learn-more/${courseId}" class="btn btn-primary mt-2">Learn More</a>
+          `;
+      }
+    
+      // Example usage
+      var courseDefinitions = {
+          "BACHELOR OF SCIENCE IN CIVIL ENGINEERING": "Civil engineering involves the design, construction, and maintenance of infrastructure projects such as roads, bridges, and buildings.",
+          "BACHELOR OF SCIENCE IN BIOLOGY(MICROBIOLOGY)": "Microbiology is the study of microscopic organisms such as bacteria, viruses, and fungi.",
+          "BACHELOR OF SCIENCE IN ELECTRICAL ENGINEERING": "Electrical engineering deals with the study and application of electricity, electronics, and electromagnetism.",
+          "BACHELOR OF SCIENCE METALLURGICAL ENGINEERING": "Metallurgical engineering focuses on the study of metals, their properties, and their applications in various industries.",
+          "BACHELOR OF SCIENCE IN BIOLOGY(ANIMAL BIOLOGY)": "Animal biology is the study of animals, including their anatomy, physiology, behavior, and evolution.",
+          "BACHELOR OF SCIENCE IN CHEMISTRY": "Chemistry is the study of matter, its properties, composition, and reactions.",
+          "BACHELOR OF SCIENCE IN CERAMIC ENGINEERING": "Chemical engineering applies the principles of chemistry, physics, and mathematics to design and operate chemical processes."
+      };
+    
+      // Call the function to update the course definition for each course
+      Object.keys(courseDefinitions).forEach(function(courseId) {
+          updateCourseDefinition(courseId, courseDefinitions[courseId]);
+      });
+    </script>
+
+    </body>
+
+</html>

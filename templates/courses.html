@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="static/img/logo.png" rel="icon">
+    <link href="static/img/logo.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="static/assets/css/style.css" rel="stylesheet">
+
+    <!-- Custom CSS for Flip Cards -->
+    <style>
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 700px;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .flip-card-front {
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .flip-card-back {
+            background-color: #333;
+            color: white;
+            transform: rotateY(180deg);
+            padding: 20px;
+            text-align: left;
+        }
+
+        .flip-card-back ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .flip-card-back ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+        <div class="container d-flex align-items-center justify-content-between">
+            <h1 class="logo"><a href="/" style="color: #fff">MSU-IIT</a></h1>
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a class="nav-link scrollto" href="/">Home</a></li>
+                    <li><a class="nav-link scrollto" href="/about">About</a></li>
+                    <li><a class="nav-link scrollto active" href="/courses">Courses</a></li>
+                    <li><a class="nav-link scrollto " href="/login">Log-In</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- End Header -->
+
+    <br><br><br>
+
+    <main id="main">
+        <div class="container mt-5">
+            <h1 class="text mb-4">College Courses Offered</h1>
+
+            <!-- Flip Cards for Colleges -->
+            <div class="row">
+                <!-- CEBA Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front" style="background-image: url('static/assets/img/ceba.png');">
+                                CEBA - College of Economics and Business Administration
+                            </div>
+                            <div class="flip-card-back">
+                                <ul>
+                                    <li>Hospitality Management</li>
+                                    <li>Accountancy</li>
+                                    <li>Marketing</li>
+                                    <li>Economics</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CASS Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front" style="background-image: url('static/assets/img/cass.jpg');">
+                                CASS - College of Arts and Social Sciences
+                            </div>
+                            <div class="flip-card-back">
+                                <ul>
+                                    <li>History</li>
+                                    <li>General Education</li>
+                                    <li>Sociology</li>
+                                    <li>Political Science</li>
+                                    <li>Philosophy and Humanities</li>
+                                    <li>Filipino</li>
+                                    <li>English</li>
+                                    <li>Psychology</li>
+                                    <li>Philosophy Major in Applied Ethics</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COE Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front" style="background-image: url('static/assets/img/coe.jpg');">
+                                COE - College of Engineering
+                            </div>
+                            <div class="flip-card-back">
+                                <ul>
+                                    <li>Civil Engineering</li>
+                                    <li>Electrical Engineering</li>
+                                    <li>Mechanical Engineering</li>
+                                    <li>Metallurgical Engineering</li>
+                                    <li>Chemical Engineering</li>
+                                    <li>Electronics Engineering</li>
+                                    <li>Computer Engineering</li>
+                                    <li>Engineering Technology - Civil Engineering Technology</li>
+                                    <li>Engineering Technology-Metallurgy and Materials Engineering Technology</li>
+                                    <li>Mining Engineering</li>
+                                    <li>Industrial Automation & Mechatronics</li>
+                                    <li>Technology-Electrical Engineering Technology</li>
+                                    <li>Technology-Chemical Engineering Technology</li>
+                                    <li>Technology-Electronics Engineering Technology</li>
+                                    <li>Technology-Mechanical Engineering Technology</li>
+                                    <li>Environmental Engineering</li>
+                                    <li>Ceramic Engineering</li>
+                                    <li>Environmental Engineering Technology</li>
+                                    <!-- Add more courses as needed -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSM Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front" style="background-image: url('static/assets/img/csm.png');">
+                                CSM - College of Science and Mathematics
+                            </div>
+                            <div class="flip-card-back">
+                                <ul>
+                                    <li>Biology</li>
+                                    <li>Biology (Microbiology)</li>
+                                    <li>Biology (Animal Biology)</li>
+                                    <li>Biology (Plant Biology)</li>
+                                    <li>Biology (Biodiversity)</li>
+                                    <li>Marine Biology</li>
+                                    <li>Physics</li>
+                                    <li>Chemistry</li>
+                                    <li>Mathematics</li>
+                                    <li>Statistics</li>
+                                    <!-- Add more courses as needed -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CED Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front" style="background-image: url('static/assets/img/ced.png');">
+                                CED - College of Education
+                            </div>
+                            <div class="flip-card-back">
+                                <ul>
+                                    <li>Secondary Education (Biology)</li>
+                                    <li>Secondary Education (Chemistry)</li>
+                                    <li>Secondary Education (Physics)</li>
+                                    <li>Secondary Education (Mathematics)</li>
+                                    <li>Secondary Education (Filipino)</li>
+                                    <li>Elementary Education (Science and Mathematics)</li>
+                                    <li>Elementary Education (Language Education)</li>
+                                    <li>Technology and Livelihood Education-Industrial Arts</li>
+                                    <li>Technical-Vocational Teacher Education Drafting Technology</li>
+                                    <li>Physical Education</li>
+                                    <li>Technology and Livelihood Education - Home Economics</li>
+                                    <!-- Add more courses as needed -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CCS Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front" style="background-image: url('static/assets/img/ccs.png');">
+                                CCS - College of Computer Studies
+                            </div>
+                            <div class="flip-card-back">
+                                <ul>
+                                    <li>Computer Science</li>
+                                    <li>Information Technology</li>
+                                    <li>Information Systems</li>
+                                    <li>Computer Application</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHS Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front" style="background-image: url('static/assets/img/chs.png');">
+                                CHS - College of Health Sciences
+                            </div>
+                            <div class="flip-card-back">
+                                <ul>
+                                    <li>Nursing</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More cards for other colleges can be added similarly -->
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-6 footer-contact">
+                        <h3>MSU-IIT Admission Portal</h3>
+                        <p>
+                            Andres Bonifacio Avenue, Tibanga<br>
+                            9200 Iligan City, Philippines<br><br>
+                            <strong>Telephone:</strong> (+63) 221-4056<br>
+                            <strong>Email:</strong> cris.msuiit@gmail.com<br>
+                        </p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Social Networks:</h4>
+                        <div class="social-links mt-3">
+                            <a href="https://www.facebook.com/MSUIITPH/" target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
+                            <a href="https://twitter.com/msuiitph" target="_blank" class="twitter"><i class="bx bxl-twitter"></i></a>
+                            <a href="https://www.instagram.com/msuiitph/" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-4">
+            <div class="copyright">
+                &copy; Copyright <strong><span>MSU-IIT</span></strong>. All Rights Reserved 2024
+            </div>
+            <div class="credits">
+                Designed by <a href="#">&nbsp;Oguis, Paran, Ortiz (OPO)</a>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="static/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="static/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="static/assets/js/main.js"></script>
+
+</body>
+
+</html>

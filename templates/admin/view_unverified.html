@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon" />
+    <link href="../static/img/logo.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/boxicons/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/quill/quill.snow.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/quill/quill.bubble.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/remixicon/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/simple-datatables/style.css"
+      rel="stylesheet"
+    />
+
+    <!-- Template Main CSS File -->
+    <link href="../static/assets2/css/style.css" rel="stylesheet" />
+    <link href="../static/assets2/css/view.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="/admin/dashboard" class="logo d-flex align-items-center">
+          <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+      </div>
+      <!-- End Logo -->
+
+      <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+          <li class="nav-item dropdown pe-3">
+            <a
+              class="nav-link nav-profile d-flex align-items-center pe-0"
+              href="#"
+              data-bs-toggle="dropdown"
+            >
+              <i class="fa-solid fa-user-large"></i>
+              <span class="dropdown-toggle ps-2">Account</span>
+            </a>
+            <!-- End Profile Iamge Icon -->
+
+            <ul
+              class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
+            >
+              <li class="dropdown-header">
+                <h6>{{ f_name }} {{ m_name }} {{ l_name }}</h6>
+                <span>{{ role }}</span>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+
+              <li>
+                <a
+                  class="dropdown-item d-flex align-items-center transition-link"
+                  href="{{ url_for('logout') }}"
+                >
+                  <i class="bi bi-box-arrow-right transition-link"></i>
+                  <span>Sign Out</span>
+                </a>
+              </li>
+            </ul>
+            <!-- End Profile Dropdown Items -->
+          </li>
+          <!-- End Profile Nav -->
+        </ul>
+      </nav>
+      <!-- End Icons Navigation -->
+    </header>
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link collapsed {{ 'active' if request.path == '/admin/dashboard' else '' }}" href="/admin/dashboard">
+            <i class="bx bxs-dashboard"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed {{ 'active' if request.path == '/admin/students' else '' }}" href="/admin/students">
+            <i class="ri-service-fill"></i>
+            <span>Verified Students</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed {{ 'active' if request.path == '/admin/visualization' else '' }}" href="/admin/visualization">
+            <i class="bx bxs-business"></i>
+            <span>Visualization</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <!-- End Sidebar-->
+
+    <!-- Main Body -->
+    <main id="main" class="main">
+      <!-- All student Table-->
+      <section class="section profile">
+        <div class="row">
+          <div class="col-xl-4">
+  
+            <div class="card" style="height: 353px">
+              <div class="card-body profile-card pt-4 d-flex flex-column align-items-center ">
+                
+                <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+
+                <h2><center> {{user['f_name']}} {{user['l_name']}} </center></h2>
+                <h3 style="margin-top: 15px;"><i>{{user['role']}}</i></h3>
+                <span> <b>STATUS:</b> {{user['status']}} </span>
+                <br>
+                {% if user['status'] != 'verified' %}
+                  {% if profile['verified_grades'] %}
+                    <a href="{{ url_for('static', filename=profile['verified_grades']) }}" target="_blank" style="text-decoration: underline;">View signed GRADE FORM</a>
+                    <br>
+                    <form method="POST" action="/delete_grade_form/{{ user['u_id'] }}">
+                      <input type="hidden" name="_method" value="DELETE" />
+                      <button type="submit" class="btn btn-danger btn-sm">Delete GRADE FORM</button>
+                    </form>
+                  {% else %}
+                    No signed GRADE FORM uploaded
+                    <br>
+                    <br>
+                  {% endif %}
+                {% endif %}
+                <br>
+                {% if user['status'] != 'verified' %}
+                  <form method="POST" action="/verify/{{ user['u_id'] }}">
+                    <input type="hidden" name="_method" value="PUT" />
+                    <!-- Button to trigger modal -->
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#confirmationModal">
+                      ✔️ Verify Student
+                    </button>
+                  </form>
+                {% endif %}
+
+                <!-- Modal Confirmation -->
+                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationModalLabel">Confirm Verification</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to verify {{ user['f_name'] }} {{ user['l_name'] }}?
+                      </div>
+                      <div class="modal-footer">
+                        <!-- Add the form submit button inside the modal footer -->
+                        <button type="button" id="confirmVerification" class="btn btn-primary">Confirm</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+  
+          </div>
+  
+          <div class="col-xl-8">
+  
+            <div class="card">
+              <div class="card-body pt-3">
+                <!-- Bordered Tabs -->
+
+                {% if profile %}
+
+                <ul class="nav nav-tabs nav-tabs-bordered">
+  
+                  <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Profile</button>
+                  </li>
+  
+                  <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#personal-details">Personal</button>
+                  </li>
+  
+                  <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#parent-details">Parents</button>
+                  </li>
+  
+                  <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#academic-details">Academic</button>
+                  </li>
+
+                  <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#recommendation">Recommendation</button>
+                  </li>
+  
+                </ul>
+                <div class="tab-content pt-2">
+  
+                  <div class="tab-pane fade show active profile-overview" id="profile-overview">
+
+                    <h5 class="card-title">Profile Details</h5>
+  
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                      <div class="col-lg-9 col-md-8">{{user['f_name']}} {{user['m_name']}} {{user['l_name']}}</div>
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Role</div>
+                      <div class="col-lg-9 col-md-8">{{user['role']}}</div>
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Contact</div>
+                      <div class="col-lg-9 col-md-8">{{profile['contact']}}</div>
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Address</div>
+                      <div class="col-lg-9 col-md-8">{{profile['city_home']}}, {{profile['province_home'].replace('_', ' ')}}</div>
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Email</div>
+                      <div class="col-lg-9 col-md-8">{{user['email']}}</div>
+                    </div>
+  
+                  </div>
+  
+                  <div class="tab-pane fade personal-details pt-3" id="personal-details">
+      
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Gender</label>
+                      <div class="col-lg-7 col-md-8">
+                        {{profile['sex']}}
+                      </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Religion</label>
+                      <div class="col-lg-7 col-md-8">
+                        {{profile['religion']}}
+                      </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                    <label for="profileImage" class="col-lg-5 col-md-4 label">Member of Indigenous People?</label>
+                    <div class="col-lg-7 col-md-8">
+                      {{profile['ip']}}
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <label for="profileImage" class="col-lg-5 col-md-4 label">IP ID/Certificate</label>
+                    <div class="col-lg-7 col-md-8">
+                        {% if profile['ip_id'] %}
+                        <span class="preview-container">
+                          <a href="{{ url_for('static', filename=profile['ip_id']) }}" target="_blank" style="text-decoration: underline;">View Indigenous People Certificate</a>
+                          <img src="{{ url_for('static', filename=profile['ip_id']) }}" alt="IP ID Preview" class="preview-image">
+                        </span>
+                        {% else %}
+                            No Indigenous People Certificate uploaded
+                        {% endif %}
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <label for="profileImage" class="col-lg-5 col-md-4 label">Learner with disability?</label>
+                  <div class="col-lg-7 col-md-8">
+                    {{profile['pwd']}}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <label for="profileImage" class="col-lg-5 col-md-4 label">PWD ID</label>
+                  <div class="col-lg-7 col-md-8">
+                      {% if profile['pwd_id_file'] %}
+                      <span class="preview-container">
+                        <a href="{{ url_for('static', filename=profile['pwd_id_file']) }}" target="_blank" style="text-decoration: underline;">View PWD ID</a>
+                        <img src="{{ url_for('static', filename=profile['pwd_id_file']) }}" alt="PWD ID Preview" class="preview-image">
+                      </span>
+                      {% else %}
+                          No PWD ID uploaded
+                      {% endif %}
+                  </div>
+              </div>                    
+              <br>  
+              <div class="row">
+                <label for="profileImage" class="col-lg-5 col-md-4 label">1st Generation Learner?</label>
+                <div class="col-lg-7 col-md-8">
+                  {{profile['1stgenlearner']}}
+                </div>
+              </div>
+
+              <div class="row">
+                <label for="profileImage" class="col-lg-5 col-md-4 label">1st Generation Learner ID</label>
+                <div class="col-lg-7 col-md-8">
+                    {% if profile['1stgenlearner_id'] %}
+                    <span class="preview-container">
+                      <a href="{{ url_for('static', filename=profile['1stgenlearner_id']) }}" target="_blank" style="text-decoration: underline;">View 1st Generation Learner Certificate</a>
+                      <img src="{{ url_for('static', filename=profile['1stgenlearner_id']) }}" alt="1st Generation Learner ID Preview" class="preview-image">
+                    </span>
+                    {% else %}
+                        No 1st Gen learner Certificate uploaded
+                    {% endif %}
+                </div>
+            </div>
+            <br>
+            <div class="row">
+              <label for="profileImage" class="col-lg-5 col-md-4 label">Child of a Parent Deprived Liberty?</label>
+              <div class="col-lg-7 col-md-8">
+                {{profile['child_deprived_liberty']}}
+              </div>
+            </div>
+
+            <div class="row">
+              <label for="profileImage" class="col-lg-5 col-md-4 label">Child of a Parent Deprived Liberty Certificate</label>
+              <div class="col-lg-6 col-md-8">
+                  {% if profile['child_deprived_liberty_id'] %}
+                  <span class="preview-container">
+                    <a href="{{ url_for('static', filename=profile['child_deprived_liberty_id']) }}" target="_blank" style="text-decoration: underline;">View Child of a Parent Deprived Liberty Certificate</a>
+                    <img src="{{ url_for('static', filename=profile['child_deprived_liberty_id']) }}" alt="Child of a Parent Deprived Liberty ID Preview" class="preview-image">
+                  </span>
+                  {% else %}
+                      No Child of a Parent Deprived Liberty Certificate uploaded
+                  {% endif %}
+              </div>
+          </div>
+          <br>
+
+          <div class="row">
+            <label for="profileImage" class="col-lg-5 col-md-4 label">Child of a Solo Parent?</label>
+            <div class="col-lg-7 col-md-8">
+              {{profile['childsoloparent']}}
+            </div>
+          </div>
+            
+          <div class="row">
+            <label for="profileImage" class="col-lg-5 col-md-4 label">Child Solo Parent ID</label>
+            <div class="col-lg-7 col-md-8">
+                {% if profile['childsoloparent_file'] %}
+                <span class="preview-container">
+                  <a href="{{ url_for('static', filename=profile['childsoloparent_file']) }}" target="_blank" style="text-decoration: underline;">View Child Solo Parent Certificate/ID</a>
+                  <img src="{{ url_for('static', filename=profile['childsoloparent_file']) }}" alt="Child Solo Parent ID Preview" class="preview-image">
+                </span>
+                {% else %}
+                    No Child Solo Parent ID/Certificate uploaded
+                {% endif %}
+            </div>
+          </div>                   
+          <br>
+
+          <div class="row">
+            <label for="profileImage" class="col-lg-5 col-md-4 label">Single/Solo Parent?</label>
+            <div class="col-lg-7 col-md-8">
+              {{profile['soloparent']}}
+            </div>
+          </div>
+
+            <div class="row">
+              <label for="profileImage" class="col-lg-5 col-md-4 label">Single/Solo Parent Certificate</label>
+              <div class="col-lg-7 col-md-8">
+                  {% if profile['soloparent_id'] %}
+                  <span class="preview-container">
+                    <a href="{{ url_for('static', filename=profile['soloparent_id']) }}" target="_blank" style="text-decoration: underline;">View Single/Solo Parent Certificate</a>
+                    <img src="{{ url_for('static', filename=profile['soloparent_id']) }}" alt="Single/Solo Parent ID Preview" class="preview-image">
+                  </span>
+                  {% else %}
+                      No Single/Solo Parent uploaded
+                  {% endif %}
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <label for="profileImage" class="col-lg-5 col-md-4 label">Raised by LGBTQ+ Parents?</label>
+              <div class="col-lg-7 col-md-8">
+                {{profile['lgbtq_parent']}}
+              </div>
+            </div>
+
+            <div class="row">
+              <label for="profileImage" class="col-lg-5 col-md-4 label">Affidavit of Parent Consent</label>
+              <div class="col-lg-7 col-md-8">
+                  {% if profile['lgbtq_p_id'] %}
+                  <span class="preview-container">
+                    <a href="{{ url_for('static', filename=profile['lgbtq_p_id']) }}" target="_blank" style="text-decoration: underline;">View Affidavit of Parent Consent</a>
+                    <img src="{{ url_for('static', filename=profile['lgbtq_p_id']) }}" alt="Affidavit of Parent Consent ID Preview" class="preview-image">
+                  </span>
+                  {% else %}
+                      No Affidavit uploaded
+                  {% endif %}
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <label for="profileImage" class="col-lg-5 col-md-4 label">Working Student?</label>
+              <div class="col-lg-7 col-md-8">
+                {{profile['working_student']}}
+              </div>
+            </div>
+
+            <div class="row">
+              <label for="profileImage" class="col-lg-5 col-md-4 label">Certificate of Employment</label>
+              <div class="col-lg-7 col-md-8">
+                  {% if profile['working_id'] %}
+                  <span class="preview-container">
+                    <a href="{{ url_for('static', filename=profile['working_id']) }}" target="_blank" style="text-decoration: underline;">View Certificate of Employment</a>
+                    <img src="{{ url_for('static', filename=profile['working_id']) }}" alt="Certificate of Employment ID Preview" class="preview-image">
+                  </span>
+                  {% else %}
+                      No Certificate of Employment uploaded
+                  {% endif %}
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <label for="profileImage" class="col-lg-5 col-md-4 label">Victim of Abuse/Disaster?</label>
+              <div class="col-lg-7 col-md-8">
+                {{profile['victim']}}
+              </div>
+            </div>
+
+            <div class="row">
+              <label for="profileImage" class="col-lg-5 col-md-4 label">Barangay Certification or Police/Court Certification</label>
+              <div class="col-lg-7 col-md-8">
+                  {% if profile['victim_id'] %}
+                  <span class="preview-container">
+                    <a href="{{ url_for('static', filename=profile['victim_id']) }}" target="_blank" style="text-decoration: underline;">View Barangay Certification</a>
+                    <img src="{{ url_for('static', filename=profile['victim_id']) }}" alt="Barangay Certification ID Preview" class="preview-image">
+                  </span>
+                  {% else %}
+                      No Certification uploaded
+                  {% endif %}
+              </div>
+            </div>
+
+            </div>
+  
+                  <div class="tab-pane fade parent-details pt-3" id="parent-details">
+  
+                    <!--Parent Profile Details-->
+                    <h5>Father</h5>
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Education Attained</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['father_edu_attain']}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Occupation</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['father_occupation']}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Annual Income</label> 
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['father']}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Father's ITR</label>
+                      <div class="col-lg-9 col-md-8">
+                          {% if profile['father_itr_file'] %}
+                              <a href="{{ url_for('static', filename=profile['father_itr_file']) }}" target="_blank" style="text-decoration: underline;">View ITR</a>
+                          {% elif profile['father_income'] in ['Under ₱40,000', '₱40,000 - ₱59,999', '₱60,000 - ₱99,999', '₱100,000 - ₱249,999', '₱250,000 - ₱499,999', '₱500,000 and over'] %}
+                              None
+                          {% else %}
+                              No ITR uploaded
+                          {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Tribe</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['father_tribe']}}
+                      </div>
+                    </div>
+
+                    <hr>
+                    
+                    <h5>Mother</h5>
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Education Attained</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['mother_edu_attain']}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Occupation</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['mother_occupation']}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Annual Income</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['mother']}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Mother's ITR</label>
+                      <div class="col-lg-9 col-md-8">
+                          {% if profile['mother_itr_file'] %}
+                              <a href="{{ url_for('static', filename=profile['mother_itr_file']) }}" target="_blank" style="text-decoration: underline;">View ITR</a>
+                          {% elif profile['mother_income'] in ['Under ₱40,000', '₱40,000 - ₱59,999', '₱60,000 - ₱99,999', '₱100,000 - ₱249,999', '₱250,000 - ₱499,999', '₱500,000 and over'] %}
+                              None
+                          {% else %}
+                              No ITR uploaded
+                          {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Tribe</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['mother_tribe']}}
+                      </div>
+                    </div>
+
+                </div>
+  
+                  <div class="tab-pane fade academic-details pt-3" id="academic-details">
+                   
+                    <!--Academic Details-->
+
+                    <h5>Senior High School Details</h5>
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">SHS Track</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['track']}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">SHS Campus Name</label> 
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['name_hs']}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">SHS Campus Address</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['address_hs']}}
+                      </div>
+                    </div>
+
+                    <hr>
+                    
+                    
+                    <h5>SASE Scores                    
+                      <!-- Button to trigger update modal -->
+                      &nbsp &nbsp&nbsp
+                      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateSaseModal">
+                        <i class="bi bi-pencil-square"></i>
+                      </button></h5> 
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Aptitude</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['ap']}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Language</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['lu']}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Mathematics</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['ma']}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Science</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['sc']}}
+                      </div>
+                    </div>
+
+                    <!-- Update SASE Scores Modal -->
+                      <div class="modal fade" id="updateSaseModal" tabindex="-1" aria-labelledby="updateSaseModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="updateSaseModalLabel">Update SASE Scores</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form id="updateSaseForm" method="POST" action="/update_sase/{{ user['u_id'] }}">
+                                <div class="mb-3">
+                                  <label for="aptitude" class="form-label">Aptitude &nbsp /30</label>
+                                  <input type="number" class="form-control" id="aptitude" name="aptitude" value="{{ profile['ap'] }}">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="language" class="form-label">Language &nbsp /80</label>
+                                  <input type="number" class="form-control" id="language" name="language" value="{{ profile['lu'] }}">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="mathematics" class="form-label">Mathematics &nbsp /40</label>
+                                  <input type="number" class="form-control" id="mathematics" name="mathematics" value="{{ profile['ma'] }}">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="science" class="form-label">Science &nbsp /30</label>
+                                  <input type="number" class="form-control" id="science" name="science" value="{{ profile['sc'] }}">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    <hr>
+
+                    <h5>College Preferred Courses</h5>
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Preferred Course 1</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['pref_course1']}}
+                      </div>
+                    </div>
+  
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-3 col-md-4 label">Preferred Course 2</label>
+                      <div class="col-lg-9 col-md-8">
+                        {{profile['pref_course2']}}
+                      </div>
+                    </div>
+
+                </div>
+
+                <div class="tab-pane fade academic-details pt-3" id="recommendation">
+                  {% for i in range(1, 11) %}
+                      {% set rc = student_rc['rc' + i|string] %}
+                      {% if rc %}
+                          {% set course_definition = get_course_definition(rc) %}
+                          <p style="font-size:15px"><b>{{ i }}. </b> {{ course_definition.display_name }} </p>
+                      {% endif %}
+                  {% endfor %}
+                </div>
+
+                </div><!-- End Bordered Tabs -->
+  
+              </div>
+
+              {% else %}
+              <h5>Profile</h5>
+              <p>No data ...</p>
+          {% endif %}
+
+            </div>
+  
+          </div>
+        </div>
+
+        <section class="section">
+          <div class="row">
+            <div class="col-lg-6">
+
+              <div class="card">
+                <div class="card-body">
+
+                  <h5 class="card-title">Junior High School Performance</h5>
+
+                  {% if grade_hs %}
+
+                  <h5 style="font-weight: bold;"> Grade 9 </h5>
+                  <table style="border-collapse: collapse; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                      <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">English</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['english9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Filipino</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['filipino9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Mathematics</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['mathematics9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Science</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['science9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Araling Panlipunan</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['aralingpanlipunan9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Edukasyon sa Pagpapakatao</b></td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['edukasyonsapagpapakatao9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Music</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['music9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Arts</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['arts9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['physicaleducation9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Health</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['health9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Edukasyong Pantahanan at Pangkabuhayan</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['edukasyongpantahananatpangkabuhayan9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Technology and Livelihood Education</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['technologyandlivelihoodeducation9'] }}</td>
+                    </tr> 
+                </table>
+                  <br>
+
+                  <h5 style="font-weight: bold;">Grade 10 </h5>
+                  <table style="border-collapse: collapse; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                      <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">English</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['filipino10'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Filipino</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['english10'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Mathematics</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['mathematics10'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Science</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['science10'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Araling Panlipunan</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['aralingpanlipunan10'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Edukasyon sa Pagpapakatao</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['edukasyonsapagpapakatao10'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Music</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['music10'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Arts</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['arts10'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['physicaleducation10'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Health</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['health10'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Edukasyong Pantahanan at Pangkabuhayan</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['edukasyongpantahananatpangkabuhayan10'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Technology and Livelihood Education</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['technologyandlivelihoodeducation10'] }}</td>
+                    </tr>
+                </table>
+                  
+                  {% else %}
+                  <p>No data ...</p>
+              {% endif %}
+
+              
+                </div>
+
+              </div>
+    
+            </div>
+
+            <!--Card End-->
+  
+            <!--Second Card Start/Grades-->
+  
+            <div class="col-lg-6">
+  
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Senior High School Performance</h5>
+                  
+                {% if grade_hs %}
+
+                <p class="mt-4">Student Strand: <b> {{ profile['track'] }} </b></p>
+  
+                    {% if profile['track'] == 'STEM' %}
+      
+                    <table style="border-collapse: collapse; width: 100%;">
+                      <tr>
+                        <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                        <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Earth and Life Science</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthandlifescience'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Physical Sciences</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicalscience'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Earth Sciences</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthscience'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">General Biology 1</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genbio1'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">General Biology 2</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genbio2'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">General Physics 1</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genphysics1'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">General Physics 2</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genphysics2'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">General Chemistry 1</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genchem1'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">General Chemistry 2</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genchem2'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">General Mathematics</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['generalmath'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Statistics and Probability</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['statisticsandprobability'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Pre Calculus</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['precalculus'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Basic Calculus</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['basiccalculus'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Oral Communication</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['oralcommunication'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Reading and Writing</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['reading_and_writing'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Media and Information Literacy</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['mediaandinformationliteracy'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">21st Century Literature from the Philippines and the World</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Contemporary Philippine Arts from the Regions</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['contemporaryphilippineartsfromtheregions'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Pagbasa at Pagsusuring ibat-ibang Teksto Tungo sa Pananaliksik</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Personal Development</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['personaldevelopment'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Introduction to the Philosophy of the Human Person</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontothephilosophyofthehumanperson'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Understanding Culture, Society, and Politics</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['understandingculturesocietyandpolitics'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Disaster Readiness and Risk Reduction</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disasterreadinessandrisk_reduction'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Physical Education and Health</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 2</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth2'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 3</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth3'] }}</span></td>
+                      </tr>
+                      <tr>
+                          <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 4</td>
+                          <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth4'] }}</span></td>
+                      </tr>
+                    </table>
+        
+                  {% elif profile['track'] == 'ABM' %}
+  
+                  <table style="border-collapse: collapse; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                      <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Earth and Life Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthandlifescience'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicalscience'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Earth Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthscience'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">General Mathematics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['generalmath'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Statistics and Probability</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['statisticsandprobability'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Business Math</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['businessmath'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Business Finance</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['businessfinance'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Oral Communication</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['oralcommunication'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Reading and Writing</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['reading_and_writing'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Media and Information Literacy</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['mediaandinformationliteracy'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">21st Century Literature from the Philippines and the World</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Contemporary Philippine Arts from the Regions</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['contemporaryphilippineartsfromtheregions'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Personal Development</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['personaldevelopment'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Introduction to the Philosophy of the Human Person</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontothephilosophyofthehumanperson'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Understanding Culture Society and Politics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['understandingculturesocietyandpolitics'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Disaster Readiness and Risk Reduction</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disasterreadinessandrisk_reduction'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 2</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth2'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 3</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth3'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 4</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth4'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Organization and Management</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['organizationandmanagement'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Principles of Marketing</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['principlesofmarketing'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Business Marketing</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['businessmarketing'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Business Enterprise and Simulation</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['businessenterpriseandsimulation'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">F1 Fundamentals of Accountancy, Business, and Management 1</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['f1_fundamentalsofaccountancybusinessandmanagement1'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">F2 Fundamentals of Accountancy, Business, and Management 2</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['f2_fundamentalsofaccountancybusinessandmanagement2'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Applied Economics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['appliedeconomicsbusiness'] }}</span></td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Business Ethics and Social Responsibility</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['ethicsandsocial_responsibility'] }}</span></td>
+                    </tr>
+                  </table>
+        
+                  {% elif profile['track'] == 'HUMSS' %}
+  
+                  <table style="border-collapse: collapse; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                      <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Earth and Life Science</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthandlifescience'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Science</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicalscience'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Earth Science</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthscience'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">General Mathematics</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['generalmath'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Statistics and Probability</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['statisticsandprobability'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Oral Communication</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['oralcommunication'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Reading and Writing</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['reading_and_writing'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Media and Information Literacy</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['mediaandinformationliteracy'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">21st Century Literature from the Philippines and the World</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Contemporary Philippine Arts from the Regions</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['contemporaryphilippineartsfromtheregions'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Creative Non-fiction</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['creativenonfiction'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Creative Writing / Malikhaing Pagsulat</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['creativewriting_malikhaing_pagsulat'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Personal Development</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['personaldevelopment'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Introduction to the Philosophy of the Human Person</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontothephilosophyofthehumanperson'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Understanding Culture, Society, and Politics</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['understandingculturesocietyandpolitics'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Disaster Readiness and Risk Reduction</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disasterreadinessandrisk_reduction'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 2</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth2'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 3</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth3'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 4</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth4'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Introduction to World Religions and Belief Systems</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontoworldreligionsandbeliefsystems'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Community Engagement, Solidarity, and Citizenship</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['community_engagementsolidarityandcitizenship'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Philippine Politics and Governance</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['philippinepoliticsandgovernance'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Disciplines and Ideas in the Social Sciences</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disciplinesandideasinthesocialsciences'] }}</span></td>
+                    </tr>
+                  </table>
+  
+                  {% elif profile['track'] == 'GAS' %}
+  
+                  <table style="border-collapse: collapse; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                      <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Earth and Life Science</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthandlifescience'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Science</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicalscience'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Earth Science</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthscience'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">General Mathematics</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['generalmath'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Statistics and Probability</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['statisticsandprobability'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Oral Communication</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['oralcommunication'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Reading and Writing</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['reading_and_writing'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Media and Information Literacy</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['mediaandinformationliteracy'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">21st Century Literature from the Philippines and the World</b></td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Contemporary Philippine Arts from the Regions</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['contemporaryphilippineartsfromtheregions'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Creative Writing</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['creativewriting'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Personal Development</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['personaldevelopment'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Introduction to the Philosophy of the Human Person</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontothephilosophyofthehumanperson'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Understanding Culture, Society, and Politics</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['understandingculturesocietyandpolitics'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Disaster Readiness and Risk Reduction</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disasterreadinessandrisk_reduction'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 2</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth2'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 3</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth3'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 4</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth4'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Humanities 1 Politics</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['humanities1_politics'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Humanities 2 Intro</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['humanities2_intro'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Social Science 1</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['socialscience1'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Organization and Management 2</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['organizationandmanagement2'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Applied Economics 2</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['appliedeconomics2'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Intro to World Religions and System Beliefs</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introtoworldreligionsandsystembeliefs'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Philippine Politics and Governance</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['philippinepiliticsandgovernance'] }}</span></td>
+                    </tr>
+                  </table>
+    
+                  {% elif profile['track'] == 'TVL' %}
+        
+                  <table style="border-collapse: collapse; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                      <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Earth and Life Science</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthandlifescience'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Science</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicalscience'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Earth Science</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthscience'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">General Mathematics</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['generalmath'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Statistics and Probability</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['statisticsandprobability'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Oral Communication</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['oralcommunication'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Reading and Writing</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['reading_and_writing'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Media and Information Literacy</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['mediaandinformationliteracy'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">21st Century Literature from the Philippines and the World</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Contemporary Philippine Arts from the Regions</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['contemporaryphilippineartsfromtheregions'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Creative Writing</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['creativewriting'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Pagbasa at Pagsusuri ng iba't-ibang Teksto Tungo sa Pananaliksik</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Personal Development</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['personaldevelopment'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Introduction to the Philosophy of the Human Person</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontothephilosophyofthehumanperson'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Understanding Culture, Society and Politics</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['understandingculturesocietyandpolitics'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Disaster Readiness and Risk Reduction</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disasterreadinessandrisk_reduction'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 2</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth2'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 3</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth3'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 4</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth4'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Safety and First Aid</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['safetyandfirstaid'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Human Movement</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['humanmovement'] }}</span></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Fundamentals of Coaching</td>
+                        <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['fundamentalsofcoaching'] }}</span></td>
+                    </tr>
+                  </table>
+  
+                  {% endif %}
+
+              {% else %}
+              <p>No data ...</p>
+           {% endif %}
+  
+                </div>
+              </div>
+  
+              <!--Card End-->
+              
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <!-- Vendor JS Files -->
+    <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+    <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+    <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+    <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="../static/assets2/js/main.js"></script>
+
+    <script>
+      // When modal confirm button is clicked
+      document.getElementById('confirmVerification').addEventListener('click', function() {
+        // Submit the verification form specifically
+        document.querySelector('form[action^="/verify"]').submit();
+      });
+    
+      // Optionally, if you have a form for saving changes
+      document.getElementById('updateSaseForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        // You can add additional validation here if needed
+        this.submit(); // Submit the form
+      });
+    </script>
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <script>
+        alert('{{ messages[0] }}');
+      </script>
+    {% endif %}
+    {% endwith %}
+
+  </body>
+</html>

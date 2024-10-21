@@ -1,0 +1,71 @@
+Math: 
+1. GeneralMath (STEM, ABM, HUMSS, GAS, TVL)
+2. StatisticsAndProbability (STEM, ABM, HUMSS, GAS, TVL)
+3. PreCalculus (STEM)
+4. BasicCalculus (STEM)
+5. BusinessMath (ABM)
+6. BusinessFinance (ABM)
+
+Science: 
+1. EarthAndLifeScience (STEM, ABM, HUMSS, GAS, TVL)
+2. PhysicalScience (STEM, ABM, HUMSS, GAS, TVL)
+3. EarthScience (STEM, ABM, HUMSS, GAS, TVL)
+4. GenBio1 (STEM)
+5. GenBio2 (STEM)
+6. GenPhysics1 (STEM)
+7. GenPhysics2 (STEM)
+8. GenChem1 (STEM)
+9. GenChem2 (STEM)
+
+English:
+1. OralCommunication (STEM, ABM, HUMSS, GAS, TVL)
+2. Reading_and_Writing (STEM, ABM, HUMSS, GAS, TVL)
+3. MediaandInformationLiteracy (STEM, ABM, HUMSS, GAS, TVL)
+4. t21stCenturyLiteratureFromThePhilippinesAndTheWorld (STEM, ABM, HUMSS, GAS, TVL)
+5. ContemporaryPhilippineArtsFromTheRegions (STEM, ABM, HUMSS, GAS, TVL)
+6. CreativeNonfiction (HUMSS)
+7. CreativeWriting (HUMSS, GAS, TVL)
+
+Filipino:
+1. PagbasaAtPagsusuriNgIbatIbangTekstoTungoSaPananaliksik (STEM, ABM, HUMSS, GAS, TVL)
+2. KomunikasyonAtPananaliksikSaWikaAtKulturangPilipino (STEM, ABM, HUMSS, GAS, TVL)
+3. CreativeWriting_Malikhaing_Pagsulat (HUMMS)
+
+Others:
+1. PersonalDevelopment (STEM, ABM, HUMSS, GAS, TVL)
+2. IntroductionToThePhilosophyOfTheHumanPerson (STEM, ABM, HUMSS, GAS, TVL)
+3. UnderstandingCultureSocietyAndPolitics (STEM, ABM, HUMSS, GAS, TVL)
+4. DisasterReadinessAndRisk_Reduction (STEM, ABM, HUMSS, GAS, TVL)
+5. PhysicalEducationAndHealth (STEM, ABM, HUMSS, GAS, TVL)
+6. PhysicalEducationAndHealth2 (STEM, ABM, HUMSS, GAS, TVL)
+7. PhysicalEducationandHealth3 (STEM, ABM, HUMSS, GAS, TVL)
+8. PhysicalEducationAndHealth4 (STEM, ABM, HUMSS, GAS, TVL)
+9. OrganizationAndManagement (ABM, GAS)
+10 PrinciplesOfMarketing (ABM)
+11. BusinessMarketing (ABM)
+12. BusinessEnterpriseAndSimulation (ABM)
+13. F1_FundamentalsOfAccountancyBusinessAndManagement1 (ABM)
+14. F2_FundamentalsofAccountancyBusinessAndManagement2 (ABM)
+15. AppliedEconomicsBusiness (ABM)
+16. EthicsAndSocial_Responsibility (ABM)
+17. IntroductionToWorldReligionsAndBeliefSystems (HUMSS)
+18. Community_EngagementSolidarityAndCitizenship (HUMSS)
+19. PhilippinePoliticsandGovernance (HUMSS)
+20. DisciplinesAndIdeasInTheSocialSciences (HUMSS)
+21. HumanMovement (TVL)
+22. FundamentalsOfCoaching (TVL)
+23. SafetyAndFirstAid (TVL)
+24. Humanities1_Politics (GAS)
+25. Humanities2_intro (GAS)
+26. SocialScience1 (GAS) 
+27. OrganizationAndManagement2 (GAS)
+28. AppliedEconomics2 (GAS)
+
+
+NOTE: Redundancies:
+• PhilippinePoliticsandGovernance (HUMMS)
+• PhilippinePiliticsandGovernance (GAS)
+
+• IntroductionToWorldReligionsAndBeliefSystems (HUMMS)
+• IntroToWorldReligionsAndSytemBeliefs (GAS)
+

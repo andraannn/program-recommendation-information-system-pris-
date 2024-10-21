@@ -1,0 +1,565 @@
+,School,Type
+0,A. Montessori School - Lucena,Private
+1,ACLC College,Private
+2,AMA CLC - Butuan,Private
+3,AMA College Fairview,Private
+4,AMA Computer College - CdO,Private
+5,Abuno NHS - Senior High School,Public
+6,Acelo C. Badelles Sr. NHS,Public
+7,Adventist Medical Center College,Private
+8,Agay NHS,Public
+9,Agusan Del Sur National Science High School,Science
+10,Agusan NHS - Butuan,Public
+11,Agusan del Sur NHS,Public
+12,Agusan del Sur Science High School,Science
+13,Alabel National Science High School,Science
+14,Aloran Trade HS,Public
+15,Alubijid NCHS,Public
+16,Amando A. Fabio Sr Mem'l NHS,Public
+17,American Int. School,Private
+18,Andres Bonifacio College/HSD,Private
+19,Andres Soriano College/HSD,Private
+20,Angelo Levardo Loyola Senior High School,Private
+21,Anibongan NHS,Public
+22,Arsenio A. Quibranza NHS,Public
+23,"As-Salihein Integrated School Foundation, Inc.",Private
+24,Asian College Technology,Private
+25,"Asian Skills Academy Foundation, Inc.",Private
+26,Assumption Academy of Compostela,Private
+27,Assumption College of Davao/HSD,Private
+28,Assumption College of Nabunturan/HSD,Private
+29,Asuncion NHS,Public
+30,Ateneo De Zambaoanga University,Private
+31,Ateneo de Davao University - Senior High School,Private
+32,Ateneo de Davao University/HSD,Private
+33,Ateneo de Zamboanga/HSD,Private
+34,Aurora NHS,Public
+35,Aurora Pioneers Mem'l Col./HSD,Private
+36,Bacong NHS,Public
+37,Bacungan NHS,Public
+38,Baganian NHS,Public
+39,Balas National High School,Public
+40,Baliangao School of Fisheries,Private
+41,Balo-i National High School,Public
+42,Balulang National High School - Annex,Public
+43,Banisilan National High School,Public
+44,Bansarvil I NHS,Public
+45,Barobo National High School,Public
+46,Bayugan 3 National High School,Public
+47,Bayugan City Senior High School,Private
+48,Bayugan NCHS,Public
+49,Benguet State University,Laboratory
+50,Bethany Baptist Academy,Private
+51,Betinan National High School,Public
+52,Bible Baptist Christian Acad - Lala,Private
+53,Binuni-Demologan National High School,Public
+54,Bislig City National High School,Public
+55,Buanoy NHS,Public
+56,Buenavista SPED Integrated Sch.,Public
+57,Bukidnon National High School,Public
+58,Bukidnon National High School - Aglayan Annex,Public
+59,Bukidnon State University/Sec Lab Sch,Laboratory
+60,Bunawan Agricultural High School,Private
+61,Cabadbaran City National High School,Public
+62,Cagayan Capitol College/HS Dept,Private
+63,Cagayan de Oro City NHS,Public
+64,Cagayan de Oro College PHINMA Educ. Network,Private
+65,Cagdianao NHS,Public
+66,Cahayagan National High School,Public
+67,Calamba Nat'l Comp High Sch,Public
+68,"Candelaria Institute of Cabadbaran, Inc.",Private
+69,Cantilan NHS,Public
+70,Capitol University / HSD,Private
+71,Capitol University BED,Private
+72,Caraga Regional SHS,Private
+73,Caraga State University - Cabadbaran,Laboratory
+74,Caraga State University - LHS,Laboratory
+75,Caraga State University Senior High School,Laboratory
+76,Carmen Integrated School,Public
+77,Carmen NHS - CdO,Public
+78,Carrascal NHS,Public
+79,Cebu Doctor's University,Private
+80,Central Mindanao Colleges/HS Dept,Private
+81,Central Mindanao Univ/Lab HS - Musuan,Private
+82,Central Mindanao University,Private
+83,Christ the King Col de Maranding/HSD,Private
+84,Christ the King College/HS Dept,Private
+85,Christian Horizon School,Private
+86,Clarin National High Sch - Annex,Public
+87,Clarin National High School,Public
+88,Claver NHS,Public
+89,Cogon NHS-Dipolog,Public
+90,Colegio de San Francisco Javier/HSD,Private
+91,Colegio de la Inmaculada Concepcion - Mandaue,Private
+92,Commonwealth NHS,Public
+93,Compostela NHS,Public
+94,Compostela Science and Technology High School,Science
+95,Corpus Christi High School,Private
+96,Corpus Christi Parochial School of Iligan,Private
+97,Corpus Christi School,Private
+98,Cotabato City Nat'l High School - Main,Public
+99,Cotabato City State Poly. Col./Lab HS,Laboratory
+100,Culianan NHS,Public
+101,DMC - Science High School,Science
+102,"DMC-College Foundation, Inc.",Private
+103,DNHS - Hindang High School Annex,Public
+104,DNHS - Kabacsanan High School Annex,Public
+105,Dalipuga NHS,Public
+106,Dalipuga National High School,Public
+107,Daniel R. Aguinaldo NHS,Public
+108,"Dansalan Col Fndtn, Inc./HS Dept",Private
+109,Dansalan College Foundation Senior High School Dept.,Private
+110,Davao Christian High School,Private
+111,Davao City NHS,Public
+112,Davao Doctor's College,Private
+113,De La Salle John Bosco College/HS Dept.,Private
+114,Del Carmen Integrated School,Public
+115,Deor&Dune Academe School of Technology,Private
+116,Digkilaan High School,Private
+117,Digos City NHS,Public
+118,Diliman Preparatory School,Private
+119,Dinas NHS,Public
+120,Diosdado Yap Sr Nat'l HS-LNNCHS  ,Public
+121,Diplahan National High School,Public
+122,Dipolig Medical Center College Found Inc,Private
+123,Dipolog Medical Center-Science High School,Science
+124,Ditay National High School,Public
+125,Ditucalan National High Sch (MCNHS - Annex),Public
+126,Diwat National High School,Public
+127,Dole Philippines School,Private
+128,Don Ruben E Ecleo Sr. Meml NHS,Public
+129,Dumalinao NHS,Public
+130,Dumingag NHS,Public
+131,Esperanza Integrated School,Public
+132,Esperanza NHS-AdS,Public
+133,Esperanza NHS-SK,Public
+134,Esperedion F. Encabo I Memorial HS,Private
+135,"Father Saturnino Urios - College of Trento, Inc.",Private
+136,Father Saturnino Urios College of Bayugan Inc.,Private
+137,Father Saturnino Urios University,Private
+138,Father Saturnino Urios University/Basic Educ. Dept.,Private
+139,Father Urios High School of Ampayon Inc.,Private
+140,Fatima College of Camiguin/HS Dept,Private
+141,Felix A. Panganiban Academy of the Phils.,Private
+142,Filipino-Turkish Tolerance High School,Private
+143,Firm Foundation Christian School,Private
+144,Francisco Ll. Laya Memorial Integrated School,Public
+145,General Santos City National High School,Public
+146,General Santos City Special Educ. Integrated School,Public
+147,General Santos Doctors' Medical School Foundation Inc.,Private
+148,Geronima Cabrera National High School,Public
+149,Gigaquit Nat'l Sch of Home Industries,Public
+150,Gingoog City Comprehensive National High School,Public
+151,Gov. Alfonso D. Tan Memorial Colleges,Private
+152,Guintolan NHS,Public
+153,Guipos NHS,Public
+154,Gusa Regional Science High School,Science
+155,Hagonoy National High School,Public
+156,Hinaplanon National High School,Public
+157,Hinatuan Nat'l Comp High Sch,Public
+158,"Holy Child'd Academy of Pagadian, Inc. - Senior High School",Private
+159,"Holy Child's Academy of Pagadian, Inc. - Senior High School",Private
+160,Holy Cross Academy - Tubigon,Private
+161,Holy Cross High School,Private
+162,Holy Cross High School - Kolambugan,Private
+163,Holy Family High School,Private
+164,Holy Trinity College of GSC/HS Dept,Private
+165,ICAS De Calarian,Private
+166,ICTI Polytechnic College,Private
+167,Ibn Siena Integrated School Senior High School Dept.,Public
+168,"Iligan Access Institute of Technology, Inc.",Private
+169,Iligan Capitol College/HS Dept,Private
+170,Iligan City Computer Insititute,Private
+171,Iligan City East HS - Santiago,Public
+172,Iligan City East High Sch-Hinaplanon,Public
+173,Iligan City East High Sch-Santiago,Public
+174,Iligan City East High School,Public
+175,Iligan City East High School - Sta. Felomina,Public
+176,Iligan City East National High School- Sta. Felomina,Public
+177,Iligan City National High School,Public
+178,Iligan City National High School - Tambacan Annex,Public
+179,Iligan City National Sch of Fisheries,Public
+180,Iligan Computer Institute,Private
+181,Iligan Computer Institute - Kapatagan,Private
+182,Iligan Computer Institute Diocesan ,Private
+183,Iligan Fashion Institute and Trade Inc.,Private
+184,Iligan Institute of Technology,Private
+185,Iligan Medical Center Col/HS Dept,Private
+186,Iligan Medical Center College - BED,Private
+187,"Iligan Multi Skills Development Institute, Inc.",Private
+188,Imelda National High School,Public
+189,Immaculate Heart Academy,Private
+190,Informatics Computer Institute,Private
+191,Initao Nat'l Comp High Sch,Public
+192,Initao Senior High School,Private
+193,Int'l Phil Sch in Jedah,Private
+194,International Academy of Marawi,Public
+195,International Philippine School in Al-Khobar,Public
+196,International Philippine School in Riyadh,Public
+197,Isulan Nat'l High Sch - Capitol Site,Public
+198,Isulan National High School - Kalawag II,Public
+199,Jabonga National High School,Public
+200,Jacinto D. Malimas Sr. National High School,Public
+201,Jamiatul Philippines al-Islamie/HS Dept,Private
+202,Jimenez Bethel Institute,Private
+203,Jimenez National Comp High Sch,Public
+204,Jose Rizal Mem'l State Col/HS Dept,Laboratory
+205,Jose Rizal Mem'l State Col/HSD- Dipolog,Laboratory
+206,Jose Rizal Meml State University-Katipunan,Laboratory
+207,Jose Rizal Memorial State Univ. - Siocon,Laboratory
+208,Jose Rizal Memorial State Univ.- Corporate HS,Laboratory
+209,Jugan National High School,Public
+210,Kabasalan Science & Tech. High Sch,Science
+211,Kabatan National High School,Public
+212,Kalian National High School,Public
+213,Kalilangan National High School,Public
+214,Kalubihon High School,Private
+215,Kapalong National High School,Public
+216,Kapatagan NHS - LdN,Public
+217,Katipunan Nat'l High Sch - Sinacaban,Public
+218,Kidapawan City National High School ,Public
+219,"Kidapawan Doctors College, Inc. - Senior High School",Private
+220,Kipit Agro-Fishery High School,Private
+221,Kitcharao National High School,Public
+222,Kiwalan National High School,Public
+223,Koronadal Nat'l Comp High Sch,Public
+224,Kumalarang National High Sch,Public
+225,LSU Brother Martin Simpson Laboratory School,Private
+226,La Salle Academy,Private
+227,La Salle University,Private
+228,La Salle University - Integrated School,Public
+229,La Salle University - Lyceum St. Jean-Baptiste De La Salle,Private
+230,Labo National High School,Public
+231,Laguindingan National High School,Public
+232,Lala National High School,Public
+233,Lanao Chung Hua School,Private
+234,Lanao Norte Nat'l Comp High Sch,Public
+235,Lanao Norte National High Sch-Baroy Annex,Public
+236,Lanao Norte Provincial Science and Technology High School,Science
+237,"Lanao School of Science & Technology, Inc",Science
+238,Lanao del Norte Comprehensive High School,Private
+239,Lapuyan National High School,Public
+240,Las PiÃ±as National High School,Public
+241,Laubach Institute,Private
+242,Laureano Salusod Nat'l High Sch,Public
+243,Lazi National Agricultural School,Public
+244,Lebak Legislated National High School,Public
+245,Leonardo Nat'l High Sch - Josefina,Public
+246,Leonardo National High School,Public
+247,Liangan National High School,Public
+248,Libertad National High School - SC,Public
+249,Libona National High School,Public
+250,Liceo de Cagayan University,Private
+251,Liceo de Cagayan University/HS Dept,Private
+252,"Lide Learning Center, Inc.",Private
+253,Linamon National High School,Public
+254,Looc National High School,Public
+255,Lorenzo Tan National High School,Public
+256,Loreto National High School,Public
+257,Lourdes College,Private
+258,Lucan Central College/Senior High School,Private
+259,Lugait Senior High School,Private
+260,Lyceum of Iligan Foundation,Private
+261,MSU Buug Senior High School,Private
+262,MSU General Santos Senior High School,Private
+263,MSU LNAC Senior High School,Private
+264,MSU MSAT Senior High School,Private
+265,MSU Marawi Senior High School,Private
+266,MSU Naawan Senior High School,Private
+267,MSU TCTO Senior High School,Private
+268,MSU-Baloi Community College/High School Dept,Private
+269,MSU-IIT Coop Academy,Private
+270,MSU-IIT Integrated Developmental Sch,Public
+271,MSU-Iligan Institute of Technology,Private
+272,MSU-Lopez Jaena Comm Col/HSD,Private
+273,MSU-Maigo Sch of Arts & Trade/HSD,Public
+274,MSU-Naawan Integrated Developmental School,Public
+275,Madrid National High School,Public
+276,Magallanes National High School,Public
+277,Magsaysay National High School,Public
+278,Mahayag School of Atrs and Trade,Public
+279,Mahinog National High School,Public
+280,Maigo National High School,Public
+281,Malabang National High School,Public
+282,Malayan Colleges Mindanao,Private
+283,Malungon National High School,Public
+284,Mambuaya National High School,Public
+285,Manjuyod National High School,Public
+286,Manticao National High School,Public
+287,Manticao Senior High School,Private
+288,Manukan National High School,Public
+289,Mapandi Memorial College/HS Dept,Private
+290,Marbel 7 National High School,Public
+291,Marcela T Mabanta Meml Natl High Sch,Public
+292,Marcelo Spinola School,Private
+293,Maria Clara L. Lobregat National HS,Public
+294,Maria Cristina National High School,Public
+295,Marian College/HS Dept,Private
+296,Masbate Nat'l Comprehensive High School,Public
+297,Master Technological Institute of Mindanao,Private
+298,Masters Technological Institute of Mindanao,Private
+299,Matungao National High School,Public
+300,Max Mirafuentes Academy,Private
+301,Medina Foundation College,Private
+302,Medina National Comprehensive High Sch,Public
+303,Mercy Junior College/HS Dept,Private
+304,Merry Child School,Private
+305,Midsalip National High School,Public
+306,Mimbunga National High School,Public
+307,Mindanao Institute,Private
+308,Mindanao Mission Academy,Private
+309,Mindanao University of Science & Technology,Science
+310,Misamis Institute of Technology,Private
+311,Misamis Occidental Nat'l High Sch,Public
+312,Misamis Occidental Science & Tech HS,Science
+313,Misamis University,Private
+314,Misamis University/HS Dept,Private
+315,Misamis University/HS Dept - Aguada,Private
+316,Mobod Integrated School,Public
+317,Molave Vocational Technical School,Private
+318,Mother of Mercy Academy,Private
+319,Mount Carmel College/HS Dept,Private
+320,Nabunturan Nat'l Comp High Sch,Public
+321,Nanuri International School,Public
+322,Nasipit National High School,Public
+323,"National Institute for Technical Excellence, Inc.",Private
+324,Nazareth High School,Private
+325,New Corella National High School,Public
+326,Northeastern Mindanao Academy,Public
+327,Northeastern Mindanao Col/HSD,Public
+328,"Northern Mindanao Colleges, Inc./HSD",Private
+329,Northwestern Mind'o State Col of S&T,Laboratory
+330,Northwestern Mind. State College of Sci. & Tech.,Laboratory
+331,Northwestern Mindanao State Col. of S&T,Laboratory
+332,Notre Dame - RVM College of Cotabato,Private
+333,Notre Dame University,Private
+334,Notre Dame Village National High School,Public
+335,Notre Dame of Bongao,Private
+336,Notre Dame of Dadiangas University/Senior High School,Private
+337,Notre Dame of Dadiangas-IBED (Espina Campus),Private
+338,Notre Dame of Graeter Manila,Private
+339,Notre Dame of Kidapawan Col/HS Dept,Private
+340,Notre Dame of Marbel Univ.-IBED-High Sch,Private
+341,Notre Dame of Midsayap/HS Dept,Private
+342,Notre Dame of Parang/HS Dept,Private
+343,Notre Dame of Salaman Col/HSD,Private
+344,Notre Dame of Sto. Ni??o/HS Dept,Private
+345,Opol Nati'l Secondary Tech'l Sch,Public
+346,Our Lady of Perpetual Help Academy,Private
+347,Out-of-School Youth,Private
+348,Ozamis City School of Arts and Trades,Public
+349,Ozamiz City National High School,Public
+350,Ozamiz City Technical Vocational School,Private
+351,Pagadian Capitol College/HS Dept.,Private
+352,Pagadian City Institute of Technology,Private
+353,Pagadian City Nat'l High Sch-Annex,Public
+354,Pagadian City Science High School,Science
+355,Pagadian Junior College/HS Dept,Private
+356,Palawan National School,Public
+357,Panaon Community High School,Private
+358,Panolo-on National High School,Public
+359,Pantao Ragat Agro Industrial High Sch,Private
+360,Pantar National High School,Public
+361,Phil. Sci. High Sch- Balo-i,Private
+362,Phil. Sci. High Sch- So Mindanao ,Private
+363,Phil. Sci. High Sch-Central Mindanao,Private
+364,Philippine Advent College/HS Dept,Private
+365,Philippine Emirates Private School,Private
+366,"Philippine Engineering & Agro-Industrial College, Inc.",Private
+367,Philippine Integrated School,Public
+368,Philippine Science High School - Caraga Region Campus,Science
+369,Philippine Science High School - Socsksargen Region Campus,Science
+370,Philippine Science High School-SOCCSKSARGEN,Science
+371,Philippine South Field School,Private
+372,Philippine Women's College of Davao,Private
+373,Phinma Cagayan de Oro College,Private
+374,Pilgrim Christian College/HS Dept,Private
+375,Placer National High School,Public
+376,Placida Mequiabas National High School,Public
+377,Poblacion Comprehensive National High School,Public
+378,Polanco National High School,Public
+379,Polomolok NHS,Public
+380,Ponot National High School,Public
+381,Portulin National High School,Public
+382,Pres. Garcia Memorial Institute of Tech,Private
+383,Presbitero High School,Private
+384,Prophets Pen Academy - Senior High School,Private
+385,Puerto Galera National High School,Public
+386,Puga-an National High School,Public
+387,Quezon Institute of Technology,Private
+388,Quezon National High Sch,Public
+389,RC-Al Khwarizmi International College,Public
+390,Ramon Teves Pastor Mem'l. Dumaguete SHS,Private
+391,Regional Science High School - Zamboanga,Science
+392,Regis Grace Montessori School - Senior High School Dept.,Private
+393,Rizal Memorial Colleges - DSEP,Private
+394,Rizal National High Sch-ZdN,Public
+395,SMC High School,Private
+396,SPED Integrated School,Public
+397,STI College - CdO,Private
+398,STI College - Malaybalay City,Private
+399,STI Iligan,Private
+400,STI Pagadian ,Private
+401,Sacred Heart College/High Sch Dept,Private
+402,"Sacred Heart Diocesan School, Inc.",Private
+403,Sacred Heart High School,Private
+404,Sacred Heart High School - IC,Private
+405,Saint Francis Xavier College,Private
+406,Saint Louis School/HS Dept.,Private
+407,Saint Paul University - HS Dept.,Private
+408,Saint Theresa College,Private
+409,Saint Vincent's Academy,Private
+410,Saint Vincent's College,Private
+411,Salaman Institute,Private
+412,Salvacion NHS - AdS,Public
+413,Salvador NHS,Public
+414,San Agustin Institute of Technology,Private
+415,San Isidro Academy,Private
+416,San Isidro High School - LdS,Private
+417,San Isidro High School - ZdS,Private
+418,San Luis NHS,Public
+419,San Miguel National High School - Maramag,Public
+420,San Nicolas Academy,Private
+421,San Pablo NHS - ZdS,Public
+422,San Pedro College of Davao,Private
+423,Santo Ni??o National High School,Public
+424,Santo NiÃ±o National High School,Public
+425,Sapa Anding NHS,Public
+426,School of St. John the Baptist,Private
+427,Sergio P. Cerujales Jr. NHS,Public
+428,Siargao National Science High School,Science
+429,Siay National High School,Public
+430,Sibagat NHS of Home Industries,Public
+431,Sibugon Integrated School,Public
+432,Silliman University,Private
+433,Sindangan Nat'l High School,Public
+434,Sinonoc NHS,Public
+435,Siocon Institute of Technology,Private
+436,Siquijor Provincial Science High Sch,Science
+437,Siquijor State College,Laboratory
+438,"Sisters of Mary School - Girlstown, Inc.",Private
+439,Sisters of Mary School Boystown,Private
+440,Socorro NHS,Public
+441,Solomon P. Lozada NHS,Public
+442,South Hill School Incorporated - Senior High School Dept.,Private
+443,South Western Career College/HS Dept,Private
+444,Southern Christian College/HSD,Private
+445,Southern Mindanao Colleges,Private
+446,Southern Mindanao Colleges/HSD,Private
+447,Southern University Phinma,Private
+448,Southway College of Tech,Private
+449,St. Agustin Intsitute,Private
+450,St. Andrew's Academy,Private
+451,St. Catherine Academy,Private
+452,St. Columban College Senior High School,Private
+453,St. Columban College/HS Dept,Private
+454,St. Francis Xavier Academy,Private
+455,St. Francis Xavier High School,Private
+456,St. Isidore the Farmer Catholic School,Private
+457,St. James High School,Private
+458,St. John's School,Private
+459,St. Joseph Institute of Technology,Private
+460,St. Laurence Institute of Technology,Private
+461,"St. Lorenzo School of Polomolok, Inc.",Private
+462,St. Mary's Academy of Carmen,Private
+463,"St. Mary's College of Labason, Inc.",Private
+464,St. Mary's School,Private
+465,St. Matthew's High School - Aloran,Private
+466,St. Michael College - Cantilan,Private
+467,St. Michael College of Caraga,Private
+468,St. Michael Institute,Private
+469,St. Michael's College,Private
+470,St. Michael's College/HS Dept,Private
+471,St. Michael's College/HS Dept - Iligan,Private
+472,St. Michael's High School,Private
+473,St. Nicholas School of Plaridel,Private
+474,St. Paul Institute of Technology,Private
+475,St. Paul School of Buug,Private
+476,St. Paul University Surigao,Private
+477,St. Paul's Institute of Technology,Private
+478,St. Peter's College,Private
+479,St. Peter's College/HS Dept,Private
+480,St. Therese Academy - IC,Private
+481,St. Therese Academy-IC,Private
+482,St. Therese Community of Learners,Private
+483,St. Vincent Academy,Private
+484,St. Vincent de Paul College/HS Dept,Private
+485,Sta. Monica Institute of Technology,Private
+486,Sta. Teresita Academy,Private
+487,Star of the Sea High School,Private
+488,Stella Maris College/HS Dept,Private
+489,Suarez NHS,Public
+490,Sulangon NHS,Public
+491,Sultan Angin Memorial National High School,Public
+492,Sultan Dimasangcay Mananggolo Integrated School,Public
+493,Sultan Kudarat State University / Science Laboratory High School,Science
+494,Sultan Kudarat State University Lab. High School - Senior High School,Laboratory
+495,Sultan Naga Dimaporo Memorial Integrated  School,Public
+496,Surigao City NHS,Public
+497,Surigao Education Center,Private
+498,Surigao State Col of Tech/HSD-Narciso St.,Laboratory
+499,Surigao del Norte National High School,Public
+500,Systems Technology Institute - CdO,Private
+501,Systems Technology Institute - IC,Private
+502,Systems Technology Institute - Kalibo,Private
+503,Systems Technology Institute - SC,Private
+504,Systems Technology Institute - ZC,Private
+505,Systems Technology Institute College - Dipolog,Private
+506,Tabo-o Integrated School,Public
+507,Tabon M. Estrella NHS,Public
+508,Tagbilaran City Science High School,Science
+509,Tagbina NHS,Public
+510,Tagoloan Community College,Private
+511,Tagoloan National High School - Mis Or,Public
+512,Tagum City National High School,Public
+513,Talacogon NHS,Public
+514,Talamban NHS,Public
+515,Tambulig National High School,Public
+516,Tampilisan National High School,Public
+517,Tandag National Science High Sch,Science
+518,Tangub City National High School,Public
+519,Tanque National High School,Public
+520,Teofila C. Quibranza NHS,Public
+521,The New Filipino Private School,Private
+522,The Sisters of Mary Boystown Sch,Private
+523,Tigao National High Sch,Public
+524,Timber City Academy,Private
+525,Tomas Cabili High School -  Annex,Private
+526,Tomas Cabili NHS,Public
+527,Trento NHS,Public
+528,Tubod NHS - ZdS,Public
+529,Tudela Nat'l Comprehensive High Sch,Public
+530,Tukuran Comp. Natl. High School,Public
+531,Tukuran Technical Vocational HS,Private
+532,Tupi National High School,Public
+533,Unidad NHS,Public
+534,University Laboratory School,Private
+535,University of Cebu,Private
+536,University of Cebu - Mandaue,Private
+537,University of Immaculate Conception,Private
+538,University of Mindanao/HS Dept,Private
+539,University of S&T of Southern Philippines,Private
+540,University of San Carlos,Private
+541,University of San Jose Recoletos,Private
+542,University of Santo Tomas - Espa??a,Private
+543,University of Santo Tomas - EspaÃ±a,Private
+544,University of Science & Tech. of Southern Philippines,Science
+545,University of Science & Technology of Southern Philippines - SHS,Science
+546,University of Southeastern Philippines/HS Dept,Public
+547,University of Southern Mindanao/Lab Sch,Private
+548,University of St. La Salle - Bacolod,Private
+549,University of the Immaculate Conception,Private
+550,Valencia Baptist Christian Academy,Private
+551,Valencia NHS,Public
+552,"West Eastern Phil. College, Inc.",Private
+553,"West Prime Horizon Institute, Inc.",Private
+554,Western Mindanao Academy,Private
+555,Western Mindanao State Univ - Malangas,Laboratory
+556,Western Mindanao State Univ/HSD,Laboratory
+557,Western Mindanao State Univ/ILS HS Dept,Laboratory
+558,Xavier University - Ateneo de Cagayan,Private
+559,Yllana Bay View College,Private
+560,Zamboanga del Norte NHS - Estaka,Public
+561,Zamboanga del Norte NHS - Turno,Public
+562,Zamboanga del Sur NHS - Sta. Maria,Public
+563,Zamboanga del Sur National High School - Senior High School,Public

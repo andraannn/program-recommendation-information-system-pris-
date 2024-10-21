@@ -1,0 +1,154 @@
+#main {
+  background-image: url("../../img/prism_bg2.jpg");
+  background-size: cover;
+  height: 195vh;
+}
+
+@media (max-width: 768px) {
+  #main {
+    background-image: none;
+  }
+}
+
+@media (max-width: 1280px) {
+  #main {
+    background-image: 100%;
+  }
+}
+
+#main ul li button {
+  color: #000;
+}
+
+.btn-secondary:hover {
+  background-color: #a41d21;
+  border-color: #a41d21;
+}
+
+.form_1 {
+  font-family: 'Futura', 'Trebuchet MS', Arial, sans-serif;
+  font-size: 18px;
+  color: #65000B;
+}
+
+.form_2 {
+  font-family: 'Futura', 'Trebuchet MS', Arial, sans-serif;
+  font-size: 18px;
+  color: #65000B;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px; /* Space between columns */
+  flex-wrap: wrap;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.col-md-6 {
+  flex: 1;
+}
+
+.form_title {
+  position: relative;
+  font-family: 'Droid Sans', sans-serif;
+  font-weight: bold;
+  color: #a31a23;
+  padding-left: 45px; /* Space for the circle */
+}
+
+.form_title::before {
+  content: "1"; /* The number inside */
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 35px;
+  height: 35px;
+  background-color: #a31a23;
+  color: #ffee8c;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 35px; /* Adjust to vertically center the text */
+  font-size: 18px;
+  font-weight: bold; /* For the number */
+}
+
+.edi_title::before {
+  content: "2";
+}
+
+.parent::before {
+  content: "3";
+}
+
+.form-check-input[type="radio"]:checked {
+  background-color: #9c0d0f;
+  border-color: #7d0b0d;
+}
+
+.form-check-input[type="radio"] {
+  border-color: #7d0b0d;
+}
+
+/* Picture Hover */
+
+.preview-container {
+  position: relative;
+  display: inline-block;
+}
+
+.preview-image {
+  display: none; /* Hide the image by default */
+  position: absolute;
+  top: 100%; /* Position below the link */
+  left: 0;
+  max-width: 200px; /* Limit the preview size */
+  border: 1px solid #ccc; /* Optional: add border */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Optional: add shadow */
+  z-index: 1000; /* Ensure the image is on top */
+}
+
+.preview-container:hover .preview-image {
+  display: block; /* Show the image on hover */
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column; /* Stack columns on smaller screens */
+  }
+
+  .col-md-6 {
+    width: 100%; /* Ensure columns take full width */
+  }
+}
+
+.btn-danger {
+  background-color: #9c0d0f !important; 
+  border-color: #9c0d0f !important;
+  color: #ffffff !important;"
+}
+
+.btn-danger:hover {
+  background-color: #d39e00 !important;
+  border-color: #d39e00 !important;
+}
+
+.sidebar-nav .nav-link.active {
+  background-color: #F7D953; 
+}
+
+.sidebar-nav .nav-link.active span{
+  color: #A31A23; 
+}
+
+.sidebar-nav .nav-link.active .bx.bxs-dashboard,
+.sidebar-nav .nav-link.active .ri-contacts-line,
+.sidebar-nav .nav-link.active .ri-book-open-line,
+.sidebar-nav .nav-link.active .ri-briefcase-fill,
+.sidebar-nav .nav-link.active .ri-service-fill,
+.sidebar-nav .nav-link.active .bx.bxs-business {
+  color: #A31A23; 
+}

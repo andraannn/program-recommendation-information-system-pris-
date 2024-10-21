@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon">
+    <link href="../static/img/logo.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Droid+Sans:wght@400;700&display=swap" 
+        rel="stylesheet">
+
+      <!-- Vendor CSS Files -->
+      <link href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/quill/quill.snow.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/quill/quill.bubble.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/remixicon/remixicon.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/simple-datatables/style.css" rel="stylesheet">
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+ 
+
+    <!-- Template Main CSS File -->
+
+    <link href="../static/assets2/css/input_hs.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/student/input" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+      </a>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        </li><!-- End Search Icon-->
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-user-large"></i>
+          <span class="dropdown-toggle ps-2">Account</span>
+          </a>
+          <!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ f_name }} {{ l_name }}</h6>
+              <span>{{ role }}</span>
+            </li>
+
+              <hr class="dropdown-divider">
+            <li>
+              <a class="dropdown-item d-flex align-items-center transition-link" href="{{ url_for('logout') }}">
+                <i class="bi bi-box-arrow-right transition-link"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+
+  <div class="main">
+
+
+    <div class="card-input-form mt-5 col-lg-6">
+    <div class="card-body">
+
+      <div class="progress-container">
+
+        <hr class="progress-bar-back">
+        <hr class="progress-bar-front">
+
+        <div class="step checked" data-step="1">
+            <i class="fas fa-1"></i>
+        </div>
+        <div class="step checked" data-step="2">
+            <i class="fas fa-2"></i>
+        </div>
+
+        <div class="step" data-step="2">
+            <i class="fas fa-2"></i>
+        </div>
+
+    </div>
+    <br>
+
+    <div class="form-container">
+      <div class="form">
+          <h3 class="form_title">Junior High School Grade</h3>
+          <br>
+          <div class="note-box">
+            <p>Please input your grades. The entered grades will later be printed for verification. Leave the field blank if you have not taken the subject.</p>
+            <p>In case of sequential courses (ex: English 1 and English 2), kindly input the <b>Average Grade.</b></p>
+          </div>
+          <div class="divider">
+            <span>Grade 9 subjects</span>
+          </div>
+          
+          <hr>
+
+          <form method="POST" action="{{ url_for('input_hs') }}">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form_1" for="filipino9">Filipino &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="filipino9" id="filipino9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="english9">English &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="english9" id="english9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="mathematics9">Mathematics &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="mathematics9" id="mathematics9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="science9">Science &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="science9" id="science9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="aralingpanlipunan9">Araling Panlipunan &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="aralingpanlipunan9" id="aralingpanlipunan9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="edukasyonsapagpapakatao9">Edukasyon sa Pagpapakatao &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="edukasyonsapagpapakatao9" id="edukasyonsapagpapakatao9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="music9">Music &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="music9" id="music9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="arts9">Arts &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="arts9" id="arts9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="physicaleducation9">Physical Education &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducation9" id="physicaleducation9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="health9">Health &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="health9" id="health9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="edukasyongpantahananatpangkabuhayan9">Edukasyong Pantahanan at Pangkabuhayan (EPP) &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="edukasyongpantahananatpangkabuhayan9" id="edukasyongpantahananatpangkabuhayan9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="technologyandlivelihoodeducation9">Technology and Livelihood Education (TLE) &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="technologyandlivelihoodeducation9" id="technologyandlivelihoodeducation9" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+            </div>
+
+          <div class="divider">
+            <span>Grade 10 subjects</span>
+          </div>
+          <hr>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form_1" for="filipino10">Filipino &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="filipino10" id="filipino10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="english10">English &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="english10" id="english10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="mathematics10">Mathematics &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="mathematics10" id="mathematics10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="science10">Science &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="science10" id="science10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="aralingpanlipunan10">Araling Panlipunan &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="aralingpanlipunan10" id="aralingpanlipunan10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="edukasyonsapagpapakatao10">Edukasyon sa Pagpapakatao &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="edukasyonsapagpapakatao10" id="edukasyonsapagpapakatao10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="music10">Music &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="music10" id="music10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="arts10">Arts &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="arts10" id="arts10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="physicaleducation10">Physical Education &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducation10" id="physicaleducation10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="health10">Health &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="health10" id="health10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="edukasyongpantahananatpangkabuhayan10">Edukasyong Pantahanan at Pangkabuhayan (EPP) &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="edukasyongpantahananatpangkabuhayan10" id="edukasyongpantahananatpangkabuhayan10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+    
+              <div class="form-group">
+                <label class="form_1" for="technologyandlivelihoodeducation10">Technology and Livelihood Education (TLE) &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="number" class="form-control form-control-sm w-50" name="technologyandlivelihoodeducation10" id="technologyandlivelihoodeducation10" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+            </div>
+            <hr>
+
+            <div style="margin-top: 50px;">
+              <center><button type="submit" class="btn">Next</button></center>
+            </div>
+
+        </form>
+
+      </div>
+    </div>
+
+</main>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+  <!-- Vendor JS Files -->
+  <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+  <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+  <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+  <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="../static/assets2/js/main.js"></script>
+    <script src="../static/assets2/js/input.js"></script>
+
+    <script>
+      function limitDigits(input) {
+        if (input.value.length > 2) {
+          input.value = input.value.slice(0, 2);
+        }
+      }
+    </script>
+
+    </body>
+</html>

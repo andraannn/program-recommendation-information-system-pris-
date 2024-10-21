@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon" />
+    <link href="../static/img/logo.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/boxicons/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/quill/quill.snow.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/quill/quill.bubble.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/remixicon/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../static/assets2/vendor/simple-datatables/style.css"
+      rel="stylesheet"
+    />
+
+    <!-- Template Main CSS File -->
+    <link href="../static/assets2/css/style.css" rel="stylesheet" />
+    <link href="../static/assets2/css/admin_dashboard.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+      <div class="d-flex align-items-center justify-content-between">
+        <a href="/admin/dashboard" class="logo d-flex align-items-center">
+          <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+        </a>
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+      </div>
+      <!-- End Logo -->
+
+      <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+          <li class="nav-item dropdown">
+            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+              <i class="bi bi-bell"></i>
+              <span class="badge bg-primary badge-number">
+                {{students_with_verified_grades_count}}
+              </span> </a
+            ><!-- End Notification Icon -->
+
+            <!-- Notif dropdown for unverified applicants-->
+            <ul
+              class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
+            >
+              <li class="dropdown-header">
+                {{students_with_verified_grades_count}} student uploaded their
+                signed grade form!
+                <a href="/admin/dashboard"
+                  ><span class="badge rounded-pill bg-primary p-2 ms-2"
+                    >View all</span
+                  ></a
+                >
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+
+              <!-- shows uploaded verified grades-->
+
+              {% for row in students_with_verified_grades %}
+              <li class="notification-item">
+                <i class="bi bi-info-circle text-success"></i>
+                <a href="/view_unverified/{{ row['u_id'] }}">
+                  <div>
+                    <p>
+                      {{ row['f_name']}} {{ row['m_name']}} {{ row['l_name']}}
+                    </p>
+                    <p>{{ row['s_date'].strftime('%Y-%m-%d %H:%M')}}</p>
+                  </div>
+                </a>
+              </li>
+              {% endfor%}
+            </ul>
+            <!-- End Notification Dropdown Items -->
+          </li>
+          <!-- End Notification Nav -->
+
+          <li class="nav-item dropdown pe-3">
+            <a
+              class="nav-link nav-profile d-flex align-items-center pe-0"
+              href="#"
+              data-bs-toggle="dropdown"
+            >
+              <i class="fa-solid fa-user-large"></i>
+              <span class="dropdown-toggle ps-2">Account</span>
+            </a>
+            <!-- End Profile Iamge Icon -->
+
+            <ul
+              class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
+            >
+              <li class="dropdown-header">
+                <h6>{{ f_name }} {{ m_name }} {{ l_name }}</h6>
+                <span>{{ role }}</span>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+
+              <li>
+                <a
+                  class="dropdown-item d-flex align-items-center transition-link"
+                  href="{{ url_for('logout') }}"
+                >
+                  <i class="bi bi-box-arrow-right transition-link"></i>
+                  <span>Sign Out</span>
+                </a>
+              </li>
+            </ul>
+            <!-- End Profile Dropdown Items -->
+          </li>
+          <!-- End Profile Nav -->
+        </ul>
+      </nav>
+      <!-- End Icons Navigation -->
+    </header>
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link collapsed {{ 'active' if request.path == '/admin/dashboard' else '' }}" href="/admin/dashboard">
+            <i class="bx bxs-dashboard"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed {{ 'active' if request.path == '/admin/students' else '' }}" href="/admin/students">
+            <i class="ri-service-fill"></i>
+            <span>Verified Students</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed {{ 'active' if request.path == '/admin/visualization' else '' }}" href="/admin/visualization">
+            <i class="bx bxs-business"></i>
+            <span>Visualization</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <!-- End Sidebar-->
+
+    <!-- Main Body -->
+    <main id="main" class="main">
+      <!-- All student Table-->
+      <div id="student-table" class="card">
+        <div class="card-body">
+          <br />
+          <h4>Verified Students</h4>
+          <!-- Table that holds Unverified Students -->
+          <div class="table-responsive-md">
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Middle Name</th>
+                  <th>Last Name</th>
+                  <th data-type="date" data-format="YYYY/DD/MM">
+                    Date Created
+                  </th>
+                  <th>Email</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in student %}
+                <tr>
+                  <td>{{ row['f_name']}}</td>
+                  <td>{{ row['m_name']}}</td>
+                  <td>{{ row['l_name']}}</td>
+                  <td>{{ row['s_date'].strftime('%Y-%m-%d %H:%M')}}</td>
+                  <td>{{ row['email']}}</td>
+                  <td>
+                    <a
+                      href="/view_verified/{{ row['u_id'] }}"
+                      class="btn btn-primary btn-sm"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      title="View Student"
+                    >
+                      👁️
+                    </a>
+
+                    <!-- Confirmation Modal -->
+                    <div
+                      class="modal fade"
+                      id="confirmModal{{ row['u_id'] }}"
+                      tabindex="-1"
+                      role="dialog"
+                      aria-labelledby="confirmModalLabel{{ row['u_id'] }}"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5
+                              class="modal-title"
+                              id="confirmModalLabel{{ row['u_id'] }}"
+                            >
+                              Confirm Verification
+                            </h5>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div class="modal-body">
+                            Are you sure you want to verify {{ row['f_name'] }}
+                            {{ row['l_name'] }}?
+                          </div>
+                          <div class="modal-footer">
+                            <form
+                              method="POST"
+                              action="/verify/{{ row['u_id'] }}"
+                            >
+                              <input type="hidden" name="_method" value="PUT" />
+                              <button type="submit" class="btn btn-success">
+                                Yes, Verify
+                              </button>
+                            </form>
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              data-bs-dismiss="modal"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+                <!--end for loop-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <!-- Vendor JS Files -->
+    <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+    <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+    <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+    <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="../static/assets2/js/main.js"></script>
+  </body>
+</html>

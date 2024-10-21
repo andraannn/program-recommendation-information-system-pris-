@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon">
+    <link href="../static/img/logo.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+        rel="stylesheet">
+
+      <!-- Vendor CSS Files -->
+      <link href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/quill/quill.snow.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/quill/quill.bubble.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/remixicon/remixicon.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/simple-datatables/style.css" rel="stylesheet">
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+      <!-- jQuery and jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+ 
+
+    <!-- Template Main CSS File -->
+
+    <link href="../static/assets2/css/style.css" rel="stylesheet">
+    <link href="../static/assets2/css/student_profile.css" rel="stylesheet">
+
+    <style>
+      .ui-autocomplete {
+          z-index: 1050; 
+          max-height: 200px;
+          overflow-y: auto; 
+          overflow-x: hidden; 
+          position: absolute;
+          display: none;
+      }
+  </style>
+
+</head>
+
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/student/dashboard" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        </li><!-- End Search Icon-->
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-user-large"></i>
+          <span class="dropdown-toggle ps-2">Account</span>
+          </a>
+          <!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ user.f_name }} {{ user.l_name }}</h6>
+              <span>{{ user.role }}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+                <a class="dropdown-item d-flex align-items-center transition-link" href="/student/profile">
+                  <span>Profile</span>
+                </a>
+              </li>
+              <hr class="dropdown-divider">
+            <li>
+              <a class="dropdown-item d-flex align-items-center transition-link" href="{{ url_for('logout') }}">
+                <i class="bi bi-box-arrow-right transition-link"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+      <ul class="sidebar-nav" id="sidebar-nav">
+  
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/dashboard' else '' }}" href="/student/dashboard">
+                  <i class="bx bxs-dashboard"></i>
+                  <span>Dashboard</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/profile' else '' }}" href="/student/profile">
+                  <i class="ri-contacts-line"></i>
+                  <span>Profile</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/grades' else '' }}" href="/student/grades">
+                  <i class="ri-book-open-line"></i>
+                  <span>Grades</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/recommendation' else '' }}" href="/student/recommendation">
+                  <i class="ri-briefcase-fill"></i>
+                  <span>Recommendation</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/courses' else '' }}" href="/student/courses">
+                  <i class="ri-service-fill"></i>
+                  <span>Courses</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/about' else '' }}" href="/student/about">
+                  <i class="bx bxs-business"></i>
+                  <span>About</span>
+              </a>
+          </li>
+  
+      </ul>
+  
+  </aside><!-- End Sidebar-->
+
+    <!-- Main Body -->
+    <main id="main" class="main">
+    
+        <section class="section profile">
+          <div class="row">
+            <div class="col-xl-4 d-flex mb-4">
+              <div class="card h-100 w-100">
+                <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                  
+                  <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+
+                  <h2><center> {{user['f_name']}} {{user['l_name']}} </center></h2>
+                  <br>
+                  <h3><i> {{user['role']}} </i></h3>
+                  <!-- <span> {{user['status']}} </span> -->
+                  <br>
+
+                  {% if student['verified_grades'] %}
+                  <a href="{{ url_for('static', filename=student['verified_grades']) }}" target="_blank" style="text-decoration: underline;">View signed GRADE FORM</a><br>
+                  {% else %}
+                      No signed GRADE FORM uploaded
+
+                      <br>
+                      <br>
+
+                      <!-- Button for Printing -->
+                      <button type="button" class="btn btn-secondary mb-2 mb-md-0" onclick="openPrintDialog()">
+                        <a href="{{ url_for('print_form') }}" target="_blank" style="color: white; text-decoration: none;">
+                        Print Grade Form ...
+                      </a>
+                      </button>
+
+                      <br>
+
+                      <!-- Button to trigger modal -->
+                      <button type="button" class="btn btn-danger mb-2 mb-md-0" data-toggle="modal" data-target="#updatePictureModal{{ student['s_id'] }}">
+                        Upload Grade Form 
+                      </button>
+
+                      <br>
+                  {% endif %}
+
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-8 d-flex mb-4">
+              <div class="card h-100 w-100">
+                <div class="card-body pt-3">
+                  <h5 class="card-title"><i>Apply to MSU-IIT</i></h5>
+                  
+                  <!-- Application Status -->
+                  {% if application_exists and user['status'] == 'verified' %}
+                    <div class="text-center">
+                      <img src="{{ url_for('static', filename='img/checkmark.png') }}" alt="Checkmark" style="width: 80px; height: 70px; margin-bottom: 2%;">
+                      <h5><b>Application Confirmed</b></h5> 
+                      <p style="margin-top: 3%;">Your application has been confirmed and accepted by the administrator.</p> 
+                    </div>
+                  {% elif application_exists %}
+                    <div class="text-center">
+                      <img src="{{ url_for('static', filename='img/paper-plane.png') }}" alt="Checkmark" style="width: 80px; height: 70px; margin-bottom: 2%;">
+                      <h5><b>Application Submitted</b></h5>
+                      <p style="margin-top: 3%;">Thank you for applying. Please await confirmation from the administrators regarding the status of your application.</p>
+                    </div>
+                  {% else %}
+                    <!-- Application Form -->
+                    <div class="alert alert-info" role="alert">
+                      <small>Please ensure that all required fields are filled out, and double-check everything before proceeding with your application.</small>
+                    </div>
+                    <form id="applicationForm" method="POST" action="{{ url_for('submit_application') }}">
+                      <ul class="list-unstyled">
+                        <li>
+                          <i id="hs-grade-status-icon" class="bi {{ 'text-success' if all_grades_hs_filled else 'text-danger' }}"></i> High School Grades
+                        </li>
+                        <li>
+                          <i id="shs-grade-status-icon" class="bi {{ 'text-success' if all_grades_shs_filled else 'text-danger' }}"></i> Senior High School Grades
+                        </li>
+                        <li>
+                          <i class="bi bi-check-circle-fill text-success"></i> Equity, Diversity, and Inclusivity (EDI)
+                        </li>
+                        <li>
+                          <i class="bi bi-check-circle-fill text-success"></i> Parent Information
+                        </li>
+                        <li>
+                          <i id="grade-form-status-icon" class="bi {{ 'bi-check-circle-fill text-success' if student['verified_grades'] else 'bi-x-circle-fill text-danger' }}"></i> Grade Form
+                        </li>
+                        <div class="text-right">
+                          <button type="button" class="btn btn-danger mb-2 mb-md-0" onclick="validateApplication()">Submit Application</button>
+                        </div>
+                      </ul>
+                    </form>
+                  {% endif %}
+                </div>
+              </div>
+            </div>         
+          
+          <!-- Confirmation Modal -->
+          <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="confirmationModalLabel">Confirm Application Submission</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          Are you sure you want to submit your application?
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          <button type="button" class="btn btn-danger" onclick="submitApplication()">Submit</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Add a hidden modal for updating picture -->
+          <div class="modal fade" id="updatePictureModal{{ student['s_id'] }}" tabindex="-1" role="dialog" aria-labelledby="updatePictureModalLabel{{ student['s_id'] }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updatePictureModalLabel{{ student['s_id'] }}">Update Picture</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updatePictureForm{{ student['s_id'] }}" enctype="multipart/form-data">
+                            <input type="file" name="new_picture" class="form-control-file">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="submitUpdatePicture({{ student['s_id'] }})">Submit</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+    
+            <div class="col-xl-12 d-flex">
+              <div class="card h-100 w-100">
+                <div class="card-body pt-3">
+                  <!-- Bordered Tabs -->
+                  <ul class="nav nav-tabs nav-tabs-bordered">
+    
+                    <li class="nav-item">
+                      <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Profile</button>
+                    </li>
+    
+                    <li class="nav-item">
+                      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#personal-details">Personal Details</button>
+                    </li>
+    
+                    <li class="nav-item">
+                      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#parent-details">Parent Details</button>
+                    </li>
+    
+                    <li class="nav-item">
+                      <button class="nav-link" data-bs-toggle="tab" data-bs-target="#academic-details">Academic Details</button>
+                    </li>
+    
+                  </ul>
+                  <div class="tab-content pt-2">
+
+                    {% if student['verified_grades'] %}
+
+                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                      <div class="alert alert-primary alert-dismissible fade show mx-auto" role="alert" style="color:#000; font-size: 15px;">
+                        <h5>Commitment to Data Security</h5>
+
+                        We are committed to upholding the highest standards of data security, ensuring that all information is responsibly managed for educational purposes. Our comprehensive protocols safeguard the data integrity, confidentiality, and privacy of every individual within our system.
+
+                    </div>
+    
+                    {% else %}
+
+                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                      <div class="alert alert-warning alert-dismissible fade show mx-auto" role="alert" style="color:#000; font-size: 15px;">
+                        <h5>Reminder:</h5>
+                        Students are required to <b>print the Grade Form</b> and have it signed by their <b>School Principal</b> and <b>Adviser</b>. Afterward, they must <b>upload</b> a photo of the signed form to verify the authenticity of the submitted grades.
+                    </div>
+
+                    {% endif %}
+    
+                      <h5 class="card-title">Profile Details 
+                        <!-- Button trigger modal -->
+                        {% if user['status'] == 'unverified' %}
+
+                        &nbsp; &nbsp; &nbsp; &nbsp; 
+                        
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateProfileModal">
+                        <i class="bi bi-pencil-square"></i> 
+                        </button>
+                    {% else %}
+                        <!-- If the student is verified, do nothing (button will not be shown) -->
+                    {% endif %}
+
+                      </h5>
+    
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                        <div class="col-lg-9 col-md-8">{{user['f_name']}} {{user['m_name']}} {{user['l_name']}}</div>
+                      </div>
+    
+                      <!-- <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Role</div>
+                        <div class="col-lg-9 col-md-8">{{user['role']}}</div>
+                      </div> -->
+    
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Contact</div>
+                        <div class="col-lg-9 col-md-8">{{student['contact']}}</div>
+                      </div>
+    
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Address</div>
+                        <div class="col-lg-9 col-md-8">{{student['city_home']}}, {{student['province_home'].replace('_', ' ')}}</div>
+                      </div>
+    
+                      <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Email</div>
+                        <div class="col-lg-9 col-md-8">{{user['email']}}</div>
+                      </div>
+    
+                    </div>
+    
+                    <div class="tab-pane fade personal-details pt-3" id="personal-details">
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-5 col-md-4 label">Gender</label>
+                        <div class="col-lg-7 col-md-8">
+                          {{student['sex']}}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-5 col-md-4 label">Religion</label>
+                        <div class="col-lg-7 col-md-8">
+                          {{student['religion']}}
+                        </div>
+                      </div>
+                      <!-- 1. IP -->
+                      <br>
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-5 col-md-4 label">Member of Indigenous People?</label>
+                        <div class="col-lg-7 col-md-8">
+                          {{student['ip']}}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-5 col-md-4 label">Indigenous People ID/Certificate</label>
+                        <div class="col-lg-7 col-md-8">
+                            {% if student['ip_id'] %}
+                            <span class="preview-container">
+                              <a href="{{ url_for('static', filename=student['ip_id']) }}" target="_blank" style="text-decoration: underline;" class="preview-link">View Indigenous People ID/Certificate</a>
+                              <img src="{{ url_for('static', filename=student['ip_id']) }}" alt="IP ID Preview" class="preview-image">
+                            </span>
+                            {% else %}
+                                No Indigenous People ID/Certificate uploaded
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- END OF IP -->
+                    <br>
+                    <!-- 2. PWD -->
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Learner with disability?</label>
+                      <div class="col-lg-7 col-md-8">
+                        {{student['pwd']}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">PWD ID</label>
+                      <div class="col-lg-7 col-md-8">
+                          {% if student['pwd_id_file'] %}
+                          <span class="preview-container">
+                              <a href="{{ url_for('static', filename=student['pwd_id_file']) }}" target="_blank" style="text-decoration: underline;" class="preview-link">View PWD ID</a>
+                              <img src="{{ url_for('static', filename=student['pwd_id_file']) }}" alt="PWD ID Preview" class="preview-image">
+                          </span>
+                          {% else %}
+                              No PWD ID uploaded
+                          {% endif %}
+                      </div>
+                  </div>
+                    <!-- END OF PWD -->
+                    <br>
+                    <!-- 3. 1ST GEN  -->  
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">1st Generation Learner?</label>
+                      <div class="col-lg-7 col-md-8">
+                        {{student['1stgenlearner']}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">1st Generation Learner ID</label>
+                      <div class="col-lg-7 col-md-8">
+                          {% if student['1stgenlearner_id'] %}
+                          <span>
+                            <a href="{{ url_for('static', filename=student['1stgenlearner_id']) }}" target="_blank" style="text-decoration: underline;" class="preview-link">View 1st Generation Learner Certificate</a>
+                            <img src="{{ url_for('static', filename=student['1stgenlearner_id']) }}" alt="1st Gen Preview" class="preview-image">
+                          </span>
+                          {% else %}
+                              No 1st Gen Learner Certificate uploaded
+                          {% endif %}
+                      </div>
+                    </div>
+                    <!-- END OF 1ST GEN -->  
+                    <br>
+                    <!-- 4. LIBERTY  -->    
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Child of a Parent Deprived Liberty?</label>
+                      <div class="col-lg-7 col-md-8">
+                        {{student['child_deprived_liberty']}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Child of a Parent Deprived Liberty Certificate</label>
+                      <div class="col-lg-7 col-md-8">
+                          {% if student['child_deprived_liberty_id'] %}
+                          <span class="preview-container">
+                            <a href="{{ url_for('static', filename=student['child_deprived_liberty_id']) }}" target="_blank" style="text-decoration: underline;" class="preview-link">View Child of a Parent Deprived Liberty Certificate</a>
+                            <img src="{{ url_for('static', filename=student['child_deprived_liberty_id']) }}" alt="Child Liberty Preview" class="preview-image">
+                          </span>
+                          {% else %}
+                              No Child of a Parent Deprived Liberty Certificate uploaded
+                          {% endif %}
+                      </div>
+                    </div>
+                    <!-- END OF LIBERTY  --> 
+                    <br>
+                    <!-- 5. CHILD SOLO PARENT  -->
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Child of a Solo Parent?</label>
+                      <div class="col-lg-7 col-md-8">
+                        {{student['childsoloparent']}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Solo Parent ID</label>
+                      <div class="col-lg-7 col-md-8">
+                          {% if student['childsoloparent_file'] %}
+                          <span class="preview-container">
+                            <a href="{{ url_for('static', filename=student['childsoloparent_file']) }}" target="_blank" style="text-decoration: underline;" class="preview-link">View Solo Parent ID</a>
+                            <img src="{{ url_for('static', filename=student['childsoloparent_file']) }}" alt="Child Solo Preview" class="preview-image">
+                          </span>
+                          {% else %}
+                              No Solo Parent ID uploaded
+                          {% endif %}
+                      </div>
+                    </div>
+                    <!-- END OF CHILD SOLO PARENT  --> 
+                    <br>
+                    <!-- 6. SOLO PARENT  -->
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Single/Solo Parent?</label>
+                      <div class="col-lg-7 col-md-8">
+                        {{student['soloparent']}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Single/Solo Parent Certificate</label>
+                      <div class="col-lg-7 col-md-8">
+                          {% if student['soloparent_id'] %}
+                          <span class="preview-container">
+                            <a href="{{ url_for('static', filename=student['soloparent_id']) }}" target="_blank" style="text-decoration: underline;" class="preview-link">View Single/Solo Parent Certificate</a>
+                            <img src="{{ url_for('static', filename=student['soloparent_id']) }}" alt="Solo Parent Preview" class="preview-image">
+                          </span>
+                          {% else %}
+                              No Single/Solo Parent uploaded
+                          {% endif %}
+                      </div>
+                    </div>
+                    <!-- END OF SOLO PARENT  -->
+                    <br>
+                    <!-- 7. LGBTQ  -->
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Raised by LGBTQ+ Parents?</label>
+                      <div class="col-lg-7 col-md-8">
+                        {{student['lgbtq_parent']}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Affidavit of Parent Consent</label>
+                      <div class="col-lg-7 col-md-8">
+                          {% if student['lgbtq_p_id'] %}
+                          <span class="preview-container">
+                            <a href="{{ url_for('static', filename=student['lgbtq_p_id']) }}" target="_blank" style="text-decoration: underline;" class="preview-link">View Affidavit of Parent Consent</a>
+                            <img src="{{ url_for('static', filename=student['lgbtq_p_id']) }}" alt="LGBTQ Preview" class="preview-image">
+                          </span>
+                          {% else %}
+                              No Affidavit uploaded
+                          {% endif %}
+                      </div>
+                    </div>
+                    <!-- END OF LGBTQ  -->
+                    <br>
+                    <!-- 8. WORKING STUDENT -->
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Working Student?</label>
+                      <div class="col-lg-7 col-md-8">
+                        {{student['working_student']}}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label for="profileImage" class="col-lg-5 col-md-4 label">Certificate of Employment</label>
+                      <div class="col-lg-7 col-md-8">
+                          {% if student['working_id'] %}
+                          <span class="preview-container">
+                            <a href="{{ url_for('static', filename=student['working_id']) }}" target="_blank" style="text-decoration: underline;" class="preview-link">View Certificate of Employment</a>
+                            <img src="{{ url_for('static', filename=student['working_id']) }}" alt="Working Preview" class="preview-image">
+                          </span>
+                          {% else %}
+                              No Certificate of Employment uploaded
+                          {% endif %}
+                      </div>
+                  </div>
+                  <!-- END OF WORKING STUDENT  -->
+                  <br>
+                  <!-- 9. VICTIM  -->
+                  <div class="row">
+                    <label for="profileImage" class="col-lg-5 col-md-4 label">Victim of Abuse/Disaster?</label>
+                    <div class="col-lg-7 col-md-8">
+                      {{student['victim']}}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="profileImage" class="col-lg-5 col-md-4 label">Barangay Certification or Police/Court Certification</label>
+                    <div class="col-lg-7 col-md-8">
+                        {% if student['victim_id'] %}
+                        <span class="preview-container">
+                          <a href="{{ url_for('static', filename=student['victim_id']) }}" target="_blank" style="text-decoration: underline;" class="preview-link">View Barangay Certification</a>
+                          <img src="{{ url_for('static', filename=student['victim_id']) }}" alt="Victim Preview" class="preview-image">
+                        </span>
+                        {% else %}
+                            No Certification uploaded
+                        {% endif %}
+                    </div>
+                  </div>
+                  <!-- END OF VICTIM  -->
+                </div>
+    
+                    <div class="tab-pane fade parent-details pt-3" id="parent-details">
+    
+                      <!--Parent Profile Details-->
+                      <h5>Father</h5>
+
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">Education Attained</label>
+                        <div class="col-lg-9 col-md-8">
+                          {{student['father_edu_attain']}}
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">Occupation</label>
+                        <div class="col-lg-9 col-md-8">
+                          {{student['father_occupation']}}
+                        </div>
+                      </div>
+  
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">Annual Income</label> 
+                        <div class="col-lg-9 col-md-8">
+                          {{student['father']}}
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">ITR</label>
+                        <div class="col-lg-9 col-md-8">
+                            {% if student['father_itr_file'] %}
+                                <a href="{{ url_for('static', filename=student['father_itr_file']) }}" target="_blank" style="text-decoration: underline;">View ITR</a>
+                            {% elif saved_data['father'] in ['Under ₱40,000', '₱40,000 - ₱59,999', '₱60,000 - ₱99,999', '₱100,000 - ₱249,999', '₱250,000 - ₱499,999', '₱500,000 and over'] %}
+                                None
+                            {% else %}
+                                No ITR uploaded
+                            {% endif %}
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">Tribe</label>
+                        <div class="col-lg-9 col-md-8">
+                          {{student['father_tribe']}}
+                        </div>
+                      </div>
+
+                      <hr>
+                      
+                      <h5>Mother</h5>
+
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">Education attained</label>
+                        <div class="col-lg-9 col-md-8">
+                          {{student['mother_edu_attain']}}
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">Occupation</label>
+                        <div class="col-lg-9 col-md-8">
+                          {{student['mother_occupation']}}
+                        </div>
+                      </div>
+  
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">Annual Income</label>
+                        <div class="col-lg-9 col-md-8">
+                          {{student['mother']}}
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">ITR</label>
+                        <div class="col-lg-9 col-md-8">
+                            {% if student['mother_itr_file'] %}
+                                <a href="{{ url_for('static', filename=student['mother_itr_file']) }}" target="_blank" style="text-decoration: underline;">View ITR</a>
+                            {% elif saved_data['mother'] in ['Under ₱40,000', '₱40,000 - ₱59,999', '₱60,000 - ₱99,999', '₱100,000 - ₱249,999', '₱250,000 - ₱499,999', '₱500,000 and over'] %}
+                                None
+                            {% else %}
+                                No ITR uploaded
+                            {% endif %}
+                        </div>
+                      </div>
+  
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">Tribe</label>
+                        <div class="col-lg-9 col-md-8">
+                          {{student['mother_tribe']}}
+                        </div>
+                      </div>
+  
+                  </div>
+    
+                    <div class="tab-pane fade academic-details pt-3" id="academic-details">
+                     
+                      <!--Academic Details-->
+
+                      <h5>Senior High School Details</h5>
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">SHS Track</label>
+                        <div class="col-lg-9 col-md-8">
+                          {{student['track']}}
+                        </div>
+                      </div>
+  
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">SHS Campus Name</label> 
+                        <div class="col-lg-9 col-md-8">
+                          {{student['name_hs']}}
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">SHS Campus Address</label>
+                        <div class="col-lg-9 col-md-8">
+                          {{student['address_hs']}}
+                        </div>
+                      </div>
+
+                      <hr>
+                      
+
+                      <hr>
+
+                      <h5>College Preferred Courses</h5>
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">Preferred Course 1</label>
+                        <div class="col-lg-9 col-md-8">
+                          {{student['pref_course1']}}
+                        </div>
+                      </div>
+    
+                      <div class="row">
+                        <label for="profileImage" class="col-lg-3 col-md-4 label">Preferred Course 2</label>
+                        <div class="col-lg-9 col-md-8">
+                          {{student['pref_course2']}}
+                        </div>
+                      </div>
+  
+                  </div>
+                  
+                  </div><!-- End Bordered Tabs -->
+    
+                </div>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+          <!-- Modal For Update-->
+          <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="updateProfileModalLabel">Update Profile</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <h3 class="form_title" style="margin-bottom: 20px;">User Information</h3>
+                  <!-- Add a form for updating profile information -->
+                  <form action="{{ url_for('update_student_profile') }}" method="POST" enctype="multipart/form-data">
+
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label class="form_1" for="contact">Contact</label>
+                        <input type="text" class="form-control" name="contact" id="contact" placeholder="Input Cellphone or Telephone Number" value="{{ saved_data['contact'] }}" required>
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        <label class="form_1" for="religion">Religion</label>
+                      <select class="form-select form-select" name="religion" id="religion" required>
+                        <option value="Roman Catholic" {% if saved_data['religion'] == 'Roman Catholic' %}selected{% endif %}>Roman Catholic</option>
+                        <option value="Islam" {% if saved_data['religion'] == 'Islam' %}selected{% endif %}>Islam</option>
+                        <option value="Iglesia ni Cristo" {% if saved_data['religion'] == 'Iglesia ni Cristo' %}selected{% endif %}>Iglesia ni Cristo</option>
+                        <option value="Seventh Day Adventist" {% if saved_data['religion'] == 'Seventh Day Adventist' %}selected{% endif %}>Seventh Day Adventist</option>
+                        <option value="Aglipay" {% if saved_data['religion'] == 'Aglipay' %}selected{% endif %}>Aglipay</option>
+                        <option value="Iglesia Filipina Independiente" {% if saved_data['religion'] == 'Iglesia Filipina Independiente' %}selected{% endif %}>Iglesia Filipina Independiente</option>
+                        <option value="Bible Baptist Church" {% if saved_data['religion'] == 'Bible Baptist Church' %}selected{% endif %}>Bible Baptist Church</option>
+                        <option value="UCCP" {% if saved_data['religion'] == 'UCCP' %}selected{% endif %}>UCCP</option>
+                        <option value="Jehovas Witness" {% if saved_data['religion'] == 'Jehovas Witness' %}selected{% endif %}>Jehovas Witness</option>
+                        <option value="Church of Christ" {% if saved_data['religion'] == 'Church of Christ' %}selected{% endif %}>Church of Christ</option>
+                      </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form_1" for="province_home">Select Province:</label>
+                      <select class="form-select form-select" name="province_home" id="province_home" onchange="updateCities()" required>
+                        <option value="">-- Select Province --</option>
+                        <option value="Agusan_del_Norte" {% if saved_data['province_home'] == 'Agusan_del_Norte' %}selected{% endif %}>Agusan del Norte</option>                          <option value="Agusan_del_Sur">Agusan del Sur</option>
+                        <option value="Bukidnon" {% if saved_data['province_home'] == 'Bukidnon' %}selected{% endif %}>Bukidnon</option>
+                        <option value="Cebu" {% if saved_data['province_home'] == 'Cebu' %}selected{% endif %}>Cebu</option>
+                        <option value="Compostela_Valley_Province" {% if saved_data['province_home'] == 'Compostela_Valley_Province' %}selected{% endif %}>Compostela Valley Province</option>
+                        <option value="Davao_del_Norte" {% if saved_data['province_home'] == 'Davao_del_Norte' %}selected{% endif %}>Davao del Norte</option>
+                        <option value="Davao_del_Sur" {% if saved_data['province_home'] == 'Davao_del_Sur' %}selected{% endif %}>Davao del Sur</option>
+                        <option value="Dinagat_Islands" {% if saved_data['province_home'] == 'Dinagat_Islands' %}selected{% endif %}>Dinagat Islands</option>
+                        <option value="Laguna" {% if saved_data['province_home'] == 'Laguna' %}selected{% endif %}>Laguna</option>
+                        <option value="Lanao_del_Norte" {% if saved_data['province_home'] == 'Lanao_del_Norte' %}selected{% endif %}>Lanao del Norte</option>
+                        <option value="Lanao_del_Sur" {% if saved_data['province_home'] == 'Lanao_del_Sur' %}selected{% endif %}>Lanao del Sur</option>
+                        <option value="Leyte" {% if saved_data['province_home'] == 'Leyte' %}selected{% endif %}>Leyte</option>
+                        <option value="Maguindanao" {% if saved_data['province_home'] == 'Maguindanao' %}selected{% endif %}>Maguindanao</option>
+                        <option value="Metro_Manila" {% if saved_data['province_home'] == 'Metro_Manila' %}selected{% endif %}>Metro Manila</option>
+                        <option value="Misamis_Occidental" {% if saved_data['province_home'] == 'Misamis_Occidental' %}selected{% endif %}>Misamis Occidental</option>
+                        <option value="Misamis_Oriental" {% if saved_data['province_home'] == 'Misamis_Oriental' %}selected{% endif %}>Misamis Oriental</option>
+                        <option value="Negros_Occidental" {% if saved_data['province_home'] == 'Negros_Occidental' %}selected{% endif %}>Negros Occidental</option>
+                        <option value="North_Cotabato" {% if saved_data['province_home'] == 'North_Cotabato' %}selected{% endif %}>North Cotabato</option>
+                        <option value="Siquijor" {% if saved_data['province_home'] == 'Siquijor' %}selected{% endif %}>Siquijor</option>
+                        <option value="South_Cotabato" {% if saved_data['province_home'] == 'South_Cotabato' %}selected{% endif %}>South Cotabato</option>
+                        <option value="Sultan_Kudarat" {% if saved_data['province_home'] == 'Sultan_Kudarat' %}selected{% endif %}>Sultan Kudarat</option>
+                        <option value="Sulu" {% if saved_data['province_home'] == 'Sulu' %}selected{% endif %}>Sulu</option>                    
+                        <option value="Surigao_del_Norte" {% if saved_data['province_home'] == 'Surigao_del_Norte' %}selected{% endif %}>Surigao del Norte</option>
+                        <option value="Surigao_del_Sur" {% if saved_data['province_home'] == 'Surigao_del_Sur' %}selected{% endif %}>Surigao del Sur</option>
+                        <option value="Tawi_Tawi" {% if saved_data['province_home'] == 'Tawi_Tawi' %}selected{% endif %}>Tawi-Tawi</option>
+                        <option value="Zamboanga_Sibugay" {% if saved_data['province_home'] == 'Zamboanga_Sibugay' %}selected{% endif %}>Zamboanga Sibugay</option>
+                        <option value="Zamboanga_del_Norte" {% if saved_data['province_home'] == 'Zamboanga_del_Norte' %}selected{% endif %}>Zamboanga del Norte</option>
+                        <option value="Zamboanga_del_Sur" {% if saved_data['province_home'] == 'Zamboanga_del_Sur' %}selected{% endif %}>Zamboanga del Sur</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form_1" for="city_home">Select City:</label>
+                      <select class="form-select form-select" name="city_home" id="city_home" required>
+                      </select>
+                    </div>
+                    <br>
+
+                    <!-- Indigenous Group -->
+                    <div class="form-group">
+                      <h3 class="form_title edi_title" style="margin-bottom: 20px;">Equity, Diversity, and Inclusivity (EDI)</h3>
+                      <label class="form_2">Do you belong to an Indigenous Group?</label><br>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ip_option" id="ip_no" value="No" checked>
+                        <label class="form-check-label" for="ip_no">No</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ip_option" id="ip_yes" value="Yes">
+                        <label class="form-check-label" for="ip_yes">Yes</label>
+                      </div>
+                    </div>
+                    
+                    <!-- Indigenous Group Select Dropdown -->
+                    <div class="form-group" id="ipGroupSelect" style="display: none;">
+                      <label class="form_2" for="ip_group">Select Indigenous Group:</label>
+                      <select class="form-select form-select-sm" id="ip_group" name="ip_group">
+                        <option value="">-- Select IP Group Here --</option>
+                        <option value="Meranaw">Meranaw</option>
+                        <option value="Maguidanaoan">Maguidanaoan</option>
+                        <option value="Tausug">Tausug</option>
+                        <option value="Yakan">Yakan</option>
+                        <option value="Badjao">Badjao</option>
+                        <option value="Kalagan">Kalagan</option>
+                        <option value="Sanggil">Sanggil</option>
+                        <option value="Sama">Sama</option>
+                        <option value="Teduray">Teduray</option>
+                        <option value="Bagobo">Bagobo</option>
+                        <option value="Banwaon">Banwaon</option>
+                        <option value="B'laan">B'laan</option>
+                        <option value="Bukidnon">Bukidnon</option>
+                        <option value="Dibabawon">Dibabawon</option>
+                        <option value="Higaunon">Higaunon</option>
+                        <option value="Mamanwa">Mamanwa</option>
+                        <option value="Mandaya">Mandaya</option>
+                        <option value="Manobo">Manobo</option>
+                        <option value="Subanen">Subanen</option>
+                        <option value="Mansaka">Mansaka</option>
+                        <option value="Matigsalug">Matigsalug</option>
+                        <option value="T'boli">T'boli</option>
+                        <option value="Tagakaolo">Tagakaolo</option>
+                        <option value="others">Others (Specify Below)</option>
+                      </select>
+                    </div>
+                    
+                    <!-- Others Specification Input -->
+                    <div class="form-group" id="ipOthersInput" style="display: none;">
+                      <label class="form_2" for="ip_others">Specify Others:</label>
+                      <input type="text" class="form-control" id="ip_others" name="ip_others" placeholder="Specify Others">
+                    </div>
+
+                    <!-- Form Picture Input (if IP is yes) -->
+                    <div class="form-group" id="ipPictureInput" style="display: none;">
+                      <label class="form_2" for="ip_id">Upload a Picture of the Certificate from National Commission on Indigenous Peoples(NCIP) (Please insert .jpg, .jpeg, and .png only)</label>
+                      {% if saved_data['ip_id'] %}
+                      <div class="current-file">
+                        <p><a href="{{ url_for('static', filename=saved_data['ip_id']) }}" target="_blank">View Saved Picture</a></p>
+                      </div>
+                      {% endif %}
+                      <input type="file" class="form-control" id="ip_id" name="ip_id">
+                    </div>
+
+                    <!-- Person with Disability (PWD) -->
+                    <div class="form-group">
+                      <label class="form_2">Are you a learner with disability (LWDs or PWDs)?</label><br>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="pwd" id="pwd_no" value="No" {% if saved_data['pwd'] == 'No' %}checked{% endif %}>
+                          <label class="form-check-label" for="pwd_no">No</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="pwd" id="pwd_yes" value="Yes" {% if saved_data['pwd'] == 'Yes' %}checked{% endif %}>
+                          <label class="form-check-label" for="pwd_yes">Yes</label>
+                      </div>
+                    </div>              
+
+                    <!-- ID Picture Input (if PWD is yes) -->
+                    <div class="form-group" id="idPictureInput" style="display: none;">
+                      <label class="form_2" for="id_picture">Upload ID Picture (Please insert .jpg, .jpeg, and .png only)</label>
+                      {% if saved_data['pwd_id_file'] %}
+                      <div class="current-file">
+                          <p><a href="{{ url_for('static', filename=saved_data['pwd_id_file']) }}" target="_blank">View Saved Picture</a></p>
+                      </div>
+                      {% endif %}
+                      <div class="input-group">
+                          <input type="file" class="form-control" id="id_picture" name="id_picture" >
+                      </div>
+                    </div>
+
+                    <!-- First Gen Learner -->
+                    <div class="form-group">
+                      <label class="form_2">Are you a First Generation Learner?</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="firstgenlearner" id="firstgenlearner_no" value="No" {% if saved_data['1stgenlearner'] == 'No' %}checked{% endif %}>
+                            <label class="form-check-label" for="firstgenlearner_no">No</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="firstgenlearner" id="firstgenlearner_yes" value="Yes" {% if saved_data['1stgenlearner'] == 'Yes' %}checked{% endif %} >
+                            <label class="form-check-label" for="firstgenlearner_yes">Yes</label>
+                        </div>
+                    </div>
+
+                    <!-- Form Picture Input (if 1st gen learner is yes) -->
+                    <div class="form-group" id="firstgenlearnerPictureInput" style="display: none;">
+                      <label class="form_2" for="firstgenlearner_id">Upload a Picture of the First Generation Learner Certificate from DSWD/Barangay (Please insert .jpg, .jpeg, and .png only)</label>
+                      {% if saved_data['1stgenlearner_id'] %}
+                      <div class="current-file">
+                        <p><a href="{{ url_for('static', filename=saved_data['1stgenlearner_id']) }}" target="_blank">View Saved Picture</a></p>
+                      </div>
+                      {% endif %}
+                      <input type="file" class="form-control" id="firstgenlearner_id" name="firstgenlearner_id">
+                    </div>
+
+                    <!--Child of Deprived liberty-->
+                    <div class="form-group">
+                      <label class="form_2" for="child_deprived_liberty">Are you a Child of a Parent Deprived Liberty?</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="child_deprived_liberty" id="child_deprived_liberty_no" value="No" {% if saved_data['child_deprived_liberty'] == 'No' %} checked {% endif %}>
+                            <label class="form-check-label" for="child_deprived_liberty_no">No</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="child_deprived_liberty" id="child_deprived_liberty_yes" value="Yes" {% if saved_data['child_deprived_liberty'] == 'Yes' %} checked {% endif %}>
+                            <label class="form-check-label" for="child_deprived_liberty_yes">Yes</label>
+                        </div>
+                    </div>
+
+                    <!-- Form Picture Input (if  child_deprived_liberty is yes) -->
+                    <div class="form-group" id="child_deprived_liberty_idPictureInput" style="display: none;">
+                      <label class="form_2" for="child_deprived_liberty_id">Upload a Picture of the Certificate from Bureau of Jail Management and Penology(BJMP) (Please insert .jpg, .jpeg, and .png only)</label>
+                      {% if saved_data['child_deprived_liberty_id'] %}
+                      <div class="current-file">
+                        <p><a href="{{ url_for('static', filename=saved_data['child_deprived_liberty_id']) }}" target="_blank">View Saved Picture</a></p>
+                      </div>
+                      {% endif %}
+                      <input type="file" class="form-control" id="child_deprived_liberty_id" name="child_deprived_liberty_id">
+                    </div>
+
+                    <!-- Child solo parent-->
+                    <div class="form-group">
+                      <label class="form_2">Are you a Child of a Solo Parent?</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="childsoloparent" id="childsoloparent_no" value="No" {% if saved_data['childsoloparent'] == 'No' %}checked{% endif %} checked>
+                            <label class="form-check-label" for="childsoloparent_no">No</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="childsoloparent" id="childsoloparent_yes" value="Yes"  {% if saved_data['childsoloparent'] == 'Yes' %}checked{% endif %}>
+                            <label class="form-check-label" for="childsoloparent_yes">Yes</label>
+                        </div>
+                      </div>
+
+                      <!-- Form Picture Input (if Child Solo Parent is yes) -->
+                      <div class="form-group" id="formPictureInput" style="display: none;">
+                        <label class="form_2" for="childsoloparent_id">Upload Solo Parent ID/Certificate Picture (Please insert .jpg, .jpeg, and .png only)</label>
+                        {% if saved_data['childsoloparent_file'] %}
+                        <div class="current-file">
+                          <p><a href="{{ url_for('static', filename=saved_data['childsoloparent_file']) }}" target="_blank">View Saved Picture</a></p>
+                        </div>
+                        {% endif %}
+                        <input type="file" class="form-control" id="childsoloparent_id" name="childsoloparent_id">
+                      </div>
+
+                      <!--Solo parent-->
+                      <div class="form-group">
+                        <label class="form_2">Are you a Solo Parent (single mom/single dad)?</label><br>
+                          <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="soloparent" id="soloparent_no" value="No" {% if saved_data['soloparent'] == 'No' %} checked {% endif %}>
+                              <label class="form-check-label" for="soloparent_no">No</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="soloparent" id="soloparent_yes" value="Yes" {% if saved_data['soloparent'] == 'Yes' %} checked {% endif %}>
+                              <label class="form-check-label" for="soloparent_yes">Yes</label>
+                          </div>
+                      </div>
+
+                      <!-- Form Picture Input (if  soloparent is yes) -->
+                      <div class="form-group" id="singlePictureInput" style="display: none;">
+                        <label class="form_2" for="single_id">Upload a Picture of the Certificate from Barangay (Please insert .jpg, .jpeg, and .png only)</label>
+                        {% if saved_data['soloparent_id'] %}
+                        <div class="current-file">
+                          <p><a href="{{ url_for('static', filename=saved_data['soloparent_id']) }}" target="_blank">View Saved Picture</a></p>
+                        </div>
+                        {% endif %}
+                        <input type="file" class="form-control" id="single_id" name="single_id">
+                      </div>
+
+                      <!--LGBTQ Parent-->
+                      <div class="form-group">
+                        <label class="form_2">Were you a raised by LGBTQ+ parents or caregivers?</label><br>
+                          <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="lgbtq_parent" id="lgbtq_parent_no" value="No" {% if saved_data['lgbtq_parent'] == 'No' %} checked {% endif %}>
+                              <label class="form-check-label" for="lgbtq_parent_no">No</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="lgbtq_parent" id="lgbtq_parent_yes" value="Yes" {% if saved_data['lgbtq_parent'] == 'Yes' %} checked {% endif %}>
+                              <label class="form-check-label" for="lgbtq_parent_yes">Yes</label>
+                          </div>
+                      </div>
+
+                      <!-- ID Picture Input (if LGBTQ+ Parent is yes) -->
+                      <div class="form-group" id="LGBTQPictureInput" style="display: none;">
+                        <label class="form_2" for="lgbtq_p_id">Upload Affidavit (Please insert .jpg, .jpeg, and .png only)</label>
+                        {% if saved_data['lgbtq_p_id'] %}
+                        <div class="current-file">
+                            <p><a href="{{ url_for('static', filename=saved_data['lgbtq_p_id']) }}" target="_blank">View Saved Picture</a></p>
+                        </div>
+                        {% endif %}
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="lgbtq_p_id" name="lgbtq_p_id" >
+                        </div>
+                      </div>
+
+                      <!--Working Student-->
+                      <div class="form-group">
+                        <label class="form_2">Are you a working student <span style="color: grey;"><i>(i.e. general house help, yaya, cook, gardener, laundry person, wash boy, etc.)</i></span>?</label><br>
+                          <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="working_student" id="working_student_no" value="No" {% if saved_data['working_student'] == 'No' %} checked {% endif %}>
+                              <label class="form-check-label" for="working_student_no">No</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="working_student" id="working_student_yes" value="Yes" {% if saved_data['working_student'] == 'Yes' %} checked {% endif %}>
+                              <label class="form-check-label" for="working_student_yes">Yes</label>
+                          </div>
+                      </div>
+
+                      <!-- Form Picture Input (if  working student is yes) -->
+                      <div class="form-group" id="WorkingPictureInput" style="display: none;">
+                        <label class="form_2" for="working_id">Upload a Picture of the Certificate from Barangay (Please insert .jpg, .jpeg, and .png only)</label>
+                        {% if saved_data['working_id'] %}
+                        <div class="current-file">
+                          <p><a href="{{ url_for('static', filename=saved_data['working_id']) }}" target="_blank">View Saved Picture</a></p>
+                        </div>
+                        {% endif %}
+                        <input type="file" class="form-control" id="working_id" name="working_id">
+                      </div>
+
+                      <!--Victim Student-->
+                      <div class="form-group">
+                        <label class="form_2">Are you a victim of domestic abuse and/or disasters?</label><br>
+                          <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="victim" id="victim_no" value="No" {% if saved_data['victim'] == 'No' %} checked {% endif %}>
+                              <label class="form-check-label" for="victim_no">No</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="victim" id="victim_yes" value="Yes" {% if saved_data['victim'] == 'Yes' %} checked {% endif %}>
+                              <label class="form-check-label" for="victim_yes">Yes</label>
+                          </div>
+                      </div>
+
+                        <!-- Form Picture Input (if victim student is yes) -->
+                      <div class="form-group" id="VictimPictureOutput" style="display: none;">
+                        <label class="form_2" for="victim_id">Upload a Picture of the Certificate from Barangay (Please insert .jpg, .jpeg, and .png only)</label>
+                        {% if saved_data['victim_id'] %}
+                        <div class="current-file">
+                          <p><a href="{{ url_for('static', filename=saved_data['victim_id']) }}" target="_blank">View Saved Picture</a></p>
+                        </div>
+                        {% endif %}
+                        <input type="file" class="form-control" id="victim_id" name="victim_id">
+                      </div> 
+
+                <br>
+                <h3 class="form_title parent" style="margin-bottom: 20px;"> Parent Information </h3>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label class="form_1" for="father_edu_attain">Father's highest education attained: </label>
+                    <select class="form-select" name="father_edu_attain" id="father_edu_attain" required>
+                      <option value=""> -- Select Here --</option>
+                      <option value="No grade completed" {% if saved_data['father_edu_attain'] == 'No grade completed' %}selected{% endif %}>No grade completed</option>
+                      <option value="Elementary level" {% if saved_data['father_edu_attain'] == 'Elementary level' %}selected{% endif %}>Elementary level</option>
+                      <option value="Elementary graduate" {% if saved_data['father_edu_attain'] == 'Elementary graduate' %}selected{% endif %}>Elementary graduate</option>
+                      <option value="High School level" {% if saved_data['father_edu_attain'] == 'High School level' %}selected{% endif %}>High School level</option>
+                      <option value="High School graduate" {% if saved_data['father_edu_attain'] == 'High School graduate' %}selected{% endif %}>High School graduate</option>
+                      <option value="College level" {% if saved_data['father_edu_attain'] == 'College level' %}selected{% endif %}>College level</option>
+                      <option value="College graduate" {% if saved_data['father_edu_attain'] == 'College graduate' %}selected{% endif %}>College graduate</option>
+                      <option value="Post Baccalaureate" {% if saved_data['father_edu_attain'] == 'Post Baccalaureate' %}selected{% endif %}>Post Baccalaureate</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label class="form_1" for="mother_edu_attain">Mother's highest education attained:</label>
+                    <select class="form-select" name="mother_edu_attain" id="mother_edu_attain" required>
+                      <option value=""> -- Select Here --</option>
+                      <option value="No grade completed" {% if saved_data['mother_edu_attain'] == 'No grade completed' %}selected{% endif %}>No grade completed</option>
+                      <option value="Elementary level" {% if saved_data['mother_edu_attain'] == 'Elementary level' %}selected{% endif %}>Elementary level</option>
+                      <option value="Elementary graduate" {% if saved_data['mother_edu_attain'] == 'Elementary graduate' %}selected{% endif %}>Elementary graduate</option>
+                      <option value="High School level" {% if saved_data['mother_edu_attain'] == 'High School level' %}selected{% endif %}>High School level</option>
+                      <option value="High School graduate" {% if saved_data['mother_edu_attain'] == 'High School graduate' %}selected{% endif %}>High School graduate</option>
+                      <option value="College level" {% if saved_data['mother_edu_attain'] == 'College level' %}selected{% endif %}>College level</option>
+                      <option value="College graduate" {% if saved_data['mother_edu_attain'] == 'College graduate' %}selected{% endif %}>College graduate</option>
+                      <option value="Post Baccalaureate" {% if saved_data['mother_edu_attain'] == 'Post Baccalaureate' %}selected{% endif %}>Post Baccalaureate</option>
+                      </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label class="form_1" for="father_occupation">Father's Occupation</label>
+                    <input type="text" class="form-control" name="father_occupation" id="father_occupation" value="{{ saved_data['father_occupation'] }}" required>
+                </div>
+  
+                  <div class="form-group col-md-6">
+                    <label class="form_1" for="mother_occupation">Mother's Occupation</label>
+                    <input type="text" class="form-control" name="mother_occupation" id="mother_occupation" value="{{ saved_data['mother_occupation'] }}" required>
+                  </div>
+                </div>
+                
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                      <label class="form_1" for="father">Father's Annual Income (in ₱)</label>
+                      <select class="form-select" name="father" id="father" onchange="FatherCustomInput(); checkITRRequirements();">
+                          <option value="">-- Select Income Range --</option>
+                          <option value="Under ₱40,000" {% if saved_data['father'] == 'Under ₱40,000' %}selected{% endif %}>Under ₱40,000</option>
+                          <option value="₱40,000 - ₱59,999" {% if saved_data['father'] == '₱40,000 - ₱59,999' %}selected{% endif %}>₱40,000 - ₱59,999</option>
+                          <option value="₱60,000 - ₱99,999" {% if saved_data['father'] == '₱60,000 - ₱99,999' %}selected{% endif %}>₱60,000 - ₱99,999</option>
+                          <option value="₱100,000 - ₱249,999" {% if saved_data['father'] == '₱100,000 - ₱249,999' %}selected{% endif %}>₱100,000 - ₱249,999</option>
+                          <option value="₱250,000 - ₱499,999" {% if saved_data['father'] == '₱250,000 - ₱499,999' %}selected{% endif %}>₱250,000 - ₱499,999</option>
+                          <option value="₱500,000 and over" {% if saved_data['father'] == '₱500,000 and over' %}selected{% endif %}>₱500,000 and over</option>
+                      </select>
+                      <input type="number" class="form-control" name="custom_father_income" id="custom_father_income" 
+                          placeholder="Enter custom income in ₱" style="{% if saved_data['father'] == 'custom' %}display:block{% else %}display:none{% endif %};" min="0">
+                          
+                          <div class="form-group" id="Father_ITRInput" style="display: {% if saved_data['father'] == '₱250,000 - ₱499,999' %}block{% else %}none{% endif %};"> 
+                              <label class="form_1" for="father_itr" style="margin-top: .5rem;">Upload ITR (Please insert .jpg, .jpeg, and .png only)</label>
+                              
+                              {% if saved_data['father_itr_file'] %}
+                              <div class="current-file">
+                                  <p>
+                                      <a href="{{ url_for('static', filename=saved_data['father_itr_file']) }}" target="_blank">
+                                          View Saved ITR
+                                      </a>
+                                  </p>
+                              </div>
+                              {% endif %}
+                              
+                              <input type="file" class="form-control" id="father_itr" name="father_itr">
+                          </div>
+                  </div>
+              
+                  <div class="form-group col-md-6">
+                      <label class="form_1" for="mother">Mother's Annual Income (in ₱)</label>
+                      <select class="form-select" name="mother" id="mother" onchange="MotherCustomInput(); checkITRRequirements();">
+                        <option value="">-- Select Income Range --</option>
+                        <option value="Under ₱40,000" {% if saved_data['mother'] == 'Under ₱40,000' %}selected{% endif %}>Under ₱40,000</option>
+                        <option value="₱40,000 - ₱59,999" {% if saved_data['mother'] == '₱40,000 - ₱59,999' %}selected{% endif %}>₱40,000 - ₱59,999</option>
+                        <option value="₱60,000 - ₱99,999" {% if saved_data['mother'] == '₱60,000 - ₱99,999' %}selected{% endif %}>₱60,000 - ₱99,999</option>
+                        <option value="₱100,000 - ₱249,999" {% if saved_data['mother'] == '₱100,000 - ₱249,999' %}selected{% endif %}>₱100,000 - ₱249,999</option>
+                        <option value="₱250,000 - ₱499,999" {% if saved_data['mother'] == '₱250,000 - ₱499,999' %}selected{% endif %}>₱250,000 - ₱499,999</option>
+                        <option value="₱500,000 and over" {% if saved_data['mother'] == '₱500,000 and over' %}selected{% endif %}>₱500,000 and over</option>
+                      </select>
+                      <input type="number" class="form-control" name="custom_mother_income" id="custom_mother_income" 
+                          placeholder="Enter custom income in ₱" style="{% if saved_data['mother'] == 'custom' %}display:block{% else %}display:none{% endif %};" min="0">
+                                                <div class="form-group" id="Mother_ITRInput" style="display: {% if saved_data['mother'] in ['₱250,000 - ₱499,999', '₱500,000 and over'] %}block{% else %}none{% endif %};"> 
+                            <label class="form_1" for="mother_itr" style="margin-top: .5rem;">Upload ITR (Please insert .jpg, .jpeg, and .png only)</label>                              
+                              {% if saved_data['mother_itr_file'] %}
+                              <div class="current-file">
+                                  <p>
+                                      <a href="{{ url_for('static', filename=saved_data['mother_itr_file']) }}" target="_blank">
+                                          View Saved ITR
+                                      </a>
+                                  </p>
+                              </div>
+                              {% endif %}
+                              
+                              <input type="file" class="form-control" id="mother_itr" name="mother_itr">
+                          </div>
+                  </div>
+              </div>              
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label class="form_1" for="father_tribe">Father Tribe</label>
+                  <input type="text" class="form-control" name="father_tribe" id="father_tribe" placeholder="Input Tribe" value="{{ saved_data['father_tribe'] }}" required>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label class="form_1" for="mother_tribe">Mother Tribe</label>
+                  <input type="text" class="form-control" name="mother_tribe" id="mother_tribe" placeholder="Input Tribe" value="{{ saved_data['mother_tribe'] }}" required>
+                </div>
+              </div>
+              <br>
+
+
+              <!-- <center><p style="color:red;">Permit Number Location</p></center>
+                <img src="../static/img/PermitNumber.png" alt="Permit Number" style="width: 100%;">
+                <br><br>
+
+                <div class="form-group">
+                  <label for="permit_number">Input SASE Permit Number here</label>
+                  <input type="number" class="form-control" name="permit_number" id="permit_number" placeholder="000000" value="{{ saved_data['permit_number'] }}" >
+                </div> -->
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% if show_modal %}
+          <!-- Modal for instruction -->
+          <div class="modal fade" id="instrucModal" tabindex="-1" role="dialog" aria-labelledby="instrucModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="instrucModalLabel">Please Read...</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Please submit your application to view your final program recommendations.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">OKAY</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+</section>
+
+
+</main>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+    <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+    <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+    <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="../static/assets2/js/main.js"></script>
+    <script src="../static/assets2/js/update_info.js"></script>
+
+    <script>
+      $(document).ready(function() {
+          $('#instrucModal').modal('show');
+      });
+
+    // Function to close the privacy modal
+    function closeModal() {
+      $('#instrucModal').modal('hide');
+      }
+    </script>
+
+    <script>
+      function submitUpdatePicture(studentId) {
+          let form = document.getElementById("updatePictureForm" + studentId);
+          let formData = new FormData(form);
+          
+          fetch("/submit_grade_form/" + studentId, {
+              method: "POST",
+              body: formData
+          })
+          .then(response => {
+              if (response.ok) {
+                  // Optional: Show a success message
+                  alert("Picture Uploaded successfully!");
+                  // Optional: Close the modal
+                  $("#updatePictureModal" + studentId).modal("hide");
+                  // Optional: Refresh the page or update specific content
+                  location.reload();
+              } else {
+                  // Optional: Show an error message
+                  alert("Failed to upload Grade Form picture.");
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert("An error occurred.");
+          });
+      }
+  </script>
+
+  <script>
+    // Script to handle radio button change
+    $(document).ready(function() {
+      $('input[type="radio"][name="ip_option"]').change(function() {
+        if (this.value === 'Yes') {
+          $('#ipGroupSelect').show();
+        } else {
+          $('#ipGroupSelect').hide();
+          $('#ipOthersInput').hide();
+        }
+      });
+    });
+
+    // Script to handle radio button change for IP
+    $('input[type="radio"][name="ip_option"]').change(function() {
+      if (this.value === 'Yes') {
+        $('#ipPictureInput').show();
+          } else {
+          $('#ipPictureInput').hide();
+          }
+    });
+
+    // Script to handle select change
+    $(document).ready(function() {
+      $('#ip_group').change(function() {
+        if (this.value === 'others') {
+          $('#ipOthersInput').show();
+        } else {
+          $('#ipOthersInput').hide();
+        }
+      });
+    });
+
+        // Script to handle radio button change
+        $(document).ready(function() {
+          $('input[type="radio"][name="ip_option"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#ipGroupSelect').show();
+            } else {
+              $('#ipGroupSelect').hide();
+              $('#ipOthersInput').hide();
+            }
+          });
+    
+          // Script to handle radio button change for PWD
+          $('input[type="radio"][name="pwd"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#idPictureInput').show();
+            } else {
+              $('#idPictureInput').hide();
+            }
+          });
+
+        });
+
+          // Script to handle radio button change for Child Solo Parent
+          $('input[type="radio"][name="childsoloparent"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#formPictureInput').show();
+            } else {
+              $('#formPictureInput').hide();
+            }
+          });
+
+          // Script to handle radio button change for First Gen Learner
+          $('input[type="radio"][name="firstgenlearner"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#firstgenlearnerPictureInput').show();
+                } else {
+                  $('#firstgenlearnerPictureInput').hide();
+                }
+          });
+
+       
+          // Script to handle radio button change for Child of Deprived Liberty
+          $('input[type="radio"][name="child_deprived_liberty"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#child_deprived_liberty_idPictureInput').show();
+            } else {
+              $('#child_deprived_liberty_idPictureInput').hide();
+            }
+          });
+
+          // Script to handle radio button change for Solo Parent
+          $('input[type="radio"][name="soloparent"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#singlePictureInput').show();
+            } else {
+              $('#singlePictureInput').hide();
+            }
+          });
+
+          // Script to handle radio button change for Working Students
+          $('input[type="radio"][name="working_student"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#WorkingPictureInput').show();
+            } else {
+              $('#WorkingPictureInput').hide();
+            }
+          });
+           // Script to handle radio button change for LGBTQ+ Parents
+        $('input[type="radio"][name="lgbtq_parent"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#LGBTQPictureInput').show();
+            } else {
+              $('#LGBTQPictureInput').hide();
+            }
+          });
+          // Script to handle radio button change for victims
+        $('input[type="radio"][name="victim"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#VictimPictureOutput').show();
+            } else {
+              $('#VictimPictureOutput').hide();
+            }
+          });
+
+      </script>
+      
+      <script>
+        function redirectToPrint() {
+          // Redirect to the print.html page
+          window.location.href = "{{ url_for('print_form') }}";
+      
+          // After redirecting, open the print dialog
+          window.onload = function() {
+            window.print();
+          }
+        }
+      </script>
+
+      <script>
+        document.getElementById('contact').addEventListener('input', function(e) {
+            let input = e.target.value.replace(/\D/g, '').substring(0, 11); // Only digits, max length 11
+            let formattedNumber = '';
+
+            if (input.length > 0) {
+                formattedNumber += input.substring(0, 4);
+            }
+            if (input.length > 4) {
+                formattedNumber += ' ' + input.substring(4, 7);
+            }
+            if (input.length > 7) {
+                formattedNumber += ' ' + input.substring(7, 11);
+            }
+
+            e.target.value = formattedNumber;
+        });
+      </script>
+
+      <script>
+        function checkITRRequirements() {
+            var fatherIncome = document.getElementById('father').value;
+            var motherIncome = document.getElementById('mother').value;
+
+            var fatherITR = document.getElementById('father_itr');
+            var motherITR = document.getElementById('mother_itr');
+
+            // Check for incomes that require ITR
+            if (fatherIncome === '₱250,000 - ₱499,999' || fatherIncome === '₱500,000 and over') {
+                document.getElementById('Father_ITRInput').style.display = 'block';
+                fatherITR.required = true;
+            } else {
+                document.getElementById('Father_ITRInput').style.display = 'none';
+                fatherITR.required = false;
+                fatherITR.value = ''; // Clear value if hidden
+            }
+
+            if (motherIncome === '₱250,000 - ₱499,999' || motherIncome === '₱500,000 and over') {
+                document.getElementById('Mother_ITRInput').style.display = 'block';
+                motherITR.required = true;
+            } else {
+                document.getElementById('Mother_ITRInput').style.display = 'none';
+                motherITR.required = false;
+                motherITR.value = ''; // Clear value if hidden
+            }
+        }
+
+        function FatherCustomInput() {
+            checkITRRequirements();
+        }
+
+        function MotherCustomInput() {
+            checkITRRequirements();
+        }
+      </script>
+
+      <script>
+        $(document).ready(function() {
+          $('.preview-link').hover(function() {
+              $(this).siblings('.preview-image').fadeIn(200); // Show the image on hover
+          }, function() {
+              $(this).siblings('.preview-image').fadeOut(200); // Hide the image when not hovering
+          });
+      });
+      </script>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const hsIcon = document.getElementById('hs-grade-status-icon');
+            const shsIcon = document.getElementById('shs-grade-status-icon');
+            const gradeFormIcon = document.getElementById('grade-form-status-icon');
+
+            {% if all_grades_hs_filled %}
+                hsIcon.classList.add('bi-check-circle-fill');
+            {% else %}
+                hsIcon.classList.add('bi-x-circle-fill');
+            {% endif %}
+
+            {% if all_grades_shs_filled %}
+                shsIcon.classList.add('bi-check-circle-fill');
+            {% else %}
+                shsIcon.classList.add('bi-x-circle-fill');
+            {% endif %}
+
+            {% if student['verified_grades'] %}
+                gradeFormIcon.classList.add('bi-check-circle-fill');
+            {% else %}
+                gradeFormIcon.classList.add('bi-x-circle-fill');
+            {% endif %}
+        });
+
+        function validateApplication() {
+            var allGradesHSFilled = {{ 'true' if all_grades_hs_filled else 'false' }};
+            var allGradesSHSFilled = {{ 'true' if all_grades_shs_filled else 'false' }};
+            var gradeFormSubmitted = {{ 'true' if student['verified_grades'] else 'false' }};
+            
+            if (allGradesHSFilled && allGradesSHSFilled && gradeFormSubmitted) {
+                var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+                confirmationModal.show();
+            } else {
+                alert('Please ensure all fields are filled before submitting.');
+            }
+        }
+
+        function submitApplication() {
+            const hsGradesFilled = {{ 'true' if all_grades_hs_filled else 'false' }};
+            const shsGradesFilled = {{ 'true' if all_grades_shs_filled else 'false' }};
+            const verifiedGrades = {{ 'true' if student['verified_grades'] else 'false' }};
+            
+            const formData = new FormData();
+            formData.append('hs_grades_filled', hsGradesFilled); // Adjusted key names to match route
+            formData.append('shs_grades_filled', shsGradesFilled); // Adjusted key names to match route
+            formData.append('edi_filled', true);  // Assume EDI is filled
+            formData.append('parent_info_filled', true);  // Assume parent info is filled
+            formData.append('verified_grades', verifiedGrades); // Adjusted key names to match route
+
+            fetch('/submit-application', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(error => {
+                        throw new Error(error.message);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);  // Show success message
+                    window.location.href = '/student/profile';  // Redirect after submission
+                } else {
+                    alert(data.message);  // Show error message
+                }
+            })
+            .catch(error => {
+                alert('An unexpected error occurred: ' + error.message);
+            });
+        }
+      </script>
+
+      <script src="../static/assets2/js/occupation.js"></script>
+
+
+  </body>
+
+</html>

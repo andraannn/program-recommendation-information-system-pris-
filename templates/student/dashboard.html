@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon">
+    <link href="../static/img/logo.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>    
+
+    <!-- Template Main CSS File -->
+    <link href="../static/assets2/css/student_dashboard.css" rel="stylesheet">
+    <link href="../static/assets2/css/style.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/student/dashboard" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        </li><!-- End Search Icon-->
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-user-large"></i>
+          <span class="dropdown-toggle ps-2">Account</span>
+          </a>
+          <!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ f_name }} {{ l_name }}</h6>
+              <span>{{ role }}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+                <a class="dropdown-item d-flex align-items-center transition-link" href="/student/profile">
+                  <span>Profile</span>
+                </a>
+              </li>
+              <hr class="dropdown-divider">
+            <li>
+              <a class="dropdown-item d-flex align-items-center transition-link" href="{{ url_for('logout') }}">
+                <i class="bi bi-box-arrow-right transition-link"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+      <ul class="sidebar-nav" id="sidebar-nav">
+  
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/dashboard' else '' }}" href="/student/dashboard">
+                  <i class="bx bxs-dashboard"></i>
+                  <span>Dashboard</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/profile' else '' }}" href="/student/profile">
+                  <i class="ri-contacts-line"></i>
+                  <span>Profile</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/grades' else '' }}" href="/student/grades">
+                  <i class="ri-book-open-line"></i>
+                  <span>Grades</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/recommendation' else '' }}" href="/student/recommendation">
+                  <i class="ri-briefcase-fill"></i>
+                  <span>Recommendation</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/courses' else '' }}" href="/student/courses">
+                  <i class="ri-service-fill"></i>
+                  <span>Courses</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/about' else '' }}" href="/student/about">
+                  <i class="bx bxs-business"></i>
+                  <span>About</span>
+              </a>
+          </li>
+  
+      </ul>
+  
+  </aside><!-- End Sidebar-->
+
+    <!-- Main Body -->
+    <main id="main" class="main">
+
+      <div class="card d-flex">
+
+        <p id="greeting">{{ f_name }}!</p>
+        
+      </div>
+      <div class="alert alert-warning alert-dismissible fade show mx-auto" role="alert" style="color:#000; font-size: 15px;">
+        <b>NOTE:</b> Students should review their data in the profile and check recommendation page to view the recommended courses
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm mb-3">
+            <div class="card2">
+              <h5 class="card-title"> &nbsp Announcements</h5>
+              <div class="card-body">
+                <p class="card-text">Announcements are placed here</p>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-sm mb-3">
+            <div class="card2">
+              <h5 class="card-title"> &nbsp Helpful Links</h5>
+              <div class="card-body">
+                <ul>
+                <li><a href="https://www.msuiit.edu.ph/offices/admissions/sase.php" target="_blank">Systems Admission and Scholarship Examination (SASE) Information</a></li>
+                <li><a href="https://sase.msuiit.edu.ph/index.php" target="_blank">SASE Online Application Procedures</a></li>
+                <li><a href="https://www.msuiit.edu.ph/offices/admissions/requirements.php" target="_blank">Admission Requirements</a></li>
+                <li><a href="https://www.msuiit.edu.ph/offices/admissions/scholarships.php" target="_blank">Scholarships Information (Internal & External)</a></li>
+                <li><a href="https://www.msuiit.edu.ph/academics/" target="_blank">About MSU-Iligan Institute of Technology</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm mb-3">
+            <div class="card2">
+              <h5 class="card-title"> &nbsp Reviewers Online</h5>
+              <div class="card-body">
+                <ul>
+                  <li><a href="https://drive.google.com/drive/folders/1rh1oQEmQbDHHoM4779xv_tuILbjAQ_Sx?fbclid=IwAR1JBfQuaSQ0SXyIVwmu-pZthlyTuoSN7aPaahQYsLb1Y3FJN7tD6vBSgmU" target="_blank"> SASE Reviewers Online (Readings)</a></li>
+                  <li><a href="https://www.coursehero.com/file/134413492/SASE-REVIEWER-MATHdocx/" target="_blank">Math Reviewer Online (ALGEBRA)</a></li>
+                  <li><a href="https://www.scribd.com/document/531777954/Part-1-Msu-sase-Reviewer" target="_blank">Other Reviewer 1</a></li>
+                  <li><a href="https://pdfcoffee.com/sase-reviewer-2k19-pdf-free.html" target="_blank">Other Reviewer 2</a></li>
+                  </ul>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+    
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+  <!-- Vendor JS Files -->
+  <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+  <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+  <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+  <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="../static/assets2/js/main.js"></script>
+
+    <script>
+      // Get the current hour
+      var currentHour = new Date().getHours();
+  
+      // Get the greeting element
+      var greetingElement = document.getElementById('greeting');
+  
+      // Set the greeting based on the current hour
+      if (currentHour < 12) {
+          greetingElement.textContent = "Good morning, " + greetingElement.textContent;
+      } else if (currentHour < 18) {
+          greetingElement.textContent = "Good afternoon, " + greetingElement.textContent;
+      } else {
+          greetingElement.textContent = "Good evening, " + greetingElement.textContent;
+      }
+    </script>
+
+    </body>
+
+</html>

@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon">
+    <link href="../static/img/logo.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>    
+
+    <!-- Template Main CSS File -->
+    <link href="../static/assets2/css/style.css" rel="stylesheet">
+    <link href="../static/assets2/css/student_recommendation.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/student/dashboard" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        </li><!-- End Search Icon-->
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-user-large"></i>
+          <span class="dropdown-toggle ps-2">Account</span>
+          </a>
+          <!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ user['f_name'] }} {{ user['l_name'] }}</h6>
+              <span>{{ user['role'] }}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+                <a class="dropdown-item d-flex align-items-center transition-link" href="/student/profile">
+                  <span>Profile</span>
+                </a>
+              </li>
+              <hr class="dropdown-divider">
+            <li>
+              <a class="dropdown-item d-flex align-items-center transition-link" href="{{ url_for('logout') }}">
+                <i class="bi bi-box-arrow-right transition-link"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.path == '/student/dashboard' else '' }}" href="/student/dashboard">
+                <i class="bx bxs-dashboard"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.path == '/student/profile' else '' }}" href="/student/profile">
+                <i class="ri-contacts-line"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.path == '/student/grades' else '' }}" href="/student/grades">
+                <i class="ri-book-open-line"></i>
+                <span>Grades</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.path == '/student/recommendation' else '' }}" href="/student/recommendation">
+                <i class="ri-briefcase-fill"></i>
+                <span>Recommendation</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.path == '/student/courses' else '' }}" href="/student/courses">
+                <i class="ri-service-fill"></i>
+                <span>Courses</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.path == '/student/about' else '' }}" href="/student/about">
+                <i class="bx bxs-business"></i>
+                <span>About</span>
+            </a>
+        </li>
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+    <div class="col-xl-12">
+    
+        <div class="card">
+          <div class="card-body pt-3">
+            <!-- Bordered Tabs -->
+            <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTabJustified">
+    
+              <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#JHS-overview" style="color: #000">Junior HS Subject Grades</button>
+              </li>
+    
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#SHS-details" style="color: #000">Senior HS Subject Grades</button>
+              </li>
+    
+    
+            </ul>
+            <div class="tab-content pt-2">
+    
+              <div class="tab-pane fade show active profile-overview" id="JHS-overview">
+    
+                <h5 class="card-title">Junior High School Performance</h5>
+    
+                  <!-- Button trigger modal -->
+                  {% if user['status'] == 'unverified' %}
+                  <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editJHSGradeModal">
+                  Edit Grades
+                  </button>
+                {% else %}
+                    <!-- If the student is verified, do nothing (button will not be shown) -->
+                {% endif %}
+    
+                <h5 class="mt-4"> Grade 9 </h5>
+                <table style="border-collapse: collapse; width: 100%;">
+                    <tr>
+                      <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                      <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">English</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['english9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Filipino</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['filipino9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Mathematics</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['mathematics9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Science</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['science9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Araling Panlipunan</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['aralingpanlipunan9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Edukasyon sa Pagpapakatao</b></td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['edukasyonsapagpapakatao9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Music</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['music9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Arts</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['arts9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Physical Education</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['physicaleducation9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Health</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['health9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Edukasyong Pantahanan at Pangkabuhayan</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['edukasyongpantahananatpangkabuhayan9'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;">Technology and Livelihood Education</td>
+                        <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['technologyandlivelihoodeducation9'] }}</td>
+                    </tr> 
+                </table>
+                <br>
+                <h5>Grade 10 </h5>
+    
+                <table style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                    <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                    <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">English</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['filipino10'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Filipino</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['english10'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Mathematics</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['mathematics10'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Science</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['science10'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Araling Panlipunan</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['aralingpanlipunan10'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Edukasyon sa Pagpapakatao</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['edukasyonsapagpapakatao10'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Music</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['music10'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Arts</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['arts10'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['physicaleducation10'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Health</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['health10'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Edukasyong Pantahanan at Pangkabuhayan</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['edukasyongpantahananatpangkabuhayan10'] }}</td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Technology and Livelihood Education</td>
+                      <td style="border: 1px solid black; padding: 8px;">{{ grade_hs['technologyandlivelihoodeducation10'] }}</td>
+                  </tr>
+              </table>
+    
+    
+              </div>
+    
+              <div class="tab-pane fade parent-details" id="SHS-details">
+                <h5 class="card-title">Senior High School Performance</h5>
+    
+                <!-- Button trigger modal -->
+                {% if user['status'] == 'unverified' %}
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editSHSGradeModal">
+                Edit Grades
+                </button>
+                {% else %}
+                  <!-- If the student is verified, do nothing (button will not be shown) -->
+                {% endif %}
+    
+                <p class="mt-4">Student Strand: <b> {{ student['track'] }} </b></p>
+    
+                {% if student['track'] == 'STEM' %}
+    
+                <table style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                    <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                    <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Earth and Life Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthandlifescience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Sciences</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicalscience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Earth Sciences</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthscience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">General Biology 1</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genbio1'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">General Biology 2</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genbio2'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">General Physics 1</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genphysics1'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">General Physics 2</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genphysics2'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">General Chemistry 1</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genchem1'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">General Chemistry 2</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['genchem2'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">General Mathematics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['generalmath'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Statistics and Probability</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['statisticsandprobability'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Pre Calculus</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['precalculus'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Basic Calculus</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['basiccalculus'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Oral Communication</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['oralcommunication'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Reading and Writing</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['reading_and_writing'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Media and Information Literacy</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['mediaandinformationliteracy'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">21st Century Literature from the Philippines and the World</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Contemporary Philippine Arts from the Regions</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['contemporaryphilippineartsfromtheregions'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Pagbasa at Pagsusuring ibat-ibang Teksto Tungo sa Pananaliksik</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Personal Development</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['personaldevelopment'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Introduction to the Philosophy of the Human Person</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontothephilosophyofthehumanperson'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Understanding Culture, Society, and Politics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['understandingculturesocietyandpolitics'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Disaster Readiness and Risk Reduction</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disasterreadinessandrisk_reduction'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 2</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth2'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 3</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth3'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 4</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth4'] }}</span></td>
+                  </tr>
+                </table>
+    
+                {% elif student['track'] == 'ABM' %}
+                <table style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                    <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                    <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Earth and Life Science</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthandlifescience'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Physical Science</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicalscience'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Earth Science</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthscience'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">General Mathematics</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['generalmath'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Statistics and Probability</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['statisticsandprobability'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Business Math</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['businessmath'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Business Finance</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['businessfinance'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Oral Communication</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['oralcommunication'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Reading and Writing</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['reading_and_writing'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Media and Information Literacy</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['mediaandinformationliteracy'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">21st Century Literature from the Philippines and the World</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Contemporary Philippine Arts from the Regions</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['contemporaryphilippineartsfromtheregions'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Personal Development</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['personaldevelopment'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Introduction to the Philosophy of the Human Person</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontothephilosophyofthehumanperson'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Understanding Culture Society and Politics</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['understandingculturesocietyandpolitics'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Disaster Readiness and Risk Reduction</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disasterreadinessandrisk_reduction'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Physical Education and Health</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 2</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth2'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 3</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth3'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 4</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth4'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Organization and Management</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['organizationandmanagement'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Principles of Marketing</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['principlesofmarketing'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Business Marketing</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['businessmarketing'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Business Enterprise and Simulation</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['businessenterpriseandsimulation'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">F1 Fundamentals of Accountancy, Business, and Management 1</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['f1_fundamentalsofaccountancybusinessandmanagement1'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">F2 Fundamentals of Accountancy, Business, and Management 2</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['f2_fundamentalsofaccountancybusinessandmanagement2'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Applied Economics</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['appliedeconomicsbusiness'] }}</span></td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid black; padding: 8px;">Business Ethics and Social Responsibility</td>
+                    <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['ethicsandsocial_responsibility'] }}</span></td>
+                  </tr>
+                </table>
+      
+                {% elif student['track'] == 'HUMSS' %}
+    
+                <table style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                    <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                    <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Earth and Life Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthandlifescience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicalscience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Earth Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthscience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">General Mathematics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['generalmath'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Statistics and Probability</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['statisticsandprobability'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Oral Communication</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['oralcommunication'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Reading and Writing</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['reading_and_writing'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Media and Information Literacy</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['mediaandinformationliteracy'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">21st Century Literature from the Philippines and the World</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Contemporary Philippine Arts from the Regions</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['contemporaryphilippineartsfromtheregions'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Creative Non-fiction</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['creativenonfiction'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Creative Writing / Malikhaing Pagsulat</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['creativewriting_malikhaing_pagsulat'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Personal Development</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['personaldevelopment'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Introduction to the Philosophy of the Human Person</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontothephilosophyofthehumanperson'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Understanding Culture, Society, and Politics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['understandingculturesocietyandpolitics'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Disaster Readiness and Risk Reduction</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disasterreadinessandrisk_reduction'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 2</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth2'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 3</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth3'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 4</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth4'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Introduction to World Religions and Belief Systems</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontoworldreligionsandbeliefsystems'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Community Engagement, Solidarity, and Citizenship</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['community_engagementsolidarityandcitizenship'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Philippine Politics and Governance</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['philippinepoliticsandgovernance'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Disciplines and Ideas in the Social Sciences</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disciplinesandideasinthesocialsciences'] }}</span></td>
+                  </tr>
+                </table>
+    
+                {% elif student['track'] == 'GAS' %}
+    
+                <table style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                    <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                    <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Earth and Life Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthandlifescience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicalscience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Earth Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthscience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">General Mathematics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['generalmath'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Statistics and Probability</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['statisticsandprobability'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Oral Communication</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['oralcommunication'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Reading and Writing</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['reading_and_writing'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Media and Information Literacy</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['mediaandinformationliteracy'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">21st Century Literature from the Philippines and the World</b></td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Contemporary Philippine Arts from the Regions</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['contemporaryphilippineartsfromtheregions'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Creative Writing</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['creativewriting'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Personal Development</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['personaldevelopment'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Introduction to the Philosophy of the Human Person</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontothephilosophyofthehumanperson'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Understanding Culture, Society, and Politics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['understandingculturesocietyandpolitics'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Disaster Readiness and Risk Reduction</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disasterreadinessandrisk_reduction'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 2</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth2'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 3</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth3'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 4</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth4'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Humanities 1 Politics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['humanities1_politics'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Humanities 2 Intro</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['humanities2_intro'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Social Science 1</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['socialscience1'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Organization and Management 2</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['organizationandmanagement2'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Applied Economics 2</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['appliedeconomics2'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Intro to World Religions and System Beliefs</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introtoworldreligionsandsystembeliefs'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Philippine Politics and Governance</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['philippinepiliticsandgovernance'] }}</span></td>
+                  </tr>
+                </table>
+    
+                {% elif student['track'] == 'TVL' %}
+      
+                <table style="border-collapse: collapse; width: 100%;">
+                  <tr>
+                    <th style="border: 1px solid black; padding: 8px;">COURSES</th>
+                    <th style="border: 1px solid black; padding: 8px;">GRADES</th>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Earth and Life Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthandlifescience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicalscience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Earth Science</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['earthscience'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">General Mathematics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['generalmath'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Statistics and Probability</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['statisticsandprobability'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Oral Communication</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['oralcommunication'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Reading and Writing</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['reading_and_writing'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Media and Information Literacy</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['mediaandinformationliteracy'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">21st Century Literature from the Philippines and the World</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Contemporary Philippine Arts from the Regions</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['contemporaryphilippineartsfromtheregions'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Creative Writing</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['creativewriting'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Pagbasa at Pagsusuri ng iba't-ibang Teksto Tungo sa Pananaliksik</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Personal Development</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['personaldevelopment'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Introduction to the Philosophy of the Human Person</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['introductiontothephilosophyofthehumanperson'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Understanding Culture, Society and Politics</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['understandingculturesocietyandpolitics'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Disaster Readiness and Risk Reduction</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['disasterreadinessandrisk_reduction'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 2</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth2'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 3</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth3'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Physical Education and Health 4</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['physicaleducationandhealth4'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Safety and First Aid</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['safetyandfirstaid'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Human Movement</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['humanmovement'] }}</span></td>
+                  </tr>
+                  <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Fundamentals of Coaching</td>
+                      <td style="border: 1px solid black; padding: 8px;"><span>{{ grade['fundamentalsofcoaching'] }}</span></td>
+                  </tr>
+                </table>
+    
+                {% endif %}
+    
+            </div>
+            
+    
+            </div><!-- End Bordered Tabs -->
+    
+          </div>
+        </div>
+        
+    </div>
+    </div>
+    
+    <!-- Modal For Update Junior High School grade-->
+    <div class="modal fade" id="editJHSGradeModal" tabindex="-1" aria-labelledby="editJHSGradeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editJHSGradeModalLabel">Update Junior High School Grades</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+    
+          <!-- Add a form for updating Junior High School Grades -->
+          <form action="update_JHS_grades" method="POST" enctype="multipart/form-data">
+
+            <div class="divider">
+              <span>Grade 9 subjects</span>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form_1" for="english9">English</label>
+                <input type="number" class="form-control form-control-sm w-50" name="english9" id="english9" value ="{{ grade_hs['english9'] }}"  oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="filipino9">Filipino</label>
+                <input type="number" class="form-control form-control-sm w-50" name="filipino9" id="filipino9" value ="{{ grade_hs['filipino9'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="mathematics9">Mathematics</label>
+                <input type="number" class="form-control form-control-sm w-50" name="mathematics9" id="mathematics9" value ="{{ grade_hs['mathematics9'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="science9">Science</label>
+                <input type="number" class="form-control form-control-sm w-50" name="science9" id="science9" value ="{{ grade_hs['science9'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="aralingpanlipunan9">Araling Panlipunan</label>
+                <input type="number" class="form-control form-control-sm w-50" name="aralingpanlipunan9" id="aralingpanlipunan9" value ="{{ grade_hs['aralingpanlipunan9'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="edukasyonsapagpapakatao9">Edukasyon sa Pagpapakatao</label>
+                <input type="number" class="form-control form-control-sm w-50" name="edukasyonsapagpapakatao9" id="edukasyonsapagpapakatao9" value ="{{ grade_hs['edukasyongpantahananatpangkabuhayan9'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="music9">Music</label>
+                <input type="number" class="form-control form-control-sm w-50" name="music9" id="music9" value ="{{ grade_hs['music9'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="arts9">Arts</label>
+                <input type="number" class="form-control form-control-sm w-50" name="arts9" id="arts9" value ="{{ grade_hs['arts9'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="physicaleducation9">Physical Education</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducation9" id="physicaleducation9" value ="{{ grade_hs['physicaleducation9'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="health9">Health</label>
+                <input type="number" class="form-control form-control-sm w-50" name="health9" id="health9" value ="{{ grade_hs['health9'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="edukasyongpantahananatpangkabuhayan9">Edukasyong Pantahanan at Pangkabuhayan (EPP)</label>
+                <input type="number" class="form-control form-control-sm w-50" name="edukasyongpantahananatpangkabuhayan9" id="edukasyongpantahananatpangkabuhayan9" value ="{{ grade_hs['edukasyongpantahananatpangkabuhayan9'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="technologyandlivelihoodeducation9">Technology and Livelihood Education (TLE)</label>
+                <input type="number" class="form-control form-control-sm w-50" name="technologyandlivelihoodeducation9" id="technologyandlivelihoodeducation9" value ="{{ grade_hs['technologyandlivelihoodeducation9'] }}" oninput="limitDigits(this)">
+              </div>
+            </div>
+    
+            <div class="divider">
+              <span>Grade 10 subjects</span>
+            </div>
+    
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form_1" for="english10">English</label>
+                <input type="number" class="form-control form-control-sm w-50" name="english10" id="english10" value ="{{ grade_hs['english10'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="filipino10">Filipino</label>
+                <input type="number" class="form-control form-control-sm w-50" name="filipino10" id="filipino10" value ="{{ grade_hs['filipino10'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="mathematics10">Mathematics</label>
+                <input type="number" class="form-control form-control-sm w-50" name="mathematics10" id="mathematics10" value ="{{ grade_hs['mathematics10'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="science10">Science</label>
+                <input type="number" class="form-control form-control-sm w-50" name="science10" id="science10" value ="{{ grade_hs['science10'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="aralingpanlipunan10">Araling Panlipunan</label>
+                <input type="number" class="form-control form-control-sm w-50" name="aralingpanlipunan10" id="aralingpanlipunan10" value ="{{ grade_hs['aralingpanlipunan10'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="edukasyonsapagpapakatao10">Edukasyon sa Pagpapakatao</label>
+                <input type="number" class="form-control form-control-sm w-50" name="edukasyonsapagpapakatao10" id="edukasyonsapagpapakatao10" value ="{{ grade_hs['edukasyongpantahananatpangkabuhayan10'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="music10">Music</label>
+                <input type="number" class="form-control form-control-sm w-50" name="music10" id="music10" value ="{{ grade_hs['music10'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="arts10">Arts</label>
+                <input type="number" class="form-control form-control-sm w-50" name="arts10" id="arts10" value ="{{ grade_hs['arts10'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="physicaleducation10">Physical Education</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducation10" id="physicaleducation10" value ="{{ grade_hs['physicaleducation10'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="health10">Health</label>
+                <input type="number" class="form-control form-control-sm w-50" name="health10" id="health10" value ="{{ grade_hs['health10'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="edukasyongpantahananatpangkabuhayan10">Edukasyong Pantahanan at Pangkabuhayan (EPP)</label>
+                <input type="number" class="form-control form-control-sm w-50" name="edukasyongpantahananatpangkabuhayan10" id="edukasyongpantahananatpangkabuhayan10" value ="{{ grade_hs['edukasyongpantahananatpangkabuhayan10'] }}" oninput="limitDigits(this)">
+              </div>
+      
+              <div class="form-group">
+                <label class="form_1" for="technologyandlivelihoodeducation10">Technology and Livelihood Education</label>
+                <input type="number" class="form-control form-control-sm w-50" name="technologyandlivelihoodeducation10" id="technologyandlivelihoodeducation10" value ="{{ grade_hs['technologyandlivelihoodeducation10'] }}" oninput="limitDigits(this)">
+              </div>
+            </div>
+            <br>
+    
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    <!-- Modal For Update Senior High School grade-->
+    <div class="modal fade" id="editSHSGradeModal" tabindex="-1" aria-labelledby="editSHSGradeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg-3">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editSHSGradeModalLabel">Update Senior High School Grades</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+    
+          <!-- Add a form for updating profile information -->
+          <form action="update_SHS_grades" method="POST" enctype="multipart/form-data">
+    
+          {% if student['track'] == 'STEM' %}
+          <form method="POST" action="{{ url_for('update_SHS_grades')}}">
+    
+          <!-- Input fields for STEM track -->
+    
+          <div class="form-group_2">
+            <label class="form_1" for="earthandlifescience">Earth and Life Science</label>
+            <input type="number" class="form-control form-control-sm w-50" name="earthandlifescience" id="earthandlifescience" value ="{{ grade['earthandlifescience'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicalscience">Physical Science</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicalscience" id="physicalscience" value ="{{ grade['physicalscience'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="earthscience">Earth Science</label>
+            <input type="number" class="form-control form-control-sm w-50" name="earthscience" id="earthscience" value ="{{ grade['earthscience'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="genbio1">General Biology 1</label>
+            <input type="number" class="form-control form-control-sm w-50" name="genbio1" id="genbio1" value ="{{ grade['genbio1'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="genbio2">General Biology 2</label>
+            <input type="number" class="form-control form-control-sm w-50" name="genbio2" id="genbio2" value ="{{ grade['genbio2'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="genphysics1">General Physics 1</label>
+            <input type="number" class="form-control form-control-sm w-50" name="genphysics1" id="genphysics1" value ="{{ grade['genphysics1'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="genphysics2">General Physics 2</label>
+            <input type="number" class="form-control form-control-sm w-50" name="genphysics2" id="genphysics2" value ="{{ grade['genphysics2'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="genchem1">General Chemistry 1</label>
+            <input type="number" class="form-control form-control-sm w-50" name="genchem1" id="genchem1" value ="{{ grade['genchem1'] }}" oninput="limitDigits(this)">
+          </div>
+          
+          <div class="form-group_2">
+            <label class="form_1" for="genchem2">General Chemistry 2</label>
+            <input type="number" class="form-control form-control-sm w-50" name="genchem2" id="genchem2" value ="{{ grade['genchem2'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="generalmath">General Mathematics</label>
+            <input type="number" class="form-control form-control-sm w-50" name="generalmath" id="generalmath" value ="{{ grade['generalmath'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="statisticsandprobability">Statistics and Probability</label>
+            <input type="number" class="form-control form-control-sm w-50" name="statisticsandprobability" id="statisticsandprobability" value ="{{ grade['statisticsandprobability'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="precalculus">Pre Calculus</label>
+            <input type="number" class="form-control form-control-sm w-50" name="precalculus" id="precalculus" value ="{{ grade['precalculus'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="basiccalculus">Basic Calculus</label>
+            <input type="number" class="form-control form-control-sm w-50" name="basiccalculus" id="basiccalculus" value ="{{ grade['basiccalculus'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="oralcommunication">Oral Communication</label>
+            <input type="number" class="form-control form-control-sm w-50" name="oralcommunication" id="oralcommunication" value ="{{ grade['oralcommunication'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="reading_and_writing">Reading and Writing</label>
+            <input type="number" class="form-control form-control-sm w-50" name="reading_and_writing" id="reading_and_writing" value ="{{ grade['reading_and_writing'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="mediaandinformationliteracy">Media and Information Literacy</label>
+            <input type="number" class="form-control form-control-sm w-50" name="mediaandinformationliteracy" id="mediaandinformationliteracy" value ="{{ grade['mediaandinformationliteracy'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="t21stcenturyliteraturefromthephilippinesandtheworld">21st Century Literature from the Philippines and the World,</label>
+            <input type="number" class="form-control form-control-sm w-50" name="t21stcenturyliteraturefromthephilippinesandtheworld" id="t21stcenturyliteraturefromthephilippinesandtheworld" value ="{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="contemporaryphilippineartsfromtheregions">Contemporary Philippine Arts from the Regions</label>
+            <input type="number" class="form-control form-control-sm w-50" name="contemporaryphilippineartsfromtheregions" id="contemporaryphilippineartsfromtheregions" value ="{{ grade['contemporaryphilippineartsfromtheregions'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="pagbasaatpagsusuringibatibangtekstotungosapananaliksik">Pagbasa at Pagsusuring ibat-ibang Teksto Tungo sa Pananaliksik</label>
+            <input type="number" class="form-control form-control-sm w-50" name="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" id="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" value ="{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="komunikasyonatpananaliksiksawikaatkulturangpilipino">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</label>
+            <input type="number" class="form-control form-control-sm w-50" name="komunikasyonatpananaliksiksawikaatkulturangpilipino" id="komunikasyonatpananaliksiksawikaatkulturangpilipino" value ="{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="personaldevelopment">Personal Development</label>
+            <input type="number" class="form-control form-control-sm w-50" name="personaldevelopment" id="personaldevelopment" value ="{{ grade['personaldevelopment'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="introductiontothephilosophyofthehumanperson">Introduction to the Philosophy of the Human Person</label>
+            <input type="number" class="form-control form-control-sm w-50" name="introductiontothephilosophyofthehumanperson" id="introductiontothephilosophyofthehumanperson" value ="{{ grade['introductiontothephilosophyofthehumanperson'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="understandingculturesocietyandpolitics">Understanding Culture, Society, and Politics</label>
+            <input type="number" class="form-control form-control-sm w-50" name="understandingculturesocietyandpolitics" id="understandingculturesocietyandpolitics" value ="{{ grade['understandingculturesocietyandpolitics'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="disasterreadinessandrisk_reduction">Disaster Readiness and Risk Reduction</label>
+            <input type="number" class="form-control form-control-sm w-50" name="disasterreadinessandrisk_reduction" id="disasterreadinessandrisk_reduction" value ="{{ grade['disasterreadinessandrisk_reduction'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth">Physical Education and Health</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth" id="physicaleducationandhealth" value ="{{ grade['physicaleducationandhealth'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth2">Physical Education and Health 2</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth2" id="physicaleducationandhealth2" value ="{{ grade['physicaleducationandhealth2'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth3">Physical Education and Health 3</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth3" id="physicaleducationandhealth3" value ="{{ grade['physicaleducationandhealth3'] }}" oninput="limitDigits(this)">
+          </div>
+          
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth4"> Physical Education and Health 4</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth4" id="physicaleducationandhealth4" value ="{{ grade['physicaleducationandhealth4'] }}" oninput="limitDigits(this)">
+          </div>
+          <br>
+    
+         <!-- Modal footer -->
+         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+    
+      </form>
+    
+      {% elif student['track'] == 'ABM' %}
+      <form method="POST" action="{{ url_for('update_SHS_grades')}}">
+    
+        <div class="form-group_2">
+          <label class="form_1" for="earthandlifescience">Earth and Life Science</label>
+          <input type="number" class="form-control form-control-sm w-50" name="earthandlifescience" id="earthandlifescience" value ="{{ grade['earthandlifescience'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="physicalscience">Physical Science</label>
+          <input type="number" class="form-control form-control-sm w-50" name="physicalscience" id="physicalscience" value ="{{ grade['physicalscience'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="earthscience">Earth Science</label>
+          <input type="number" class="form-control form-control-sm w-50" name="earthscience" id="earthscience" value ="{{ grade['earthscience'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="generalmath">General Mathematics</label>
+          <input type="number" class="form-control form-control-sm w-50" name="generalmath" id="generalmath" value ="{{ grade['generalmath'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="statisticsandprobability">Statistics and Probability</label>
+          <input type="number" class="form-control form-control-sm w-50" name="statisticsandprobability" id="statisticsandprobability" value ="{{ grade['statisticsandprobability'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="businessmath">Business Math</label>
+          <input type="number" class="form-control form-control-sm w-50" name="businessmath" id="businessmath" value ="{{ grade['businessmath'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="businessfinance">Business Finance</label>
+          <input type="number" class="form-control form-control-sm w-50" name="businessfinance" id="businessfinance" value ="{{ grade['businessfinance'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="oralcommunication">Oral Communication</label>
+          <input type="number" class="form-control form-control-sm w-50" name="oralcommunication" id="oralcommunication" value ="{{ grade['oralcommunication'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="reading_and_writing">Reading and Writing</label>
+          <input type="number" class="form-control form-control-sm w-50" name="reading_and_writing" id="reading_and_writing" value ="{{ grade['reading_and_writing'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="mediaandinformationliteracy">Media and Information Literacy</label>
+          <input type="number" class="form-control form-control-sm w-50" name="mediaandinformationliteracy" id="mediaandinformationliteracy" value ="{{ grade['mediaandinformationliteracy'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="t21stcenturyliteraturefromthephilippinesandtheworld">21st Century Literature from the Philippines and the World</label>
+          <input type="number" class="form-control form-control-sm w-50" name="t21stcenturyliteraturefromthephilippinesandtheworld" id="t21stcenturyliteraturefromthephilippinesandtheworld" value ="{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="contemporaryphilippineartsfromtheregions">Contemporary Philippine Arts from the Regions</label>
+          <input type="number" class="form-control form-control-sm w-50" name="contemporaryphilippineartsfromtheregions" id="contemporaryphilippineartsfromtheregions" value ="{{ grade['contemporaryphilippineartsfromtheregions'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="pagbasaatpagsusuringibatibangtekstotungosapananaliksik">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</label>
+          <input type="number" class="form-control form-control-sm w-50" name="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" id="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" value ="{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="komunikasyonatpananaliksiksawikaatkulturangpilipino">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</label>
+          <input type="number" class="form-control form-control-sm w-50" name="komunikasyonatpananaliksiksawikaatkulturangpilipino" id="komunikasyonatpananaliksiksawikaatkulturangpilipino" value ="{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="personaldevelopment">Personal Development</label>
+          <input type="number" class="form-control form-control-sm w-50" name="personaldevelopment" id="personaldevelopment" value ="{{ grade['personaldevelopment'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="introductiontothephilosophyofthehumanperson">Introduction to the Philosophy of the Human Person</label>
+          <input type="number" class="form-control form-control-sm w-50" name="introductiontothephilosophyofthehumanperson" id="introductiontothephilosophyofthehumanperson" value ="{{ grade['introductiontothephilosophyofthehumanperson'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="understandingculturesocietyandpolitics">Understanding Culture Society and Politics</label>
+          <input type="number" class="form-control form-control-sm w-50" name="understandingculturesocietyandpolitics" id="understandingculturesocietyandpolitics" value ="{{ grade['understandingculturesocietyandpolitics'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="disasterreadinessandrisk_reduction">Disaster Readiness and Risk Reduction</label>
+          <input type="number" class="form-control form-control-sm w-50" name="disasterreadinessandrisk_reduction" id="disasterreadinessandrisk_reduction" value ="{{ grade['disasterreadinessandrisk_reduction'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="physicaleducationandhealth"> Physical Education and Health </label>
+          <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth" id="physicaleducationandhealth" value ="{{ grade['physicaleducationandhealth'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="physicaleducationandhealth2"> Physical Education and Health 2</label>
+          <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth2" id="physicaleducationandhealth2" value ="{{ grade['physicaleducationandhealth2'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="physicaleducationandhealth3"> Physical Education and Health 3</label>
+          <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth3" id="physicaleducationandhealth3" value ="{{ grade['physicaleducationandhealth3'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="physicaleducationandhealth4"> Physical Education and Health 4</label>
+          <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth4" id="physicaleducationandhealth4" value ="{{ grade['physicaleducationandhealth4'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="organizationandmanagement">Organization and Management</label>
+          <input type="number" class="form-control form-control-sm w-50" name="organizationandmanagement" id="organizationandmanagement" value ="{{ grade['organizationandmanagement'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="principlesofmarketing">Principles of Marketing</label>
+          <input type="number" class="form-control form-control-sm w-50" name="principlesofmarketing" id="principlesofmarketing" value ="{{ grade['principlesofmarketing'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="businessmarketing">Business Marketing</label>
+          <input type="number" class="form-control form-control-sm w-50" name="businessmarketing" id="businessmarketing" value ="{{ grade['businessmarketing'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="businessenterpriseandsimulation">Business Enterprise and Simulation</label>
+          <input type="number" class="form-control form-control-sm w-50" name="businessenterpriseandsimulation" id="businessenterpriseandsimulation" value ="{{ grade['businessenterpriseandsimulation'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="f1_fundamentalsofaccountancybusinessandmanagement1">F1 Fundamentals of Accountancy, Business, and Management 1</label>
+          <input type="number" class="form-control form-control-sm w-50" name="f1_fundamentalsofaccountancybusinessandmanagement1" id="f1_fundamentalsofaccountancybusinessandmanagement1" value ="{{ grade['f1_fundamentalsofaccountancybusinessandmanagement1'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="f2_fundamentalsofaccountancybusinessandmanagement2">F2 Fundamentals of Accountancy, Business, and Management2</label>
+          <input type="number" class="form-control form-control-sm w-50" name="f2_fundamentalsofaccountancybusinessandmanagement2" id="f2_fundamentalsofaccountancybusinessandmanagement2" value ="{{ grade['f2_fundamentalsofaccountancybusinessandmanagement2'] }}" oninput="limitDigits(this)">
+        </div>
+    
+    
+        <div class="form-group_2">
+          <label class="form_1" for="appliedeconomicsbusiness">Applied Economics</label>
+          <input type="number" class="form-control form-control-sm w-50" name="appliedeconomicsbusiness" id="appliedeconomicsbusiness" value ="{{ grade['appliedeconomicsbusiness'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="ethicsandsocial_responsibility">Business Ethics and Social Responsibility</label>
+          <input type="number" class="form-control form-control-sm w-50" name="ethicsandsocial_responsibility" id="ethicsandsocial_responsibility" value ="{{ grade['ethicsandsocial_responsibility'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+    
+      </form>
+    
+      {% elif student['track'] == 'HUMSS' %}
+      <form method="POST" action="{{ url_for('update_SHS_grades')}}">
+    
+        <div class="form-group_2">
+          <label class="form_1" for="earthandlifescience">Earth and Life science</label>
+          <input type="number" class="form-control form-control-sm w-50" name="earthandlifescience" id="earthandlifescience" value ="{{ grade['earthandlifescience'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="physicalscience">Physical Science</label>
+          <input type="number" class="form-control form-control-sm w-50" name="physicalscience" id="physicalscience" value ="{{ grade['physicalscience'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="earthscience">Earth Science</label>
+          <input type="number" class="form-control form-control-sm w-50" name="earthscience" id="earthscience" value ="{{ grade['earthscience'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="generalmath">General Mathematics</label>
+          <input type="number" class="form-control form-control-sm w-50" name="generalmath" id="generalmath" value ="{{ grade['generalmath'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="statisticsandprobability">Statistics and Probability</label>
+          <input type="number" class="form-control form-control-sm w-50" name="statisticsandprobability" id="statisticsandprobability" value ="{{ grade['statisticsandprobability'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="oralcommunication">Oral Communication</label>
+          <input type="number" class="form-control form-control-sm w-50" name="oralcommunication" id="oralcommunication" value ="{{ grade['oralcommunication'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="reading_and_writing">Reading and Writing</label>
+          <input type="number" class="form-control form-control-sm w-50" name="reading_and_writing" id="reading_and_writing" value ="{{ grade['reading_and_writing'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="mediaandinformationliteracy">Media and Information Literacy</label>
+          <input type="number" class="form-control form-control-sm w-50" name="mediaandinformationliteracy" id="mediaandinformationliteracy" value ="{{ grade['mediaandinformationliteracy'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="t21stcenturyliteraturefromthephilippinesandtheworld">21st Century Literature from the Philippines and the World</label>
+          <input type="number" class="form-control form-control-sm w-50" name="t21stcenturyliteraturefromthephilippinesandtheworld" id="t21stcenturyliteraturefromthephilippinesandtheworld" value ="{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="contemporaryphilippineartsfromtheregions">Contemporary Philippine Arts from the Regions</label>
+          <input type="number" class="form-control form-control-sm w-50" name="contemporaryphilippineartsfromtheregions" id="contemporaryphilippineartsfromtheregions" value ="{{ grade['contemporaryphilippineartsfromtheregions'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="creativenonfiction">Creative Non-fiction</label>
+          <input type="number" class="form-control form-control-sm w-50" name="creativenonfiction" id="creativenonfiction" value ="{{ grade['creativenonfiction'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="pagbasaatpagsusuringibatibangtekstotungosapananaliksik">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</label>
+          <input type="number" class="form-control form-control-sm w-50" name="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" id="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" value ="{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="komunikasyonatpananaliksiksawikaatkulturangpilipino">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</label>
+          <input type="number" class="form-control form-control-sm w-50" name="komunikasyonatpananaliksiksawikaatkulturangpilipino" id="komunikasyonatpananaliksiksawikaatkulturangpilipino" value ="{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="creativewriting_malikhaing_pagsulat">Creative Writing / Malikhaing Pagsulat</label>
+          <input type="number" class="form-control form-control-sm w-50" name="creativewriting_malikhaing_pagsulat" id="creativewriting_malikhaing_pagsulat" value ="{{ grade['creativewriting_malikhaing_pagsulat'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="personaldevelopment">Personal Development</label>
+          <input type="number" class="form-control form-control-sm w-50" name="personaldevelopment" id="personaldevelopment" value ="{{ grade['personaldevelopment'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="introductiontothephilosophyofthehumanperson">Introduction to the Philosophy of the Human Person</label>
+          <input type="number" class="form-control form-control-sm w-50" name="introductiontothephilosophyofthehumanperson" id="introductiontothephilosophyofthehumanperson" value ="{{ grade['introductiontothephilosophyofthehumanperson'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="understandingculturesocietyandpolitics">Understanding Culture, Society, and Politics</label>
+          <input type="number" class="form-control form-control-sm w-50" name="understandingculturesocietyandpolitics" id="understandingculturesocietyandpolitics" value ="{{ grade['understandingculturesocietyandpolitics'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="disasterreadinessandrisk_reduction">Disaster Readiness and Risk Reduction</label>
+          <input type="number" class="form-control form-control-sm w-50" name="disasterreadinessandrisk_reduction" id="disasterreadinessandrisk_reduction" value ="{{ grade['disasterreadinessandrisk_reduction'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="physicaleducationandhealth">Physical Education and Health</label>
+          <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth" id="physicaleducationandhealth" value ="{{ grade['physicaleducationandhealth'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="physicaleducationandhealth2">Physical Education and Health 2</label>
+          <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth2" id="physicaleducationandhealth2" value ="{{ grade['physicaleducationandhealth2'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="physicaleducationandhealth3">Physical Education and Health 3</label>
+          <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth3" id="physicaleducationandhealth3" value ="{{ grade['physicaleducationandhealth3'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="physicaleducationandhealth4">Physical Education and Health 4</label>
+          <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth4" id="physicaleducationandhealth4" value ="{{ grade['physicaleducationandhealth4'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="introductiontoworldreligionsandbeliefsystems">Introduction to World Religions and Belief Systems</label>
+          <input type="number" class="form-control form-control-sm w-50" name="introductiontoworldreligionsandbeliefsystems" id="introductiontoworldreligionsandbeliefsystems" value ="{{ grade['introductiontoworldreligionsandbeliefsystems'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="community_engagementsolidarityandcitizenship">Community Engagement, Solidarity, and Citizenship</label>
+          <input type="number" class="form-control form-control-sm w-50" name="community_engagementsolidarityandcitizenship" id="community_engagementsolidarityandcitizenship" value ="{{ grade['community_engagementsolidarityandcitizenship'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="philippinepoliticsandgovernance">Philippine Politics and Governance</label>
+          <input type="number" class="form-control form-control-sm w-50" name="philippinepoliticsandgovernance" id="philippinepoliticsandgovernance" value ="{{ grade['philippinepoliticsandgovernance'] }}" oninput="limitDigits(this)">
+        </div>
+    
+        <div class="form-group_2">
+          <label class="form_1" for="disciplinesandideasinthesocialsciences">Disciplines and Ideas in the Social Sciences</label>
+          <input type="number" class="form-control form-control-sm w-50" name="disciplinesandideasinthesocialsciences" id="disciplinesandideasinthesocialsciences" value ="{{ grade['disciplinesandideasinthesocialsciences'] }}" oninput="limitDigits(this)">
+        </div>
+      
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+    
+      </form>
+    
+      {% elif student['track'] == 'GAS' %}
+      <form method="POST" action="{{ url_for('update_SHS_grades')}}">
+        
+          <!-- Input fields for GAS track -->
+          <div class="form-group_2">
+            <label class="form_1" for="earthandlifescience">Earth and Life Science</label>
+            <input type="number" class="form-control form-control-sm w-50" name="earthandlifescience" id="earthandlifescience" value ="{{ grade['earthandlifescience'] }}" oninput="limitDigits(this)">
+          </div>
+          
+          <div class="form-group_2">
+            <label class="form_1" for="physicalscience">Physical Science</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicalscience" id="physicalscience" value ="{{ grade['physicalscience'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="earthscience">Earth Science</label>
+            <input type="number" class="form-control form-control-sm w-50" name="earthscience" id="earthscience" value ="{{ grade['earthscience'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="generalmath">General Mathematics</label>
+            <input type="number" class="form-control form-control-sm w-50" name="generalmath" id="generalmath" value ="{{ grade['generalmath'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="statisticsandprobability">Statistics and Probability</label>
+            <input type="number" class="form-control form-control-sm w-50" name="statisticsandprobability" id="statisticsandprobability" value ="{{ grade['statisticsandprobability'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="oralcommunication">Oral Communication</label>
+            <input type="number" class="form-control form-control-sm w-50" name="oralcommunication" id="oralcommunication" value ="{{ grade['oralcommunication'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="reading_and_writing">Reading and writing</label>
+            <input type="number" class="form-control form-control-sm w-50" name="reading_and_writing" id="reading_and_writing" value ="{{ grade['reading_and_writing'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="mediaandinformationliteracy">Media and Information Literacy</label>
+            <input type="number" class="form-control form-control-sm w-50" name="mediaandinformationliteracy" id="mediaandinformationliteracy" value ="{{ grade['mediaandinformationliteracy'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="t21stcenturyliteraturefromthephilippinesandtheworld">21st Century Literature from the Philippines and the World</label>
+            <input type="number" class="form-control form-control-sm w-50" name="t21stcenturyliteraturefromthephilippinesandtheworld" id="t21stcenturyliteraturefromthephilippinesandtheworld" value ="{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="contemporaryphilippineartsfromtheregions">Contemporary Philippine Arts from the Regions</label>
+            <input type="number" class="form-control form-control-sm w-50" name="contemporaryphilippineartsfromtheregions" id="contemporaryphilippineartsfromtheregions" value ="{{ grade['contemporaryphilippineartsfromtheregions'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="creativewriting">Creative Writing</label>
+            <input type="number" class="form-control form-control-sm w-50" name="creativewriting" id="creativewriting" value ="{{ grade['creativewriting'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="pagbasaatpagsusuringibatibangtekstotungosapananaliksik">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</label>
+            <input type="number" class="form-control form-control-sm w-50" name="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" id="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" value ="{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="komunikasyonatpananaliksiksawikaatkulturangpilipino">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</label>
+            <input type="number" class="form-control form-control-sm w-50" name="komunikasyonatpananaliksiksawikaatkulturangpilipino" id="komunikasyonatpananaliksiksawikaatkulturangpilipino" value ="{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="personaldevelopment">Personal Development</label>
+            <input type="number" class="form-control form-control-sm w-50" name="personaldevelopment" id="personaldevelopment" value ="{{ grade['personaldevelopment'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="introductiontothephilosophyofthehumanperson">Introduction to the Philosophy of the Human Person</label>
+            <input type="number" class="form-control form-control-sm w-50" name="introductiontothephilosophyofthehumanperson" id="introductiontothephilosophyofthehumanperson" value ="{{ grade['introductiontothephilosophyofthehumanperson'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="understandingculturesocietyandpolitics">Understanding Culture, Society, and Politics</label>
+            <input type="number" class="form-control form-control-sm w-50" name="understandingculturesocietyandpolitics" id="understandingculturesocietyandpolitics" value ="{{ grade['understandingculturesocietyandpolitics'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="disasterreadinessandrisk_reduction">Disaster Readiness and Risk Reduction</label>
+            <input type="number" class="form-control form-control-sm w-50" name="disasterreadinessandrisk_reduction" id="disasterreadinessandrisk_reduction" value ="{{ grade['disasterreadinessandrisk_reduction'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth">Physical Education and Health</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth" id="physicaleducationandhealth" value ="{{ grade['physicaleducationandhealth'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth2">Physical Education and Health 2</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth2" id="physicaleducationandhealth2" value ="{{ grade['physicaleducationandhealth2'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth3">Physical Education and Health 3</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth3" id="physicaleducationandhealth3" value ="{{ grade['physicaleducationandhealth3'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth4">Physical Education and Health 4</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth4" id="physicaleducationandhealth4" value ="{{ grade['physicaleducationandhealth4'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="humanities1_politics">Humanities 1 Politics</label>
+            <input type="number" class="form-control form-control-sm w-50" name="humanities1_politics" id="humanities1_politics" value ="{{ grade['humanities1_politics'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="humanities2_intro">Humanities 2 Intro</label>
+            <input type="number" class="form-control form-control-sm w-50" name="humanities2_intro" id="humanities2_intro" value ="{{ grade['humanities2_intro'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="socialscience1">Social Science 1</label>
+            <input type="number" class="form-control form-control-sm w-50" name="socialscience1" id="socialscience1" value ="{{ grade['socialscience1'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="organizationandmanagement2">Organization and Management 2</label>
+            <input type="number" class="form-control form-control-sm w-50" name="organizationandmanagement2" id="organizationandmanagement2" value ="{{ grade['organizationandmanagement2'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="appliedeconomics2">Applied Economics 2</label>
+            <input type="number" class="form-control form-control-sm w-50" name="appliedeconomics2" id="appliedeconomics2" value ="{{ grade['appliedeconomics2'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="introtoworldreligionsandsytembeliefs">Intro to World Religions and Sytem Beliefs</label>
+            <input type="number" class="form-control form-control-sm w-50" name="introtoworldreligionsandsytembeliefs" id="introtoworldreligionsandsytembeliefs" value ="{{ grade['introtoworldreligionsandsytembeliefs'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="philippinepiliticsandgovernance">Philippine Politics and Governance</label>
+            <input type="number" class="form-control form-control-sm w-50" name="philippinepiliticsandgovernance" id="philippinepiliticsandgovernance" value ="{{ grade['philippinepiliticsandgovernance'] }}" oninput="limitDigits(this)">
+          </div>
+         
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+    
+      </form>
+    
+      {% elif student['track'] == 'TVL' %}
+    
+      <form method="POST" action="{{ url_for('update_SHS_grades')}}">
+    
+          <!-- Input fields for TVL track -->
+          <div class="form-group_2">
+            <label class="form_1" for="earthandlifescience">Earth and Life Science</label>
+            <input type="number" class="form-control form-control-sm w-50" name="earthandlifescience" id="earthandlifescience" value ="{{ grade['earthandlifescience'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicalscience">Physical Science</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicalscience" id="physicalscience" value ="{{ grade['physicalscience'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="earthscience">Earth Science</label>
+            <input type="number" class="form-control form-control-sm w-50" name="earthscience" id="earthscience" value ="{{ grade['earthscience'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="generalmath">General Mathematics</label>
+            <input type="number" class="form-control form-control-sm w-50" name="generalmath" id="generalmath" value ="{{ grade['generalmath'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="statisticsandprobability">Statistics and Probability</label>
+            <input type="number" class="form-control form-control-sm w-50" name="statisticsandprobability" id="statisticsandprobability" value ="{{ grade['statisticsandprobability'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="oralcommunication">Oral Communication</label>
+            <input type="number" class="form-control form-control-sm w-50" name="oralcommunication" id="oralcommunication" value ="{{ grade['oralcommunication'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="reading_and_writing">Reading and Writing</label>
+            <input type="number" class="form-control form-control-sm w-50" name="reading_and_writing" id="reading_and_writing" value ="{{ grade['reading_and_writing'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="mediaandinformationliteracy">Media and Information Literacy</label>
+            <input type="number" class="form-control form-control-sm w-50" name="mediaandinformationliteracy" id="mediaandinformationliteracy" value ="{{ grade['mediaandinformationliteracy'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="t21stcenturyliteraturefromthephilippinesandtheworld">21st Century Literature from the Philippines and the World</label>
+            <input type="number" class="form-control form-control-sm w-50" name="t21stcenturyliteraturefromthephilippinesandtheworld" id="t21stcenturyliteraturefromthephilippinesandtheworld" value ="{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="contemporaryphilippineartsfromtheregions">Contemporary Philippine Arts from the Regions</label>
+            <input type="number" class="form-control form-control-sm w-50" name="contemporaryphilippineartsfromtheregions" id="contemporaryphilippineartsfromtheregions" value ="{{ grade['contemporaryphilippineartsfromtheregions'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="creativewriting">Creative Writing</label>
+            <input type="number" class="form-control form-control-sm w-50" name="creativewriting" id="creativewriting" value ="{{ grade['creativewriting'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="pagbasaatpagsusuringibatibangtekstotungosapananaliksik">Pagbasa at Pagsusuri ng iba't-ibang Teksto Tungo sa Pananaliksik</label>
+            <input type="number" class="form-control form-control-sm w-50" name="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" id="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" value ="{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="komunikasyonatpananaliksiksawikaatkulturangpilipino">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</label>
+            <input type="number" class="form-control form-control-sm w-50" name="komunikasyonatpananaliksiksawikaatkulturangpilipino" id="komunikasyonatpananaliksiksawikaatkulturangpilipino" value ="{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="personaldevelopment">Personal Development</label>
+            <input type="number" class="form-control form-control-sm w-50" name="personaldevelopment" id="personaldevelopment" value ="{{ grade['personaldevelopment'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="introductiontothephilosophyofthehumanperson">Introduction to the Philosophy of the Human Person</label>
+            <input type="number" class="form-control form-control-sm w-50" name="introductiontothephilosophyofthehumanperson" id="introductiontothephilosophyofthehumanperson" value ="{{ grade['introductiontothephilosophyofthehumanperson'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="understandingculturesocietyandpolitics">Understanding Culture, Society and Politics</label>
+            <input type="number" class="form-control form-control-sm w-50" name="understandingculturesocietyandpolitics" id="understandingculturesocietyandpolitics" value ="{{ grade['understandingculturesocietyandpolitics'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="disasterreadinessandrisk_reduction">Disaster Readiness and Risk Reduction</label>
+            <input type="number" class="form-control form-control-sm w-50" name="disasterreadinessandrisk_reduction" id="disasterreadinessandrisk_reduction" value ="{{ grade['disasterreadinessandrisk_reduction'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth">Physical Education and Health</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth" id="physicaleducationandhealth" value ="{{ grade['physicaleducationandhealth'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth2">Physical Education and Health 2</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth2" id="physicaleducationandhealth2" value ="{{ grade['physicaleducationandhealth2'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth3">Physical Education and Health 3</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth3" id="physicaleducationandhealth3" value ="{{ grade['physicaleducationandhealth3'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="physicaleducationandhealth4">Physical Education and Health 4</label>
+            <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth4" id="physicaleducationandhealth4" value ="{{ grade['physicaleducationandhealth4'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="safetyandfirstaid">Safety and First Aid</label>
+            <input type="number" class="form-control form-control-sm w-50" name="safetyandfirstaid" id="safetyandfirstaid" value ="{{ grade['safetyandfirstaid'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="humanmovement">Human Movement</label>
+            <input type="number" class="form-control form-control-sm w-50" name="humanmovement" id="humanmovement" value ="{{ grade['humanmovement'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <div class="form-group_2">
+            <label class="form_1" for="fundamentalsofcoaching">Fundamentals of Coaching</label>
+            <input type="number" class="form-control form-control-sm w-50" name="fundamentalsofcoaching" id="fundamentalsofcoaching" value ="{{ grade['fundamentalsofcoaching'] }}" oninput="limitDigits(this)">
+          </div>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+      </form>
+    
+      {% endif %}
+    </div>
+    </div>
+    
+    </div>
+    </div>
+  </main>
+
+</section>
+<!--Section End-->
+</main>
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<!-- Vendor JS Files -->
+<script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+<script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+<script src="../static/assets2/vendor/quill/quill.min.js"></script>
+<script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+<script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+
+<!-- Template Main JS File -->
+<script src="../static/assets2/js/main.js"></script>
+<script>
+  function limitDigits(input) {
+    if (input.value.length > 2) {
+      input.value = input.value.slice(0, 2);
+    }
+  }
+</script>
+</body>
+
+</html>
+

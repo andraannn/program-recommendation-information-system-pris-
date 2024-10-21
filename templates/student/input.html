@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon">
+    <link href="../static/img/logo.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Droid+Sans:wght@400;700&display=swap" 
+        rel="stylesheet">
+
+      <!-- Vendor CSS Files -->
+      <link href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/quill/quill.snow.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/quill/quill.bubble.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/remixicon/remixicon.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/simple-datatables/style.css" rel="stylesheet">
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <!-- Template Main CSS File -->
+
+    <link href="../static/assets2/css/input.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/student/input" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+      </a>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        </li><!-- End Search Icon-->
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-user-large"></i>
+          <span class="dropdown-toggle ps-2">Account</span>
+          </a>
+          <!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ f_name }} {{ l_name }}</h6>
+              <span>{{ role }}</span>
+            </li>
+
+              <hr class="dropdown-divider">
+            <li>
+              <a class="dropdown-item d-flex align-items-center transition-link" href="{{ url_for('logout') }}">
+                <i class="bi bi-box-arrow-right transition-link"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+
+  <div class="main">
+
+    <div class="card-input-form mt-5 col-lg-6">
+    <div class="card-body">
+
+
+      <div class="progress-container">
+
+        <hr class="progress-bar-back">
+        <hr class="progress-bar-front">
+
+        <div class="step checked" data-step="1">
+            <i class="fas fa-1"></i>
+        </div>
+        <div class="step" data-step="2">
+            <i class="fas fa-2"></i>
+        </div>
+
+        <div class="step" data-step="3">
+          <i class="fas fa-3"></i>
+      </div>
+
+    </div>
+    <br>
+
+      <div class="form-container">
+
+          <div class="form">
+              <h3 class="form_title">User Information</h3>
+
+              <form method="POST" action="{{ url_for('student_input')}}" enctype="multipart/form-data">
+                  <div class="form-group">
+                      <label class="form_1" for="contact">Contact &nbsp<span style="font-size:18px; color:red">*</span></label>
+                      <input type="text" class="form-control" name="contact" id="contact" placeholder="Input Cellphone or Telephone Number" required>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label class="form_1" for="sex">Gender &nbsp<span style="font-size:18px; color:red">*</span></label>
+                    <select class="form-select" name="sex" id="sex" required>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="lgbtq+">LGBTQ+</option>
+                    </select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label class="form_1" for="religion">Religion &nbsp<span style="font-size:18px; color:red">*</span></label>
+                    <select class="form-select" name="religion" id="religion" required>
+                      <option value="Roman Catholic">Roman Catholic</option>
+                      <option value="Islam">Islam</option>
+                      <option value="Iglesia ni Cristo">Iglesia ni Cristo</option>
+                      <option value="Seventh Day Adventist">Seventh Day Adventist</option>
+                      <option value="Aglipay">Aglipay</option>
+                      <option value="Iglesia Filipina Independiente">Iglesia Filipina Independiente</option>
+                      <option value="Bible Baptist Church">Bible Baptist Church</option>
+                      <option value="UCCP">UCCP</option>
+                      <option value="Jehovas Witness">Jehovas Witness</option>
+                      <option value="Church of Christ">Church of Christ</option>
+                    </select>
+                    </div>
+                  </div>
+              
+              <div class="form-group">
+                  <label class="form_1" for="province_home">Select Province: &nbsp<span style="font-size:18px; color:red">*</label>
+                  <select class="form-select" name="province_home" id="province_home" onchange="updateCities()" required>
+                    <option value="">-- Select Province --</option>
+                    <option value="Agusan_del_Norte">Agusan del Norte</option>
+                    <option value="Agusan_del_Sur">Agusan del Sur</option>
+                    <option value="Bukidnon">Bukidnon</option>
+                    <option value="Cebu">Cebu</option>
+                    <option value="Compostela_Valley_Province">Compostela Valley Province</option>
+                    <option value="Davao_del_Norte">Davao del Norte</option>
+                    <option value="Davao_del_Sur">Davao del Sur</option>
+                    <option value="Dinagat_Islands">Dinagat Islands</option>
+                    <option value="Laguna">Laguna</option>
+                    <option value="Lanao_del_Norte">Lanao del Norte</option>
+                    <option value="Lanao_del_Sur">Lanao del Sur</option>
+                    <option value="Leyte">Leyte</option>
+                    <option value="Maguindanao">Maguindanao</option>
+                    <option value="Metro_Manila">Metro Manila</option>
+                    <option value="Misamis_Occidental">Misamis Occidental</option>
+                    <option value="Misamis_Oriental">Misamis Oriental</option>
+                    <option value="Negros_Occidental">Negros Occidental</option>
+                    <option value="North_Cotabato">North Cotabato</option>
+                    <option value="Siquijor">Siquijor</option>
+                    <option value="South_Cotabato">South Cotabato</option>
+                    <option value="Sultan_Kudarat">Sultan Kudarat</option>
+                    <option value="Sulu">Sulu</option>                    
+                    <option value="Surigao_del_Norte">Surigao del Norte</option>
+                    <option value="Surigao_del_Sur">Surigao del Sur</option>
+                    <option value="Tawi_Tawi">Tawi-Tawi</option>
+                    <option value="Zamboanga_Sibugay">Zamboanga Sibugay</option>
+                    <option value="Zamboanga_del_Norte">Zamboanga del Norte</option>
+                    <option value="Zamboanga_del_Sur">Zamboanga del Sur</option>
+                  </select>
+                </div>
+
+                <div id="city_home_container" class="form-group">
+                  <label class="form_1" for="city_home">Select City:</label>
+                  <select class="form-select" name="city_home" id="city_home" required>
+                    
+                  </select>
+                </div>
+                
+                  <br>
+                  <div class="form-group">
+                    <h3 class="form_title edi_title">Equity, Diversity, and Inclusivity (EDI)</h3>
+                    <br>
+                      <p>
+                        The MSU-Iligan Institute of Technology upholds its Equity, Diversity, and Inclusivity (EDI) Policy which 
+                        promotes diversity and ensures equal opportunities for all members of the MSU-IIT community.  The policy 
+                        emphasizes fair and inclusive admissions practices, encouraging the recruitment of students from diverse 
+                        socio-economic, cultural, and geographic backgrounds.
+                      </p>
+                      
+                      <p>
+                        In alignment with MSU-IIT’s commitment to EDI, please indicate any applicable categories that relate to you. 
+                        Your response will help us ensure that our practices remain fair, inclusive, and supportive of all members of 
+                        our community.
+                      </p>
+                      <p style="color: red">(You may choose whether or 
+                        not to upload your IDs/Certificates initially, as you have the option to do so later on the profile page.)</p>
+                    <br>
+
+                    <div class="form-group">
+                      <label class="form_2">Do you belong to an Indigenous People's Group?</label><br>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ip_option" id="ip_no" value="No" checked>
+                        <label class="form-check-label" for="ip_no">No</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="ip_option" id="ip_yes" value="Yes">
+                        <label class="form-check-label" for="ip_yes">Yes</label>
+                      </div>
+                    </div>
+              
+                    <!-- Indigenous Group Select Dropdown -->
+                    <div class="form-group" id="ipGroupSelect" style="display: none;">
+                      <label class="form_2" for="ip_group">Select Indigenous Group:</label>
+                      <select class="form-select form-select-sm" id="ip_group" name="ip_group">
+                        <option value="">-- Select IP Group Here --</option>
+                        <option value="Meranao">Meranao</option>
+                        <option value="Maguidanaoan">Maguidanaoan</option>
+                        <option value="Tausug">Tausug</option>
+                        <option value="Yakan">Yakan</option>
+                        <option value="Badjao">Badjao</option>
+                        <option value="Kalagan">Kalagan</option>
+                        <option value="Sanggil">Sanggil</option>
+                        <option value="Sama">Sama</option>
+                        <option value="Teduray">Teduray</option>
+                        <option value="Bagobo">Bagobo</option>
+                        <option value="Banwaon">Banwaon</option>
+                        <option value="B'laan">B'laan</option>
+                        <option value="Bukidnon">Bukidnon</option>
+                        <option value="Dibabawon">Dibabawon</option>
+                        <option value="Higaunon">Higaunon</option>
+                        <option value="Mamanwa">Mamanwa</option>
+                        <option value="Mandaya">Mandaya</option>
+                        <option value="Manobo">Manobo</option>
+                        <option value="Subanen">Subanen</option>
+                        <option value="Mansaka">Mansaka</option>
+                        <option value="Matigsalug">Matigsalug</option>
+                        <option value="T-boli">T'boli</option>
+                        <option value="Tagakaolo">Tagakaolo</option>
+                        <option value="others">Others (Specify Below)</option>
+                      </select>
+                    </div>
+              
+                    <!-- Others Specification Input -->
+                    <div class="form-group" id="ipOthersInput" style="display: none;">
+                      <label class="form_2" for="ip_others">Specify Others:</label>
+                      <input type="text" class="form-control" id="ip_others" name="ip_others" placeholder="Specify Others">
+                    </div>
+    
+                 <!-- Form Picture Input (if IP is yes) -->
+                  <div class="form-group" id="ipPictureInput" style="display: none;">
+                    <label class="form_2" for="ip_id">Upload a Picture of the Certificate from National Commission on Indigenous Peoples(NCIP) (Please insert .jpg, .jpeg, and .png only)</label>
+                    <input type="file" class="form-control" id="ip_id" name="ip_id">
+                  </div>
+
+                  <!-- Person with Disability (PWD) -->
+                  <div class="form-group">
+                    <label class="form_2">Are you a learner with disability (LWDs or PWDs)?</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pwd" id="pwd_no" value="No" checked>
+                        <label class="form-check-label" for="pwd_no">No</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pwd" id="pwd_yes" value="Yes">
+                        <label class="form-check-label" for="pwd_yes">Yes</label>
+                    </div>
+                  </div>
+                  
+                  <!-- ID Picture Input (if PWD is yes) -->
+                  <div class="form-group" id="idPictureInput" style="display: none;">
+                    <label class="form_2" for="id_picture">Upload PWD ID Picture (Please insert .jpg, .jpeg, and .png only)</label>
+                    <input type="file" class="form-control" id="id_picture" name="id_picture">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form_2">Are you a first generation learner? (This means that both your parents did not earn a 4-year college degree)</label><br>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="firstgenlearner" id="firstgenlearner_no" value="No" checked>
+                          <label class="form-check-label" for="firstgenlearner_no">No</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="firstgenlearner" id="firstgenlearner_yes" value="Yes">
+                          <label class="form-check-label" for="firstgenlearner_yes">Yes</label>
+                      </div>
+                  </div>
+                   <!-- Form Picture Input (if 1st gen learner is yes) -->
+                   <div class="form-group" id="firstgenlearnerPictureInput" style="display: none;">
+                    <label class="form_2" for="firstgenlearner_id">Upload a Picture of the First Generation Learner Certificate from DSWD/Barangay (Please insert .jpg, .jpeg, and .png only)</label>
+                    <input type="file" class="form-control" id="firstgenlearner_id" name="firstgenlearner_id">
+                  </div>
+
+
+                  <!--Child of Deprived liberty-->
+                  <div class="form-group">
+                    <label class="form_2">Are you a child of a parent deprived of liberty?</label><br>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="child_deprived_liberty" id="child_deprived_liberty_no" value="No" checked>
+                          <label class="form-check-label" for="child_deprived_liberty_no">No</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="child_deprived_liberty" id="child_deprived_liberty_yes" value="Yes">
+                          <label class="form-check-label" for="child_deprived_liberty_yes">Yes</label>
+                      </div>
+                  </div>
+
+                  <!-- Form Picture Input (if  child_deprived_liberty is yes) -->
+                  <div class="form-group" id="child_deprived_liberty_idPictureInput" style="display: none;">
+                    <label class="form_2" for="child_deprived_liberty_id">Upload a Picture of the Certificate from Bureau of Jail Management and Penology(BJMP) (Please insert .jpg, .jpeg, and .png only)</label>
+                    <input type="file" class="form-control" id="child_deprived_liberty_id" name="child_deprived_liberty_id">
+                  </div>
+
+            <!-- Child solo parent-->
+            <div class="form-group">
+              <label class="form_2">Are you a child of a solo parent?</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="childsoloparent" id="childsoloparent_no" value="No" checked>
+                    <label class="form-check-label" for="childsoloparent_no">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="childsoloparent" id="childsoloparent_yes" value="Yes">
+                    <label class="form-check-label" for="childsoloparent_yes">Yes</label>
+                </div>
+              </div>
+
+            <!-- Form Picture Input (if Child Solo Parent is yes) -->
+            <div class="form-group" id="formPictureInput" style="display: none;">
+              <label class="form_2" for="soloparent_id">Upload Solo Parent ID/Certificate Picture (Please insert .jpg, .jpeg, and .png only)</label>
+              <input type="file" class="form-control" id="soloparent_id" name="soloparent_id">
+            </div>
+
+           <!--Solo parent-->
+              <div class="form-group">
+                <label class="form_2">Are you a solo parent (single mom/single dad)?</label><br>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="soloparent" id="soloparent_no" value="No" checked>
+                      <label class="form-check-label" for="soloparent_no">No</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="soloparent" id="soloparent_yes" value="Yes">
+                      <label class="form-check-label" for="soloparent_yes">Yes</label>
+                  </div>
+              </div>
+
+              <!-- Form Picture Input (if  soloparent is yes) -->
+              <div class="form-group" id="singlePictureInput" style="display: none;">
+                <label class="form_2" for="single_id">Upload a Picture of the Certificate from Barangay (Please insert .jpg, .jpeg, and .png only)</label>
+                <input type="file" class="form-control" id="single_id" name="single_id">
+              </div>
+
+              <div class="form-group">
+                <label class="form_2" for="lgbtq_parent">Were you a raised by LGBTQ+ parents or caregivers?</label><br>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="lgbtq_parent" id="lgbtq_parent_no" value="No" checked>
+                  <label class="form-check-label" for="lgbtq_parent_no">No</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="lgbtq_parent" id="lgbtq_parent_yes" value="Yes">
+                  <label class="form-check-label" for="lgbtq_parent_yes">Yes</label>
+                </div>
+              </div>
+              <!-- ID Picture Input (if LGBTQ+ Parent is yes) -->
+              <div class="form-group" id="LGBTQPictureInput" style="display: none;">
+                <label class="form_2" for="lgbtq_p_id">Upload Affidavit (Please insert .jpg, .jpeg, and .png only)</label>
+                <input type="file" class="form-control" id="lgbtq_p_id" name="lgbtq_p_id">
+              </div>
+
+              <!--Working Student-->
+              <div class="form-group">
+                <label class="form_2" for ="working_student">Are you a working student <span style="color: grey;"><i>(i.e. general house help, yaya, cook, gardener, laundry person, wash boy, etc.)</i></span>?</label><br>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="working_student" id="working_student_no" value="No" checked>
+                      <label class="form-check-label" for="working_student_no">No</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="working_student" id="working_student_yes" value="Yes">
+                      <label class="form-check-label" for="working_student_yes">Yes</label>
+                  </div>
+              </div>
+
+              <!-- Form Picture Input (if  working student is yes) -->
+              <div class="form-group" id="WorkingPictureInput" style="display: none;">
+                <label class="form_2" for="working_id">Upload a Picture of the Certificate of Employment (Please insert .jpg, .jpeg, and .png only)</label>
+                <input type="file" class="form-control" id="working_id" name="working_id">
+              </div>
+
+              <!--Victim Student-->
+              <div class="form-group">
+                <label class="form_2" for="victim">Are you a victim of domestic abuse and/or disasters?</label><br>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="victim" id="victim_no" value="No" checked>
+                      <label class="form-check-label" for="victim_no">No</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="victim" id="victim_yes" value="Yes">
+                      <label class="form-check-label" for="victim_yes">Yes</label>
+                  </div>
+              </div>
+              
+              <!-- Form Picture Input (if abuse is yes) -->
+              <div class="form-group" id="VictimPictureOutput" style="display: none;">
+                <label class="form_2" for="victim_id">Upload a Picture of Barangay Certification or Police/Court Certification (Please insert .jpg, .jpeg, and .png only)</label>
+                <input type="file" class="form-control" id="victim_id" name="victim_id">
+              </div>
+
+              <br>
+              <h3 class="form_title parent"> Parent Information </h3>
+              <br>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="form_1" for="father_edu_attain">Father's highest education attained: &nbsp<span style="font-size:18px; color:red">*</label>
+                <select class="form-select" name="father_edu_attain" id="father_edu_attain" required>
+                  <option value=""> -- Select Here --</option>
+                  <option value="No grade completed">No grade completed</option>
+                  <option value="Elementary level">Elementary level</option>
+                  <option value="Elementary graduate">Elementary graduate</option>
+                  <option value="High School level">High School level</option>
+                  <option value="High School graduate">High School graduate</option>
+                  <option value="College level">College level</option>
+                  <option value="College graduate">College graduate</option>
+                  <option value="Post Baccalaureate">Post Baccalaureate</option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label class="form_1" for="mother_edu_attain">Mother's highest education attained: &nbsp<span style="font-size:18px; color:red">*</label>
+                <select class="form-select" name="mother_edu_attain" id="mother_edu_attain" required>
+                  <option value=""> -- Select Here --</option>
+                  <option value="No grade completed">No grade completed</option>
+                  <option value="Elementary level">Elementary level</option>
+                  <option value="Elementary graduate">Elementary graduate</option>
+                  <option value="High School level">High School level</option>
+                  <option value="High School graduate">High School graduate</option>
+                  <option value="College level">College level</option>
+                  <option value="College graduate">College graduate</option>
+                  <option value="Post Baccalaureate">Post Baccalaureate</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="form_1" for="father_occupation">Father's Occupation &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="text" class="form-control" name="father_occupation" id="father_occupation" placeholder="Father's work/job" required>
+              </div>
+  
+              <div class="form-group col-md-6">
+                <label class="form_1" for="mother_occupation">Mother's Occupation &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="text" class="form-control" name="mother_occupation" id="mother_occupation" placeholder="Mother's work/job" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="form_1" for="father_tribe">Father's Tribe &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="text" class="form-control" name="father_tribe" id="father_tribe" placeholder="Input Tribe" required>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label class="form_1" for="mother_tribe">Mother's Tribe &nbsp<span style="font-size:18px; color:red">*</label>
+                <input type="text" class="form-control" name="mother_tribe" id="mother_tribe" placeholder="Input Tribe" required>
+              </div>
+            </div>
+            <br>
+            <div class="note-box2">
+              <p><b>NOTE: </b></p>
+              <p>What is the <b>average monthly income</b> of your mother/father according to their latest ITR?</p>
+              <p>If parents are filing their ITR jointly, please indicate the average monthly income under either the mother's or father's record.</p>
+            </div>
+            <br>
+            <!-- <div class="form-row">
+              <div class="form-group col-md-12">
+                <label class="form_1" for="bothparentsworking">Are both parents working? &nbsp<span style="font-size:18px; color:red">*</label>
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="bothparentsworking" id="bothparentsworking" value="Yes" required checked>
+                    <label class="form-check-label" for="bothparentsworking">Yes</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="bothparentsworking" id="bothparentsworking" value="No" required>
+                    <label class="form-check-label" for="bothparentsworking">No</label>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="form_1" for="father">Father's Annual Income (in ₱) &nbsp<span style="font-size:18px; color:red">*</label>
+              
+                <select class="form-select" name="father" id="father" onchange="FatherCustomInput()" required>
+                    <option value="">-- Select Income Range --</option>
+                    <option value="Under ₱40,000">Under ₱40,000</option>
+                    <option value="₱40,000 - ₱59,999">₱40,000 - ₱59,999</option>
+                    <option value="₱60,000 - ₱99,999">₱60,000 - ₱99,999</option>
+                    <option value="₱100,000 - ₱249,999">₱100,000 - ₱249,999</option>
+                    <option value="₱250,000 - ₱499,999">₱250,000 - ₱499,999</option>
+                    <option value="₱500,000 and over">₱500,000 and over</option>
+                </select>
+              
+                <!-- For ITR -->
+                <div class="form-group" id="Father_ITRInput" style="display: none;">
+                    <label class="form_2" for="father_itr" style="margin-top: 10px;">Upload ITR (Please insert .jpg, .jpeg, and .png only)</label>
+                    <input type="file" class="form-control" id="father_itr" name="father_itr">
+                </div>
+              </div>
+            
+              <div class="form-group col-md-6">
+                <label class="form_1" for="mother">Mother's Annual Income (in ₱) &nbsp<span style="font-size:18px; color:red">*</label>
+              
+                <select class="form-select" name="mother" id="mother" onchange="MotherCustomInput()" required>
+                  <option value="">-- Select Income Range --</option>
+                  <option value="Under ₱40,000">Under ₱40,000</option>
+                  <option value="₱40,000 - ₱59,999">₱40,000 - ₱59,999</option>
+                  <option value="₱60,000 - ₱99,999">₱60,000 - ₱99,999</option>
+                  <option value="₱100,000 - ₱249,999">₱100,000 - ₱249,999</option>
+                  <option value="₱250,000 - ₱499,999">₱250,000 - ₱499,999</option>
+                  <option value="₱500,000 and over">₱500,000 and over</option>
+                </select>
+              
+                <!-- For ITR -->
+                <div class="form-group" id="Mother_ITRInput" style="display: none;">
+                    <label class="form_2" for="mother_itr" style="margin-top: 10px;">Upload ITR (Please insert .jpg, .jpeg, and .png only)</label>
+                    <input type="file" class="form-control" id="mother_itr" name="mother_itr">
+                </div>
+              </div>
+            </div>
+
+            <br>
+            <h3 class="form_title hs_info"> High School Information </h3>
+            <br>
+               
+            <div class="form-group">
+              <label class="form_1" for="track">Senior High School Track &nbsp<span style="font-size:18px; color:red">*</label>
+              <select class="form-select form-select-sm" name="track" id="track" required>
+                <option value="">-- Select Track --</option>
+                <option value="STEM">STEM</option>
+                <option value="ABM">ABM</option>
+                <option value="HUMSS">HUMSS</option>
+                <option value="GAS">GAS</option>
+                <option value="TVL">TVL</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form_1" for="name_hs">High School (Campus Name) &nbsp;<span style="font-size:18px; color:red">*</span></label>
+              <input type="text" class="form-control" name="name_hs" id="name_hs" placeholder="Input Campus Name" required autocomplete="off">
+            </div>
+            
+            <div class="form-group">
+                <label class="form_1" for="address_hs">High School Campus Address &nbsp;<span style="font-size:18px; color:red">*</span></label>
+                <input type="text" class="form-control" name="address_hs" id="address_hs" placeholder="Input Campus Address" required autocomplete="off">
+            </div>          
+
+              <br>
+              <h3 class="form_title college_program">College Program Preference</h3>
+              <br>
+
+                <div class="form-group">
+                  <label class="form_1" for="pref_course1">College Preferred Course 1 &nbsp;<span style="font-size:18px; color:red">*</span></label>
+                  <select class="form-select form-select-sm" name="pref_course1" id="pref_course1" required>
+                    <option value="">-- Select Program --</option>
+                    <option value="BSCE - BACHELOR OF SCIENCE IN CIVIL ENGINEERING">BSCE - BACHELOR OF SCIENCE IN CIVIL ENGINEERING</option>
+                    <option value="BSBIO(MCB) - BACHELOR OF SCIENCE IN BIOLOGY(MICROBIOLOGY)">BSBIO(MCB) - BACHELOR OF SCIENCE IN BIOLOGY(MICROBIOLOGY)</option>
+                    <option value="BSEE - BACHELOR OF SCIENCE IN ELECTRICAL ENGINEERING">BSEE - BACHELOR OF SCIENCE IN ELECTRICAL ENGINEERING</option>
+                    <option value="BSMETE - BACHELOR OF SCIENCE METALLURGICAL ENGINEERING">BSMETE - BACHELOR OF SCIENCE METALLURGICAL ENGINEERING</option>
+                    <option value="BSBIO(AnBio) - BACHELOR OF SCIENCE IN BIOLOGY(ANIMAL BIOLOGY)">BSBIO(AnBio) - BACHELOR OF SCIENCE IN BIOLOGY(ANIMAL BIOLOGY)</option>
+                    <option value="BSCHEM - BACHELOR OF SCIENCE IN CHEMISTRY">BSCHEM - BACHELOR OF SCIENCE IN CHEMISTRY</option>
+                    <option value="BSCHE - BACHELOR OF SCIENCE IN CHEMICAL ENGINEERING">BSCHE - BACHELOR OF SCIENCE IN CHEMICAL ENGINEERING</option>
+                    <option value="BSPHYSICS - BACHELOR OF SCIENCE IN PHYSICS">BSPHYSICS - BACHELOR OF SCIENCE IN PHYSICS</option>
+                    <option value="BSNURSING - BACHELOR OF SCIENCE IN NURSING">BSNURSING - BACHELOR OF SCIENCE IN NURSING</option>
+                    <option value="BSEsE - BACHELOR OF SCIENCE IN ELECTRONICS ENGINEERING">BSEsE - BACHELOR OF SCIENCE IN ELECTRONICS ENGINEERING</option>
+                    <option value="BSA - BACHELOR OF SCIENCE IN ACCOUNTANCY">BSA - BACHELOR OF SCIENCE IN ACCOUNTANCY</option>
+                    <option value="BSMARINE BIO - BACHELOR OF SCIENCE IN MARINE BIOLOGY">BSMARINE BIO - BACHELOR OF SCIENCE IN MARINE BIOLOGY</option>
+                    <option value="BSIT - BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY">BSIT - BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY</option>
+                    <option value="BSCPE - BACHELOR OF SCIENCE IN COMPUTER ENGINEERING">BSCPE - BACHELOR OF SCIENCE IN COMPUTER ENGINEERING</option>
+                    <option value="BA POL SCI - BACHELOR OF ARTS IN POLITICAL SCIENCE">BA POL SCI - BACHELOR OF ARTS IN POLITICAL SCIENCE</option>
+                    <option value="BSME - BACHELOR OF SCIENCE IN MECHANICAL ENGINEERING">BSME - BACHELOR OF SCIENCE IN MECHANICAL ENGINEERING</option>
+                    <option value="BA ELS - BACHELOR OF ARTS IN ENGLISH LANGUAGE STUDIES">BA ELS - BACHELOR OF ARTS IN ENGLISH LANGUAGE STUDIES</option>
+                    <option value="BSBIO(Bdv) - BACHELOR OF SCIENCE IN BIOLOGY (BIODIVERSITY)">BSBIO(Bdv) - BACHELOR OF SCIENCE IN BIOLOGY (BIODIVERSITY)</option>
+                    <option value="BSMATH - BACHELOR OF SCIENCE IN MATHEMATICS">BSMATH - BACHELOR OF SCIENCE IN MATHEMATICS</option>
+                    <option value="BSBIO(PlBio) - BACHELOR OF SCIENCE IN BIOLOGY(PLANT BIOLOGY)">BSBIO(PlBio) - BACHELOR OF SCIENCE IN BIOLOGY(PLANT BIOLOGY)</option>
+                    <option value="BSED BIO - BACHELOR OF SECONDARY EDUCATION (BIOLOGY)">BSED BIO - BACHELOR OF SECONDARY EDUCATION (BIOLOGY)</option>
+                    <option value="BS PSYCH - BACHELOR OF SCIENCE IN PSYCHOLOGY">BS PSYCH - BACHELOR OF SCIENCE IN PSYCHOLOGY</option>
+                    <option value="BSCS - BACHELOR OF SCIENCE IN COMPUTER SCIENCE">BSCS - BACHELOR OF SCIENCE IN COMPUTER SCIENCE</option>
+                    <option value="BS HM - BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT">BS HM - BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT</option>
+                    <option value="BS PHIL - BACHELOR OF SCIENCE IN PHILOSOPHY MAJOR IN APPLIED ETHICS">BS PHIL - BACHELOR OF SCIENCE IN PHILOSOPHY MAJOR IN APPLIED ETHICS</option>
+                    <option value="BET-CET - BACHELOR OF ENGINEERING TECHNOLOGY - CIVIL ENGINEERING TECHNOLOGY">BET-CET - BACHELOR OF ENGINEERING TECHNOLOGY - CIVIL ENGINEERING TECHNOLOGY</option>
+                    <option value="BET-MMT - BACHELOR OF ENGINEERING TECHNOLOGY-METALLURGY AND MATERIALS ENGINEERING TECHNOLOGY">BET-MMT - BACHELOR OF ENGINEERING TECHNOLOGY-METALLURGY AND MATERIALS ENGINEERING TECHNOLOGY</option>
+                    <option value="BSEM - BACHELOR OF SCIENCE IN MINING ENGINEERING">BSEM - BACHELOR OF SCIENCE IN MINING ENGINEERING</option>
+                    <option value="BSBA-MKT MGT - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (MARKETING MANAGEMENT)">BSBA-MKT MGT - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (MARKETING MANAGEMENT)</option>
+                    <option value="BS ECON - BACHELOR OF SCIENCE IN ECONOMICS">BS ECON - BACHELOR OF SCIENCE IN ECONOMICS</option>
+                    <option value="BSIAM - BACHELOR OF SCIENCE IN INDUSTRIAL AUTOMATION & MECHATRONICS">BSIAM - BACHELOR OF SCIENCE IN INDUSTRIAL AUTOMATION & MECHATRONICS</option>
+                    <option value="BS ENTREP - BACHELOR OF SCIENCE IN ENTREPRENEURSHIP">BS ENTREP - BACHELOR OF SCIENCE IN ENTREPRENEURSHIP</option>
+                    <option value="BSED CHEM - BACHELOR OF SECONDARY EDUCATION (CHEMISTRY)">BSED CHEM - BACHELOR OF SECONDARY EDUCATION (CHEMISTRY)</option>
+                    <option value="BTLED-IA - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION-INDUSTRIAL ARTS">BTLED-IA - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION-INDUSTRIAL ARTS</option>
+                    <option value="BTVTED-DT - BACHELOR OF TECHNICAL-VOCATIONAL TEACHER EDUCATION DRAFTING TECHNOLOGY">BTVTED-DT - BACHELOR OF TECHNICAL-VOCATIONAL TEACHER EDUCATION DRAFTING TECHNOLOGY</option>
+                    <option value="BPED - BACHELOR OF PHYSICAL EDUCATION">BPED - BACHELOR OF PHYSICAL EDUCATION</option>
+                    <option value="BSBA-B.ECON - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (BUSINESS ECONOMICS)">BSBA-B.ECON - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (BUSINESS ECONOMICS)</option>
+                    <option value="BSED PHYS - BACHELOR OF SECONDARY EDUCATION (PHYSICS)">BSED PHYS - BACHELOR OF SECONDARY EDUCATION (PHYSICS)</option>
+                    <option value="BSED MATH - BACHELOR OF SECONDARY EDUCATION (MATHEMATICS)">BSED MATH - BACHELOR OF SECONDARY EDUCATION (MATHEMATICS)</option>
+                    <option value="BSIS - BACHELOR OF SCIENCE IN INFORMATION SYSTEMS">BSIS - BACHELOR OF SCIENCE IN INFORMATION SYSTEMS</option>
+                    <option value="BSSTAT - BACHELOR OF SCIENCE IN STATISTICS">BSSTAT - BACHELOR OF SCIENCE IN STATISTICS</option>
+                    <option value="BA PSYCH - BACHELOR OF ARTS IN PSYCHOLOGY">BA PSYCH - BACHELOR OF ARTS IN PSYCHOLOGY</option>
+                    <option value="BEED SCI MAT - BACHELOR OF ELEMENTARY EDUCATION (SCIENCE AND MATHEMATICS)">BEED SCI MAT - BACHELOR OF ELEMENTARY EDUCATION (SCIENCE AND MATHEMATICS)</option>
+                    <option value="BSED FIL - BACHELOR OF SECONDARY EDUCATION (FILIPINO)">BSED FIL - BACHELOR OF SECONDARY EDUCATION (FILIPINO)</option>
+                    <option value="BEED Lang Ed - BACHELOR OF ELEMENTARY EDUCATION (LANGUAGE EDUCATION)">BEED Lang Ed - BACHELOR OF ELEMENTARY EDUCATION (LANGUAGE EDUCATION)</option>
+                    <option value="BA HISTORY - BACHELOR OF ARTS IN HISTORY">BA HISTORY - BACHELOR OF ARTS IN HISTORY</option>
+                    <option value="BSCERE - BACHELOR OF SCIENCE IN CERAMIC ENGINEERING">BSCERE - BACHELOR OF SCIENCE IN CERAMIC ENGINEERING</option>
+                    <option value="BTLED-HE - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION -HOME ECONOMICS">BTLED-HE - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION -HOME ECONOMICS</option>
+                    <option value="BA FIL - BATSILYER NG SINING SA FILIPINO">BA FIL - BATSILYER NG SINING SA FILIPINO</option>
+                    <option value="BA SOCIO - BACHELOR OF ARTS IN SOCIOLOGY">BA SOCIO - BACHELOR OF ARTS IN SOCIOLOGY</option>
+                    <option value="BET-ELET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRICAL ENGINEERING TECHNOLOGY">BET-ELET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRICAL ENGINEERING TECHNOLOGY</option>
+                    <option value="BET-CHET - BACHELOR OF ENGINEERING TECHNOLOGY-CHEMICAL ENGINEERING TECHNOLOGY">BET-CHET - BACHELOR OF ENGINEERING TECHNOLOGY-CHEMICAL ENGINEERING TECHNOLOGY</option>
+                    <option value="BET-ESET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRONICS ENGINEERING TECHNOLOGY">BET-ESET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRONICS ENGINEERING TECHNOLOGY</option>
+                    <option value="BET-MET - BACHELOR OF ENGINEERING TECHNOLOGY-MECHANICAL ENGINEERING TECHNOLOGY">BET-MET - BACHELOR OF ENGINEERING TECHNOLOGY-MECHANICAL ENGINEERING TECHNOLOGY</option>
+                    <option value="BSEnE - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING">BSEnE - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING</option>
+                    <option value="BSCA - BACHELOR OF SCIENCE IN COMPUTER APPLICATIONS">BSCA - BACHELOR OF SCIENCE IN COMPUTER APPLICATIONS</option>
+                    <option value="BS EnvET - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING TECHNOLOGY">BS EnvET - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING TECHNOLOGY</option>
+        
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form_1" for="pref_course2">College Preferred Course 2 &nbsp;<span style="font-size:18px; color:red">*</span></label>
+                  <select class="form-select form-select-sm" name="pref_course2" id="pref_course2" required>
+                    <option value="">-- Select Program 2 --</option>
+                    <option value="BSCE - BACHELOR OF SCIENCE IN CIVIL ENGINEERING">BSCE - BACHELOR OF SCIENCE IN CIVIL ENGINEERING</option>
+                    <option value="BSBIO(MCB) - BACHELOR OF SCIENCE IN BIOLOGY(MICROBIOLOGY)">BSBIO(MCB) - BACHELOR OF SCIENCE IN BIOLOGY(MICROBIOLOGY)</option>
+                    <option value="BSEE - BACHELOR OF SCIENCE IN ELECTRICAL ENGINEERING">BSEE - BACHELOR OF SCIENCE IN ELECTRICAL ENGINEERING</option>
+                    <option value="BSMETE - BACHELOR OF SCIENCE METALLURGICAL ENGINEERING">BSMETE - BACHELOR OF SCIENCE METALLURGICAL ENGINEERING</option>
+                    <option value="BSBIO(AnBio) - BACHELOR OF SCIENCE IN BIOLOGY(ANIMAL BIOLOGY)">BSBIO(AnBio) - BACHELOR OF SCIENCE IN BIOLOGY(ANIMAL BIOLOGY)</option>
+                    <option value="BSCHEM - BACHELOR OF SCIENCE IN CHEMISTRY">BSCHEM - BACHELOR OF SCIENCE IN CHEMISTRY</option>
+                    <option value="BSCHE - BACHELOR OF SCIENCE IN CHEMICAL ENGINEERING">BSCHE - BACHELOR OF SCIENCE IN CHEMICAL ENGINEERING</option>
+                    <option value="BSPHYSICS - BACHELOR OF SCIENCE IN PHYSICS">BSPHYSICS - BACHELOR OF SCIENCE IN PHYSICS</option>
+                    <option value="BSNURSING - BACHELOR OF SCIENCE IN NURSING">BSNURSING - BACHELOR OF SCIENCE IN NURSING</option>
+                    <option value="BSEsE - BACHELOR OF SCIENCE IN ELECTRONICS ENGINEERING">BSEsE - BACHELOR OF SCIENCE IN ELECTRONICS ENGINEERING</option>
+                    <option value="BSA - BACHELOR OF SCIENCE IN ACCOUNTANCY">BSA - BACHELOR OF SCIENCE IN ACCOUNTANCY</option>
+                    <option value="BSMARINE BIO - BACHELOR OF SCIENCE IN MARINE BIOLOGY">BSMARINE BIO - BACHELOR OF SCIENCE IN MARINE BIOLOGY</option>
+                    <option value="BSIT - BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY">BSIT - BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY</option>
+                    <option value="BSCPE - BACHELOR OF SCIENCE IN COMPUTER ENGINEERING">BSCPE - BACHELOR OF SCIENCE IN COMPUTER ENGINEERING</option>
+                    <option value="BA POL SCI - BACHELOR OF ARTS IN POLITICAL SCIENCE">BA POL SCI - BACHELOR OF ARTS IN POLITICAL SCIENCE</option>
+                    <option value="BSME - BACHELOR OF SCIENCE IN MECHANICAL ENGINEERING">BSME - BACHELOR OF SCIENCE IN MECHANICAL ENGINEERING</option>
+                    <option value="BA ELS - BACHELOR OF ARTS IN ENGLISH LANGUAGE STUDIES">BA ELS - BACHELOR OF ARTS IN ENGLISH LANGUAGE STUDIES</option>
+                    <option value="BSBIO(Bdv) - BACHELOR OF SCIENCE IN BIOLOGY (BIODIVERSITY)">BSBIO(Bdv) - BACHELOR OF SCIENCE IN BIOLOGY (BIODIVERSITY)</option>
+                    <option value="BSMATH - BACHELOR OF SCIENCE IN MATHEMATICS">BSMATH - BACHELOR OF SCIENCE IN MATHEMATICS</option>
+                    <option value="BSBIO(PlBio) - BACHELOR OF SCIENCE IN BIOLOGY(PLANT BIOLOGY)">BSBIO(PlBio) - BACHELOR OF SCIENCE IN BIOLOGY(PLANT BIOLOGY)</option>
+                    <option value="BSED BIO - BACHELOR OF SECONDARY EDUCATION (BIOLOGY)">BSED BIO - BACHELOR OF SECONDARY EDUCATION (BIOLOGY)</option>
+                    <option value="BS PSYCH - BACHELOR OF SCIENCE IN PSYCHOLOGY">BS PSYCH - BACHELOR OF SCIENCE IN PSYCHOLOGY</option>
+                    <option value="BSCS - BACHELOR OF SCIENCE IN COMPUTER SCIENCE">BSCS - BACHELOR OF SCIENCE IN COMPUTER SCIENCE</option>
+                    <option value="BS HM - BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT">BS HM - BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT</option>
+                    <option value="BS PHIL - BACHELOR OF SCIENCE IN PHILOSOPHY MAJOR IN APPLIED ETHICS">BS PHIL - BACHELOR OF SCIENCE IN PHILOSOPHY MAJOR IN APPLIED ETHICS</option>
+                    <option value="BET-CET - BACHELOR OF ENGINEERING TECHNOLOGY - CIVIL ENGINEERING TECHNOLOGY">BET-CET - BACHELOR OF ENGINEERING TECHNOLOGY - CIVIL ENGINEERING TECHNOLOGY</option>
+                    <option value="BET-MMT - BACHELOR OF ENGINEERING TECHNOLOGY-METALLURGY AND MATERIALS ENGINEERING TECHNOLOGY">BET-MMT - BACHELOR OF ENGINEERING TECHNOLOGY-METALLURGY AND MATERIALS ENGINEERING TECHNOLOGY</option>
+                    <option value="BSEM - BACHELOR OF SCIENCE IN MINING ENGINEERING">BSEM - BACHELOR OF SCIENCE IN MINING ENGINEERING</option>
+                    <option value="BSBA-MKT MGT - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (MARKETING MANAGEMENT)">BSBA-MKT MGT - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (MARKETING MANAGEMENT)</option>
+                    <option value="BS ECON - BACHELOR OF SCIENCE IN ECONOMICS">BS ECON - BACHELOR OF SCIENCE IN ECONOMICS</option>
+                    <option value="BSIAM - BACHELOR OF SCIENCE IN INDUSTRIAL AUTOMATION & MECHATRONICS">BSIAM - BACHELOR OF SCIENCE IN INDUSTRIAL AUTOMATION & MECHATRONICS</option>
+                    <option value="BS ENTREP - BACHELOR OF SCIENCE IN ENTREPRENEURSHIP">BS ENTREP - BACHELOR OF SCIENCE IN ENTREPRENEURSHIP</option>
+                    <option value="BSED CHEM - BACHELOR OF SECONDARY EDUCATION (CHEMISTRY)">BSED CHEM - BACHELOR OF SECONDARY EDUCATION (CHEMISTRY)</option>
+                    <option value="BTLED-IA - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION-INDUSTRIAL ARTS">BTLED-IA - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION-INDUSTRIAL ARTS</option>
+                    <option value="BTVTED-DT - BACHELOR OF TECHNICAL-VOCATIONAL TEACHER EDUCATION DRAFTING TECHNOLOGY">BTVTED-DT - BACHELOR OF TECHNICAL-VOCATIONAL TEACHER EDUCATION DRAFTING TECHNOLOGY</option>
+                    <option value="BPED - BACHELOR OF PHYSICAL EDUCATION">BPED - BACHELOR OF PHYSICAL EDUCATION</option>
+                    <option value="BSBA-B.ECON - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (BUSINESS ECONOMICS)">BSBA-B.ECON - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (BUSINESS ECONOMICS)</option>
+                    <option value="BSED PHYS - BACHELOR OF SECONDARY EDUCATION (PHYSICS)">BSED PHYS - BACHELOR OF SECONDARY EDUCATION (PHYSICS)</option>
+                    <option value="BSED MATH - BACHELOR OF SECONDARY EDUCATION (MATHEMATICS)">BSED MATH - BACHELOR OF SECONDARY EDUCATION (MATHEMATICS)</option>
+                    <option value="BSIS - BACHELOR OF SCIENCE IN INFORMATION SYSTEMS">BSIS - BACHELOR OF SCIENCE IN INFORMATION SYSTEMS</option>
+                    <option value="BSSTAT - BACHELOR OF SCIENCE IN STATISTICS">BSSTAT - BACHELOR OF SCIENCE IN STATISTICS</option>
+                    <option value="BEED SCI MAT - BACHELOR OF ELEMENTARY EDUCATION (SCIENCE AND MATHEMATICS)">BEED SCI MAT - BACHELOR OF ELEMENTARY EDUCATION (SCIENCE AND MATHEMATICS)</option>
+                    <option value="BSED FIL - BACHELOR OF SECONDARY EDUCATION (FILIPINO)">BSED FIL - BACHELOR OF SECONDARY EDUCATION (FILIPINO)</option>
+                    <option value="BEED Lang Ed - BACHELOR OF ELEMENTARY EDUCATION (LANGUAGE EDUCATION)">BEED Lang Ed - BACHELOR OF ELEMENTARY EDUCATION (LANGUAGE EDUCATION)</option>
+                    <option value="BA HISTORY - BACHELOR OF ARTS IN HISTORY">BA HISTORY - BACHELOR OF ARTS IN HISTORY</option>
+                    <option value="BSCERE - BACHELOR OF SCIENCE IN CERAMIC ENGINEERING">BSCERE - BACHELOR OF SCIENCE IN CERAMIC ENGINEERING</option>
+                    <option value="BTLED-HE - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION -HOME ECONOMICS">BTLED-HE - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION -HOME ECONOMICS</option>
+                    <option value="BA FIL - BATSILYER NG SINING SA FILIPINO">BA FIL - BATSILYER NG SINING SA FILIPINO</option>
+                    <option value="BA SOCIO - BACHELOR OF ARTS IN SOCIOLOGY">BA SOCIO - BACHELOR OF ARTS IN SOCIOLOGY</option>
+                    <option value="BET-ELET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRICAL ENGINEERING TECHNOLOGY">BET-ELET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRICAL ENGINEERING TECHNOLOGY</option>
+                    <option value="BET-CHET - BACHELOR OF ENGINEERING TECHNOLOGY-CHEMICAL ENGINEERING TECHNOLOGY">BET-CHET - BACHELOR OF ENGINEERING TECHNOLOGY-CHEMICAL ENGINEERING TECHNOLOGY</option>
+                    <option value="BET-ESET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRONICS ENGINEERING TECHNOLOGY">BET-ESET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRONICS ENGINEERING TECHNOLOGY</option>
+                    <option value="BET-MET - BACHELOR OF ENGINEERING TECHNOLOGY-MECHANICAL ENGINEERING TECHNOLOGY">BET-MET - BACHELOR OF ENGINEERING TECHNOLOGY-MECHANICAL ENGINEERING TECHNOLOGY</option>
+                    <option value="BSEnE - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING">BSEnE - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING</option>
+                    <option value="BSCA - BACHELOR OF SCIENCE IN COMPUTER APPLICATIONS">BSCA - BACHELOR OF SCIENCE IN COMPUTER APPLICATIONS</option>
+                    <option value="BS EnvET - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING TECHNOLOGY">BS EnvET - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING TECHNOLOGY</option>
+        
+                  </select>
+                </div>
+                <br>
+
+            <!-- <center><p style="color:red;">Permit Number Location</p></center> -->
+            <!-- Sample Picture -->
+            <!-- <img src="../static/img/PermitNumber.png" alt="Permit Number" style="width: 100%;">
+            <br><br> -->
+
+            <!-- <div class="form-group">
+              <label for="permit_number">Input your own MSU SASE Permit Number (a sample is shown above). &nbsp<span style="font-size:12px; color:red">*required</label>
+              <input type="number" class="form-control" name="permit_number" id="permit_number" placeholder="000000">
+            </div> -->
+
+            <center><button type="submit" class="btn">Next</button></center>
+
+            </form>
+
+          </div>
+
+      </div>
+    </div>
+  </div> 
+
+
+
+<!-- Modal for data privacy information -->
+<div class="modal fade" id="privacyModal" tabindex="-1" role="dialog" aria-labelledby="privacyModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="privacyModalLabel">Please Read...</h5>
+      </div>
+      <div class="modal-body">
+
+          <p> Data Privacy Act of 2012 </p>
+          <p>
+            Republic Act No. 10173 or Data Privacy Act of 2012 is an act protecting individual personal information in information and communications systems in the government and the private sector, creating for this purpose a national privacy commission, and for other purposes.</p>
+
+            <p>
+              At '<b>CRIS</b>', Safeguarding your data privacy is our utmost priority. We adhere strictly to industry standards and regulations, implementing robust security measures to protect your sensitive information.</p>
+
+            <p><b> Ensure to input accurate information as incorrect data may result in voiding the entry.</b></p>
+            
+            <hr>
+
+            <div class="form-check" style="float: left">
+              <input class="form-check-input" type="checkbox" id="acceptTermsCheckbox" onchange="toggleOKButton()">
+              <label class="form-check-label" for="acceptTermsCheckbox">
+                I have read and accept the terms and conditions
+              </label>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">            
+            <button type="button" class="btn btn-secondary" id="okayButton" disabled onclick="closeModal()">OKAY</button>
+          </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+          <!-- </div>
+            <div class="modal-footer">
+          </div> -->
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+</main>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+  <!-- Vendor JS Files -->
+  <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+  <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+  <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+  <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="../static/assets2/js/main.js"></script>
+    <script src="../static/assets2/js/input.js"></script>
+
+    <script>
+      $(document).ready(function() {
+          $('#privacyModal').modal('show');
+      });
+            // Function to close the privacy modal
+            function closeModal() {
+        $('#privacyModal').modal('hide');
+            }
+
+         // Function to toggle OKAY button based on checkbox state
+        function toggleOKButton() {
+        var acceptTermsCheckbox = document.getElementById("acceptTermsCheckbox");
+        var okayButton = document.getElementById("okayButton");
+
+        if (acceptTermsCheckbox.checked) {
+          okayButton.disabled = false;
+        } else {
+          okayButton.disabled = true;
+        }
+      }
+    </script>
+
+    
+  <script>
+    // Script to handle radio button change
+    $(document).ready(function() {
+      $('input[type="radio"][name="ip_option"]').change(function() {
+        if (this.value === 'Yes') {
+          $('#ipGroupSelect').show();
+        } else {
+          $('#ipGroupSelect').hide();
+          $('#ipOthersInput').hide();
+        }
+      });
+    });
+
+    // Script to handle select change
+    $(document).ready(function() {
+      $('#ip_group').change(function() {
+        if (this.value === 'others') {
+          $('#ipOthersInput').show();
+        } else {
+          $('#ipOthersInput').hide();
+        }
+      });
+    });
+
+        // Script to handle radio button change
+        $(document).ready(function() {
+          $('input[type="radio"][name="ip_option"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#ipGroupSelect').show();
+            } else {
+              $('#ipGroupSelect').hide();
+              $('#ipOthersInput').hide();
+            }
+          });
+    
+          // Script to handle radio button change for PWD
+          $('input[type="radio"][name="pwd"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#idPictureInput').show();
+            } else {
+              $('#idPictureInput').hide();
+            }
+          });
+
+          // Script to handle radio button change for Child Solo Parent
+          $('input[type="radio"][name="childsoloparent"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#formPictureInput').show();
+            } else {
+              $('#formPictureInput').hide();
+            }
+          });
+
+          // Script to handle radio button change for First Gen Learner
+          $('input[type="radio"][name="firstgenlearner"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#firstgenlearnerPictureInput').show();
+            } else {
+              $('#firstgenlearnerPictureInput').hide();
+            }
+          });
+
+          // Script to handle radio button change for IP
+          $('input[type="radio"][name="ip_option"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#ipPictureInput').show();
+            } else {
+              $('#ipPictureInput').hide();
+            }
+          });
+
+          // Script to handle radio button change for Child of Deprived Liberty
+          $('input[type="radio"][name="child_deprived_liberty"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#child_deprived_liberty_idPictureInput').show();
+            } else {
+              $('#child_deprived_liberty_idPictureInput').hide();
+            }
+          });
+
+          // Script to handle radio button change for Solo Parent
+          $('input[type="radio"][name="soloparent"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#singlePictureInput').show();
+            } else {
+              $('#singlePictureInput').hide();
+            }
+          });
+
+        });
+        // Script to handle radio button change for Working Students
+        $('input[type="radio"][name="working_student"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#WorkingPictureInput').show();
+            } else {
+              $('#WorkingPictureInput').hide();
+            }
+          });
+          // Script to handle radio button change for LGBTQ+ Parents
+        $('input[type="radio"][name="lgbtq_parent"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#LGBTQPictureInput').show();
+            } else {
+              $('#LGBTQPictureInput').hide();
+            }
+          });
+          // Script to handle radio button change for Victim Students
+        $('input[type="radio"][name="victim"]').change(function() {
+            if (this.value === 'Yes') {
+              $('#VictimPictureOutput').show();
+            } else {
+              $('#VictimPictureOutput').hide();
+            }
+          });
+      </script>
+
+      <script>
+        document.getElementById('contact').addEventListener('input', function(e) {
+            let input = e.target.value.replace(/\D/g, '').substring(0, 11); // Only digits, max length 11
+            let formattedNumber = '';
+
+            if (input.length > 0) {
+                formattedNumber += input.substring(0, 4);
+            }
+            if (input.length > 4) {
+                formattedNumber += ' ' + input.substring(4, 7);
+            }
+            if (input.length > 7) {
+                formattedNumber += ' ' + input.substring(7, 11);
+            }
+
+            e.target.value = formattedNumber;
+        });
+      </script>
+
+      <script>
+        function checkITRRequirements() {
+            var fatherIncome = document.getElementById('father').value;
+            var motherIncome = document.getElementById('mother').value;
+
+            var fatherITR = document.getElementById('father_itr');
+            var motherITR = document.getElementById('mother_itr');
+
+            // Check for incomes that require ITR
+            if (fatherIncome === '₱250,000 - ₱499,999' || fatherIncome === '₱500,000 and over') {
+                document.getElementById('Father_ITRInput').style.display = 'block';
+                fatherITR.required = true;
+            } else {
+                document.getElementById('Father_ITRInput').style.display = 'none';
+                fatherITR.required = false;
+                fatherITR.value = ''; // Clear value if hidden
+            }
+
+            if (motherIncome === '₱250,000 - ₱499,999' || motherIncome === '₱500,000 and over') {
+                document.getElementById('Mother_ITRInput').style.display = 'block';
+                motherITR.required = true;
+            } else {
+                document.getElementById('Mother_ITRInput').style.display = 'none';
+                motherITR.required = false;
+                motherITR.value = ''; // Clear value if hidden
+            }
+        }
+
+        function FatherCustomInput() {
+            checkITRRequirements();
+        }
+
+        function MotherCustomInput() {
+            checkITRRequirements();
+        }
+      </script>
+
+      <script>
+        const allCourses = [
+            "BSCE - BACHELOR OF SCIENCE IN CIVIL ENGINEERING",
+            "BSBIO(MCB) - BACHELOR OF SCIENCE IN BIOLOGY(MICROBIOLOGY)",
+            "BSEE - BACHELOR OF SCIENCE IN ELECTRICAL ENGINEERING",
+            "BSMETE - BACHELOR OF SCIENCE METALLURGICAL ENGINEERING",
+            "BSBIO(AnBio) - BACHELOR OF SCIENCE IN BIOLOGY(ANIMAL BIOLOGY)",
+            "BSCHEM - BACHELOR OF SCIENCE IN CHEMISTRY",
+            "BSCHE - BACHELOR OF SCIENCE IN CHEMICAL ENGINEERING",
+            "BSPHYSICS - BACHELOR OF SCIENCE IN PHYSICS",
+            "BSNURSING - BACHELOR OF SCIENCE IN NURSING",
+            "BSEsE - BACHELOR OF SCIENCE IN ELECTRONICS ENGINEERING",
+            "BSA - BACHELOR OF SCIENCE IN ACCOUNTANCY",
+            "BSMARINE BIO - BACHELOR OF SCIENCE IN MARINE BIOLOGY",
+            "BSIT - BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY",
+            "BSCPE - BACHELOR OF SCIENCE IN COMPUTER ENGINEERING",
+            "BA POL SCI - BACHELOR OF ARTS IN POLITICAL SCIENCE",
+            "BSME - BACHELOR OF SCIENCE IN MECHANICAL ENGINEERING",
+            "BA ELS - BACHELOR OF ARTS IN ENGLISH LANGUAGE STUDIES",
+            "BSBIO(Bdv) - BACHELOR OF SCIENCE IN BIOLOGY (BIODIVERSITY)",
+            "BSMATH - BACHELOR OF SCIENCE IN MATHEMATICS",
+            "BSBIO(PlBio) - BACHELOR OF SCIENCE IN BIOLOGY(PLANT BIOLOGY)",
+            "BSED BIO - BACHELOR OF SECONDARY EDUCATION (BIOLOGY)",
+            "BS PSYCH - BACHELOR OF SCIENCE IN PSYCHOLOGY",
+            "BSCS - BACHELOR OF SCIENCE IN COMPUTER SCIENCE",
+            "BS HM - BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT",
+            "BS PHIL - BACHELOR OF SCIENCE IN PHILOSOPHY MAJOR IN APPLIED ETHICS",
+            "BET-CET - BACHELOR OF ENGINEERING TECHNOLOGY - CIVIL ENGINEERING TECHNOLOGY",
+            "BET-MMT - BACHELOR OF ENGINEERING TECHNOLOGY-METALLURGY AND MATERIALS ENGINEERING TECHNOLOGY",
+            "BSEM - BACHELOR OF SCIENCE IN MINING ENGINEERING",
+            "BSBA-MKT MGT - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (MARKETING MANAGEMENT)",
+            "BS ECON - BACHELOR OF SCIENCE IN ECONOMICS",
+            "BSIAM - BACHELOR OF SCIENCE IN INDUSTRIAL AUTOMATION & MECHATRONICS",
+            "BS ENTREP - BACHELOR OF SCIENCE IN ENTREPRENEURSHIP",
+            "BSED CHEM - BACHELOR OF SECONDARY EDUCATION (CHEMISTRY)",
+            "BTLED-IA - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION-INDUSTRIAL ARTS",
+            "BTVTED-DT - BACHELOR OF TECHNICAL-VOCATIONAL TEACHER EDUCATION DRAFTING TECHNOLOGY",
+            "BPED - BACHELOR OF PHYSICAL EDUCATION",
+            "BSBA-B.ECON - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (BUSINESS ECONOMICS)",
+            "BSED PHYS - BACHELOR OF SECONDARY EDUCATION (PHYSICS)",
+            "BSED MATH - BACHELOR OF SECONDARY EDUCATION (MATHEMATICS)",
+            "BSIS - BACHELOR OF SCIENCE IN INFORMATION SYSTEMS",
+            "BSSTAT - BACHELOR OF SCIENCE IN STATISTICS",
+            "BA PSYCH - BACHELOR OF ARTS IN PSYCHOLOGY",
+            "BEED SCI MAT - BACHELOR OF ELEMENTARY EDUCATION (SCIENCE AND MATHEMATICS)",
+            "BSED FIL - BACHELOR OF SECONDARY EDUCATION (FILIPINO)",
+            "BEED Lang Ed - BACHELOR OF ELEMENTARY EDUCATION (LANGUAGE EDUCATION)",
+            "BA HISTORY - BACHELOR OF ARTS IN HISTORY",
+            "BSCERE - BACHELOR OF SCIENCE IN CERAMIC ENGINEERING",
+            "BTLED-HE - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION -HOME ECONOMICS",
+            "BA FIL - BATSILYER NG SINING SA FILIPINO",
+            "BA SOCIO - BACHELOR OF ARTS IN SOCIOLOGY",
+            "BET-ELET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRICAL ENGINEERING TECHNOLOGY",
+            "BET-CHET - BACHELOR OF ENGINEERING TECHNOLOGY-CHEMICAL ENGINEERING TECHNOLOGY",
+            "BET-ESET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRONICS ENGINEERING TECHNOLOGY",
+            "BET-MET - BACHELOR OF ENGINEERING TECHNOLOGY-MECHANICAL ENGINEERING TECHNOLOGY",
+            "BSEnE - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING",
+            "BSCA - BACHELOR OF SCIENCE IN COMPUTER APPLICATIONS",
+            "BS EnvET - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING TECHNOLOGY"
+        ];
+
+        const prefCourse1 = document.getElementById('pref_course1');
+        const prefCourse2 = document.getElementById('pref_course2');
+
+        // Populate the dropdowns initially
+        function populateOptions(dropdown) {
+            dropdown.innerHTML = '<option value="">-- Select Program --</option>'; // Reset options
+            allCourses.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course;
+                option.textContent = course;
+                dropdown.appendChild(option);
+            });
+        }
+
+        // Update the second dropdown based on the selection in the first dropdown
+        function updateSecondDropdown() {
+            const selectedCourse1 = prefCourse1.value;
+            prefCourse2.innerHTML = '<option value="">-- Select Program 2 --</option>'; // Reset options
+
+            allCourses.forEach(course => {
+                if (course !== selectedCourse1) {
+                    const option = document.createElement('option');
+                    option.value = course;
+                    option.textContent = course;
+                    prefCourse2.appendChild(option);
+                }
+            });
+        }
+
+        // Event listeners
+        prefCourse1.addEventListener('change', updateSecondDropdown);
+
+        // Initial population of options
+        populateOptions(prefCourse1);
+        populateOptions(prefCourse2);
+      </script>
+
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+      <script src="../static/assets2/js/autocomplete.js"></script>
+      <script src="../static/assets2/js/occupation.js"></script>
+
+    </body>
+</html>

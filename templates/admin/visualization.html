@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MSU-IIT | Course Recommendation System</title>
+    
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+    
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon" />
+    <link href="../static/img/logo.png" rel="apple-touch-icon" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i" rel="stylesheet" />
+
+    <!-- Vendor CSS Files -->
+    <link href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../static/assets2/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="../static/assets2/vendor/quill/quill.snow.css" rel="stylesheet" />
+    <link href="../static/assets2/vendor/quill/quill.bubble.css" rel="stylesheet" />
+    <link href="../static/assets2/vendor/remixicon/remixicon.css" rel="stylesheet" />
+    <link href="../static/assets2/vendor/simple-datatables/style.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="../static/assets2/css/style.css" rel="stylesheet" />
+    <link href="../static/assets2/css/visualization.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="/admin/dashboard" class="logo d-flex align-items-center">
+                <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+        <!-- End Logo -->
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-primary badge-number">{{ students_applying_count }}</span>
+                    </a>
+                    <!-- End Notification Icon -->
+
+                    <!-- Notif dropdown for applicants-->
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                        <li class="dropdown-header">
+                            {{ students_applying_count }} student(s) submitted their application!
+                            <a href="/admin/dashboard">
+                                <span class="badge rounded-pill bg-primary p-2 ms-2">View all</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+
+                        <!-- Shows applicants who submitted applications but not yet confirmed -->
+                        {% for row in students_applying if row['application_status'] != 'Confirmed' %}
+                        <li class="notification-item">
+                            <i class="bi bi-info-circle text-success"></i>
+                            <a href="/view_unverified/{{ row['u_id'] }}">
+                                <div>
+                                    <p>
+                                        {{ row['f_name'] }} {{ row['m_name'] }} {{ row['l_name'] }}
+                                    </p>
+                                    <p>{{ row['s_date'].strftime('%Y-%m-%d %H:%M') }}</p>
+                                </div>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <!-- End Notification Dropdown Items -->
+                </li>
+                <!-- End Notification Nav -->
+
+                <li class="nav-item dropdown pe-3">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <i class="fa-solid fa-user-large"></i>
+                        <span class="dropdown-toggle ps-2">Account</span>
+                    </a>
+                    <!-- End Profile Image Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>{{ f_name }} {{ m_name }} {{ l_name }}</h6>
+                            <span>{{ role }}</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center transition-link" href="{{ url_for('logout') }}">
+                                <i class="bi bi-box-arrow-right transition-link"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- End Profile Dropdown Items -->
+                </li>
+                <!-- End Profile Nav -->
+            </ul>
+        </nav>
+        <!-- End Icons Navigation -->
+    </header>
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link collapsed {{ 'active' if request.path == '/admin/dashboard' else '' }}" href="/admin/dashboard">
+                    <i class="bx bxs-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed {{ 'active' if request.path == '/admin/students' else '' }}" href="/admin/students">
+                    <i class="ri-service-fill"></i>
+                    <span>Verified Students</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed {{ 'active' if request.path == '/admin/visualization' else '' }}" href="/admin/visualization">
+                    <i class="bx bxs-business"></i>
+                    <span>Visualization</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <!-- End Sidebar-->
+
+    <!-- Main Body -->
+    <main id="main" class="main">
+        <div class="row">
+            <!-- Existing Gender Distribution Pie Chart Section -->
+            <div class="col-xl-4 col-lg-6 col-md-12 d-flex flex-column flex-md-row">
+                <div class="card h-100 w-100 mb-4">
+                    <div class="card-body pt-4 d-flex flex-column">
+                        <h2 class="card-title">Student Gender</h2>
+                        <div id="pie_gender" style="width: 100%; height: 320px"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Existing Track Distribution Bar Chart Section -->
+            <div class="col-xl-8 col-lg-6 col-md-12 d-flex flex-column flex-md-row">
+                <div class="card h-100 w-100 mb-4">
+                    <div class="card-body pt-4 d-flex flex-column">
+                        <h2 class="card-title">Student Tracks</h2>
+                        <div id="bar_track" style="width: 100%; height: 320px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Counts Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4 mt-4">
+                    <div class="card-body">
+                        <h2 class="card-title mt-4">Students' Preferred Courses</h2>
+                        <!-- Add Export Button -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <a href="{{ url_for('export_courses') }}" class="btn btn-primary">Export to Excel</a>
+                            </div>
+                        </div>
+                        <!-- Filter Section -->
+                        <div class="mb-4">
+                            <label for="courseFilter" style="width: 100%;">Filter by Category:</label>
+                            <select id="courseFilter" class="form-select mt-2" style="width: 50%;" onchange="filterCourses()">
+                                <option value="all">All Colleges</option>
+                                <option value="COE">College of Engineering (COE)</option>
+                                <option value="CSM">College of Science and Mathematics (CSM)</option>
+                                <option value="CHS">College of Health Sciences (CHS)</option>
+                                <option value="CED">College of Education (CED)</option>
+                                <option value="CASS">College of Arts and Social Sciences (CASS)</option>
+                                <option value="CEBA">College of Economics and Business Administration (CEBA)</option>
+                                <option value="CCS">College of Computer Studies (CCS)</option>
+                            </select>
+                        </div>
+                        <div class="table-responsive"> <!-- Added responsive table wrapper -->
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>College</th>
+                                        <th>Program</th>
+                                        <th>Total Students</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for course, count in course_counts.items() %}
+                                        <tr>
+                                            <td>{{ courses[course] }}</td>
+                                            <td>{{ course }}</td>
+                                            <td>{{ count }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+
+    <!-- Vendor JS Files -->
+    <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+    <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+    <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+    <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+    <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="../static/assets2/js/main.js"></script>
+
+    <!-- ECharts Script for Pie and Bar Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            // Gender Pie Chart
+            var pieGenderData = {{ pie_gender|tojson }};
+            var genderChartDom = document.getElementById('pie_gender');
+            var genderChart = echarts.init(genderChartDom);
+
+            var genderOption = {
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left'
+                },
+                series: [
+                    {
+                        name: 'Gender',
+                        type: 'pie',
+                        radius: '50%',
+                        data: pieGenderData,
+                        emphasis: {
+                            itemStyle: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            genderChart.setOption(genderOption);
+
+            // Track Bar Chart
+            var barTrackData = {{ pie_track|tojson }};
+            var trackChartDom = document.getElementById('bar_track');
+            var trackChart = echarts.init(trackChartDom);
+
+            // Prepare data for the bar chart
+            var trackNames = barTrackData.map(item => item.name);
+            var trackCounts = barTrackData.map(item => item.value);
+
+            var trackOption = {
+                tooltip: {
+                    trigger: 'item'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: trackNames,
+                    name: 'Tracks'
+                },
+                yAxis: {
+                  type: 'value',
+                  name: 'Number of Students',
+                  interval: 1
+                },
+                series: [{
+                  name: 'Students',
+                  type: 'bar',
+                  data: trackCounts,
+                  emphasis: {
+                  focus: 'series'
+                  },
+                  itemStyle: {
+                    color: function (params) {
+                    var strandColors = {
+                        'STEM': '#cf2323',
+                        'ABM': '#e3c81b',
+                        'HUMSS': '#8f219c', 
+                        'GAS': '#25c266', 
+                        'TVL': '#4149d9'
+                    };
+                    return strandColors[params.name];
+                    }
+                  }
+                }]
+            };
+
+            trackChart.setOption(trackOption);
+        });
+    </script>
+
+    <!--Filter Functions for table each college-->
+    <script>
+        document
+          .getElementById("college-filter")
+          .addEventListener("change", function () {
+            var college = this.value;
+            var rows = document.querySelectorAll("#course-table tbody tr");
+  
+            rows.forEach(function (row) {
+              if (
+                college === "all" ||
+                row.getAttribute("data-college") === college
+              ) {
+                row.style.display = "";
+              } else {
+                row.style.display = "none";
+              }
+            });
+          });
+      </script>
+      <script>
+        function filterCourses() {
+            const filterValue = document.getElementById('courseFilter').value;
+            const tableRows = document.querySelectorAll('table tbody tr');
+    
+            tableRows.forEach(row => {
+                const courseName = row.cells[1].innerText; // Get the course name from the second column
+                const category = courses[courseName] || 'other'; // Get the category for the course
+                
+                if (filterValue === 'all' || category === filterValue) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+        
+        // Mapping course names to their categories in JS
+        const courses = {
+            'BSCE - BACHELOR OF SCIENCE IN CIVIL ENGINEERING' : 'COE',
+            'BSBIO(MCB) - BACHELOR OF SCIENCE IN BIOLOGY(MICROBIOLOGY)' : 'CSM',
+            'BSEE - BACHELOR OF SCIENCE IN ELECTRICAL ENGINEERING' : 'COE',
+            'BSMETE - BACHELOR OF SCIENCE METALLURGICAL ENGINEERING' : 'COE',
+            'BSBIO(AnBio) - BACHELOR OF SCIENCE IN BIOLOGY(ANIMAL BIOLOGY)' : 'CSM',
+            'BSCHEM - BACHELOR OF SCIENCE IN CHEMISTRY' : 'CSM',
+            'BSCHE - BACHELOR OF SCIENCE IN CHEMICAL ENGINEERING' : 'COE',
+            'BSPHYSICS - BACHELOR OF SCIENCE IN PHYSICS' : 'CSM',
+            'BSNURSING - BACHELOR OF SCIENCE IN NURSING' : 'CHS',
+            'BSEsE - BACHELOR OF SCIENCE IN ELECTRONICS ENGINEERING' : 'COE',
+            'BSA - BACHELOR OF SCIENCE IN ACCOUNTANCY' : 'CEBA',
+            'BSMARINE BIO - BACHELOR OF SCIENCE IN MARINE BIOLOGY' : 'CSM',
+            'BSIT - BACHELOR OF SCIENCE IN INFORMATION TECHNOLOGY' : 'CCS',
+            'BSCPE - BACHELOR OF SCIENCE IN COMPUTER ENGINEERING' : 'COE',
+            'BA POL SCI - BACHELOR OF ARTS IN POLITICAL SCIENCE' : 'CASS',
+            'BSME - BACHELOR OF SCIENCE IN MECHANICAL ENGINEERING' : 'COE',
+            'BA ELS - BACHELOR OF ARTS IN ENGLISH LANGUAGE STUDIES' : 'CASS',
+            'BSBIO(Bdv) - BACHELOR OF SCIENCE IN BIOLOGY (BIODIVERSITY)' : 'CSM',
+            'BSMATH - BACHELOR OF SCIENCE IN MATHEMATICS' : 'CSM',
+            'BSBIO(PlBio) - BACHELOR OF SCIENCE IN BIOLOGY(PLANT BIOLOGY)' : 'CSM',
+            'BSED BIO - BACHELOR OF SECONDARY EDUCATION (BIOLOGY)' : 'CED',
+            'BS PSYCH - BACHELOR OF SCIENCE IN PSYCHOLOGY' : 'CASS',
+            'BSCS - BACHELOR OF SCIENCE IN COMPUTER SCIENCE' : 'CCS',
+            'BS HM - BACHELOR OF SCIENCE IN HOSPITALITY MANAGEMENT' : 'CEBA',
+            'BS PHIL - BACHELOR OF SCIENCE IN PHILOSOPHY MAJOR IN APPLIED ETHICS' : 'CASS',
+            'BET-CET - BACHELOR OF ENGINEERING TECHNOLOGY - CIVIL ENGINEERING TECHNOLOGY' : 'COE',
+            'BET-MMT - BACHELOR OF ENGINEERING TECHNOLOGY-METALLURGY AND MATERIALS ENGINEERING TECHNOLOGY': 'COE',
+            'BSEM - BACHELOR OF SCIENCE IN MINING ENGINEERING' : 'COE',
+            'BSBA-MKT MGT - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (MARKETING MANAGEMENT)' : 'CEBA',
+            'BS ECON - BACHELOR OF SCIENCE IN ECONOMICS' : 'CEBA',
+            'BSIAM - BACHELOR OF SCIENCE IN INDUSTRIAL AUTOMATION & MECHATRONICS' : 'COE',
+            'BS ENTREP - BACHELOR OF SCIENCE IN ENTREPRENEURSHIP' : 'CEBA',
+            'BSED CHEM - BACHELOR OF SECONDARY EDUCATION (CHEMISTRY)': 'CED',
+            'BTLED-IA - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION-INDUSTRIAL ARTS': 'CED',
+            'BTVTED-DT - BACHELOR OF TECHNICAL-VOCATIONAL TEACHER EDUCATION DRAFTING TECHNOLOGY' : 'CED',
+            'BPED - BACHELOR OF PHYSICAL EDUCATION' : 'CED',
+            'BSBA-B.ECON - BACHELOR OF SCIENCE IN BUSINESS ADMINISTRATION (BUSINESS ECONOMICS)' : 'CEBA',
+            'BSED PHYS - BACHELOR OF SECONDARY EDUCATION (PHYSICS)' : 'CED',
+            'BSED MATH - BACHELOR OF SECONDARY EDUCATION (MATHEMATICS)' : 'CED',
+            'BSIS - BACHELOR OF SCIENCE IN INFORMATION SYSTEMS' : 'CCS',
+            'BSSTAT - BACHELOR OF SCIENCE IN STATISTICS' : 'CSM',
+            'BEED SCI MAT - BACHELOR OF ELEMENTARY EDUCATION (SCIENCE AND MATHEMATICS)' : 'CED',
+            'BSED FIL - BACHELOR OF SECONDARY EDUCATION (FILIPINO)' : 'CED',
+            'BEED Lang Ed - BACHELOR OF ELEMENTARY EDUCATION (LANGUAGE EDUCATION)' : 'CED',
+            'BA HISTORY - BACHELOR OF ARTS IN HISTORY' : 'CASS',
+            'BSCERE - BACHELOR OF SCIENCE IN CERAMIC ENGINEERING' : 'COE',
+            'BTLED-HE - BACHELOR OF TECHNOLOGY AND LIVELIHOOD EDUCATION -HOME ECONOMICS' : 'CED',
+            'BA FIL - BATSILYER NG SINING SA FILIPINO' : 'CASS',
+            'BA SOCIO - BACHELOR OF ARTS IN SOCIOLOGY' : 'CASS',
+            'BET-ELET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRICAL ENGINEERING TECHNOLOGY' : 'COE',
+            'BET-CHET - BACHELOR OF ENGINEERING TECHNOLOGY-CHEMICAL ENGINEERING TECHNOLOGY' : 'COE',
+            'BET-ESET - BACHELOR OF ENGINEERING TECHNOLOGY-ELECTRONICS ENGINEERING TECHNOLOGY' : 'COE',
+            'BET-MET - BACHELOR OF ENGINEERING TECHNOLOGY-MECHANICAL ENGINEERING TECHNOLOGY' : 'COE',
+            'BSEnE - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING' : 'COE',
+            'BSCA - BACHELOR OF SCIENCE IN COMPUTER APPLICATIONS' : 'CCS',
+            'BS EnvET - BACHELOR OF SCIENCE IN ENVIRONMENTAL ENGINEERING TECHNOLOGY' : 'COE',
+        };
+        </script>
+</body>
+</html>

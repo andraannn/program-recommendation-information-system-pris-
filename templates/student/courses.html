@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon">
+    <link href="../static/img/logo.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>    
+
+    <!-- Template Main CSS File -->
+    <link href="../static/assets2/css/style.css" rel="stylesheet">
+    <link href="../static/assets2/css/student_courses.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/student/dashboard" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        </li><!-- End Search Icon-->
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-user-large"></i>
+          <span class="dropdown-toggle ps-2">Account</span>
+          </a>
+          <!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ f_name }} {{ l_name }}</h6>
+              <span>{{ role }}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+                <a class="dropdown-item d-flex align-items-center transition-link" href="/student/profile">
+                  <span>Profile</span>
+                </a>
+              </li>
+              <hr class="dropdown-divider">
+            <li>
+              <a class="dropdown-item d-flex align-items-center transition-link" href="{{ url_for('logout') }}">
+                <i class="bi bi-box-arrow-right transition-link"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+      <ul class="sidebar-nav" id="sidebar-nav">
+  
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/dashboard' else '' }}" href="/student/dashboard">
+                  <i class="bx bxs-dashboard"></i>
+                  <span>Dashboard</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/profile' else '' }}" href="/student/profile">
+                  <i class="ri-contacts-line"></i>
+                  <span>Profile</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/grades' else '' }}" href="/student/grades">
+                  <i class="ri-book-open-line"></i>
+                  <span>Grades</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/recommendation' else '' }}" href="/student/recommendation">
+                  <i class="ri-briefcase-fill"></i>
+                  <span>Recommendation</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/courses' else '' }}" href="/student/courses">
+                  <i class="ri-service-fill"></i>
+                  <span>Courses</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/about' else '' }}" href="/student/about">
+                  <i class="bx bxs-business"></i>
+                  <span>About</span>
+              </a>
+          </li>
+  
+      </ul>
+  
+    </aside><!-- End Sidebar-->
+
+    <!-- Main Body -->
+    <main id="main" class="main">
+      
+      <!-- Bordered Tabs Justified -->
+      <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+        <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100 active" id="COE-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-COE" type="button" role="tab" aria-controls="COE" aria-selected="true">COE</button>
+        </li>
+        <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100" id="CASS-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-CASS" type="button" role="tab" aria-controls="CASS" aria-selected="false">CASS</button>
+        </li>
+        <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100" id="CCS-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-CCS" type="button" role="tab" aria-controls="CCS" aria-selected="false">CCS</button>
+        </li>
+        <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100" id="CED-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-CED" type="button" role="tab" aria-controls="CED" aria-selected="false">CED</button>
+        </li>
+        <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100" id="CHS-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-CHS" type="button" role="tab" aria-controls="CHS" aria-selected="false">CHS</button>
+        </li>
+        <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100" id="CSM-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-CSM" type="button" role="tab" aria-controls="CSM" aria-selected="false">CSM</button>
+        </li>
+        <li class="nav-item flex-fill" role="presentation">
+          <button class="nav-link w-100" id="CEBA-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-CEBA" type="button" role="tab" aria-controls="CEBA" aria-selected="false">CEBA</button>
+        </li>
+      </ul>
+      <div class="tab-content pt-2" id="borderedTabJustifiedContent" style = "background-color: rgba(0, 0, 0, 0.1);">
+        <div class="tab-pane fade show active" id="bordered-justified-COE" role="tabpanel" aria-labelledby="COE-tab">
+          <h4>&nbsp College of Engineering</h4>
+          <br>
+          <ul>
+            <li>BSCE - Bachelor of Science in Civil Engineering</li>
+            <p>- This program focuses on designing, constructing, and maintaining infrastructure like bridges and buildings, integrating principles of mathematics and physics.</p>
+
+            <li>BSEE - Bachelor of Science in Electrical Engineering</li>
+            <p> -  Students learn about electrical systems, circuits, and devices, preparing for careers in power generation, electronics, and telecommunications. </p>
+
+            <li>BSMETE - Bachelor of Science Metallurgical Engineering</li>
+            <p> - This program explores the properties and applications of metals, alloys, and materials, covering extraction, processing, and production techniques.</p>
+
+            <li>BSCHE - Bachelor of Science in Chemical Engineering</li>
+            <p> -  Students study chemical processes and materials to develop products like fuels, pharmaceuticals, and plastics, blending chemistry, physics, and engineering principles.</p>
+
+            <li>BSEsE - Bachelor of Science in Electronics Engineering</li>
+            <p> - Focused on electronic systems and devices, this degree covers areas like telecommunications, digital systems, and microelectronics.</p>
+
+            <li>BSCPE - Bachelor of Science in Computer Engineering</li>
+            <p> -  Combining computer science and electrical engineering, this program prepares students to design and develop computer hardware and software.</p>
+
+            <li>BSME - Bachelor of Science in Mechanical Engineering</li>
+            <p> - Students learn about mechanical systems and machines, applying principles of physics and materials science to design and analyze devices.</p>
+
+            <li>BET-CET - Bachelor of Engineering Technology - Civil Engineering Technology</li>
+            <p> - This program emphasizes the practical application of civil engineering concepts, preparing students for careers in construction management and structural design.</p>
+
+            <li>BET-MMT - Bachelor of Engineering Technology-Metallurgy and Materials Engineering Technology</li>
+            <p> -  Focused on materials science and engineering, this degree covers areas like materials processing, testing, and quality control.</p>
+
+            <li>BSEM - Bachelor of Science in Mining Engineering</li>
+            <p> - Students learn about mining operations, mineral processing, and mine design, preparing for careers in resource extraction and environmental management.</p>
+
+            <li>BSIAM - Bachelor of Science in Industrial Automation & Mechatronics</li>
+            <p> - This program integrates mechanical, electrical, and computer engineering for designing automated systems, robots, and manufacturing processes.</p>
+
+            <li>BET-ELET - Bachelor of Engineering Technology-Electrical Engineering Technology</li>
+            <p> - Focused on practical applications, this program covers electrical power systems, electronics, and instrumentation for industries like power generation and automation.</p>
+
+            <li>BET-CHET - Bachelor of Engineering Technology-Chemical Engineering Technology</li>
+            <p> - This degree focuses on the practical aspects of chemical engineering, preparing students for roles in process control, production, and safety management.</p>
+
+            <li>BET-ESET - Bachelor of Engineering Technology-Electronics Engineering Technology</li>
+            <p> - Students learn about electronic circuits, communication systems, and embedded systems design, preparing for roles in telecommunications and consumer electronics.</p>
+
+            <li>BET-MET - Bachelor of Engineering Technology-Mechanical Engineering Technology</li>
+            <p> - This program emphasizes hands-on skills in mechanical design, manufacturing, and maintenance, preparing students for careers in industries like automotive and aerospace.</p>
+
+            <li>BSEnE - Bachelor of Science Environmental Engineering</li>
+            <p> -  This degree focuses on solutions to environmental issues, covering areas like water treatment, air pollution control, and sustainable development.</p>
+
+            <li>BSCERE - Bachelor of Science in Ceramic Engineering</li>
+            <p> -  Students study the properties and applications of ceramics and related materials, preparing for careers in industries like manufacturing, aerospace, and biomedical engineering.</p>
+
+            <li>BS EnvET - Bachelor of Science in Environmental Engineering Technology</li>
+            <p> - Focused on practical solutions for environmental challenges, this program covers topics like waste management, pollution prevention, and sustainable engineering practices.</p>
+          </ul>
+          <br>
+        </div>
+        <div class="tab-pane fade" id="bordered-justified-CASS" role="tabpanel" aria-labelledby="CASS-tab">
+          <h4>&nbsp College of Arts and Social Sciences</h4>
+          <br>
+          <ul>
+            <li>BA POL SCI - Bachelor of Arts in Political Science</li>
+            <p> - This program explores political theories, institutions, and processes, preparing students for careers in government, international relations, and public policy.</p>
+
+            <li>BA ELS - Bachelor of Arts in English Language Studies</li>
+            <p> - Focused on the English language's structure and usage, this degree covers areas like linguistics, literature, and language teaching.</p>
+
+            <li>BA PSYCH - Bachelor of Arts in Psychology</li>
+            <p> - Students study human behavior and mental processes, exploring areas such as cognition, emotion, development, and abnormal psychology.</p>
+
+            <li>BS PHIL - Bachelor of Science in Philosophy major in Applied Ethics</li>
+            <p> - This program delves into philosophical theories and ethical principles, with a focus on their practical application in areas like business, healthcare, and law.</p>
+
+            <li>BA HISTORY - Bachelor of Arts in History</li>
+            <p> - This degree explores past events, societies, and cultures, developing critical thinking and research skills valuable in fields such as education, museum curation, and archival work.</p>
+
+            <li>BA FIL - Batsilyer ng Sining sa Filipino</li>
+            <p> -  Ang kursong ito ay naglalaman ng pag-aaral sa kasaysayan, kultura, at panitikan ng Filipino, handaing ang mga mag-aaral para sa mga karera sa edukasyon, kultura, at midya.</p>
+
+            <li>BA SOCIO - Bachelor of Arts in Sociology</li>
+            <p> - Students examine social structures, institutions, and relationships, gaining insights into topics like inequality, culture, and social change. This prepares them for careers in social work, research, and advocacy.</p>
+          </ul>
+          <br>
+        </div>
+        <div class="tab-pane fade" id="bordered-justified-CCS" role="tabpanel" aria-labelledby="CCS-tab">
+          <h4>&nbsp College of Computer Studies</h4>
+          <br>
+          <ul>
+          <li>BSIT - Bachelor of Science in Information Technology</li>
+          <p> - This program focuses on the application of technology to solve business problems, covering areas like software development, network administration, and database management.</p>
+
+          <li>BSCS - Bachelor of Science in Computer Science</li>
+          <p> -  Students study algorithms, programming languages, and software development, preparing for careers in software engineering, artificial intelligence, and computer systems analysis.</p>
+
+          <li>BSCA - Bachelor of Science in Computer Applications </li>
+          <p> - This program emphasizes the development and implementation of computer applications, with a particular focus on Internet of Things (IoT) systems. Students learn to design, implement, and manage IoT devices and networks, preparing for careers in IoT development, data analytics, and smart technology integration.</p>
+
+          <li>BSIS - Bachelor of Science in Information Systems</li>
+          <p> - Focused on the intersection of technology and business, this program covers topics like data management, systems analysis, and IT project management, preparing students for roles in managing information technology within organizations.</p>
+          </ul>
+          <br>
+        </div>
+        <div class="tab-pane fade" id="bordered-justified-CED" role="tabpanel" aria-labelledby="CED-tab">
+          <h4>&nbsp College of Education</h4>
+          <br>
+          <ul>
+            <li>BSED BIO - Bachelor of Secondary Education (Biology)</li>
+            <p> - This program prepares educators to teach biology in secondary schools, covering topics like life sciences, ecology, and genetics, to cultivate a passion for science in students.</p>
+
+            <li>BSED CHEM - Bachelor of Secondary Education (Chemistry)</li>
+            <p> - Students in this program learn to teach chemistry concepts and experiments, equipping them to inspire understanding of chemical properties and reactions.</p>
+
+            <li>BTLED-IA - Bachelor of Technology and Livelihood Education-Industrial Arts</li>
+            <p> -  Focused on practical skills, this degree prepares educators to teach industrial arts subjects like woodworking, metalworking, and electronics, fostering hands-on learning and technical knowledge.</p>
+
+            <li>BTVTED-DT - Bachelor of Technical-Vocational Teacher Education Drafting Technology</li>
+            <p> - This program trains teachers to instruct in drafting technology, including architectural and engineering drawing techniques, to prepare students for technical design careers.</p>
+
+            <li>BPED - Bachelor of Physical Education</li>
+            <p> - Students study human movement, sports science, and fitness education, preparing them for careers as physical education teachers promoting health and wellness.</p>
+
+            <li>BSED PHYS - Bachelor of Secondary Education (Physics)</li>
+            <p> -  This degree focuses on teaching physics principles, theories, and experiments, enabling educators to engage students in the understanding of natural laws and phenomena.</p>
+
+            <li>BSED MATH - Bachelor of Secondary Education (Mathematics)</li>
+            <p> - This program equips future educators with the skills to teach mathematics, covering areas like algebra, geometry, and calculus, to develop problem-solving and analytical thinking in students.</p>
+
+            <li>BEED SCI MAT - Bachelor of Elementary Education (Science and Mathematics)</li>
+            <p> - This degree focuses on training elementary school teachers in science and mathematics education, emphasizing foundational concepts and inquiry-based learning methods.</p>
+            
+            <li>BSED FIL - Bachelor of Secondary Education (Filipino)</li>
+            <p> - This program prepares educators to teach the Filipino language and literature, fostering appreciation for the country's culture and literature among students.</p>
+            
+            <li>BEED Lang Ed - Bachelor of Elementary Education (Language Education)</li>
+            <p> - Students in this program learn to teach language and literacy skills to elementary students, focusing on effective communication and language development.</p>
+
+            <li>BTLED-HE - Bachelor of Technology and Livelihood Education - Home Economics</li>
+            <p> - This degree focuses on teaching home economics subjects, including cooking, nutrition, family management, and textile arts, to prepare students for careers in homemaking and related fields.</p>
+          </ul>
+          <br>
+        </div>
+        <div class="tab-pane fade" id="bordered-justified-CHS" role="tabpanel" aria-labelledby="CHS-tab">
+          <h4>&nbsp College of Health Sciences</h4>
+          <br>
+          <ul>
+          <li>BSNURSING - Bachelor of Science in Nursing</li>
+          <p> - This program equips students with the knowledge and skills to provide comprehensive nursing care, covering areas such as healthcare ethics, patient assessment, medical treatments, and clinical practice. Graduates are prepared for diverse roles in healthcare settings, from hospitals to community clinics, contributing to patient well-being and promoting health.</p>
+          </ul>
+          <br>
+        </div>
+        <div class="tab-pane fade" id="bordered-justified-CSM" role="tabpanel" aria-labelledby="CSM-tab">
+          <h4>&nbsp College of Science and Mathematics</h4>
+          <br>
+
+          <ul>
+            <li>BSBIO(MCB) - Bachelor of Science in Biology (Microbiology)</li>
+            <p> - This program focuses on the study of microorganisms, including bacteria, viruses, and fungi, exploring their roles in health, disease, and the environment.</p>
+
+            <li>BSBIO(AnBio) - Bachelor of Science in Biology (Animal Biology)</li>
+            <p> - Students in this program study the biology and behavior of animals, covering topics like evolution, physiology, and ecology to understand animal life forms.</p>
+
+            <li>BSCHEM - Bachelor of Science in Chemistry</li>
+            <p> - This degree delves into the study of matter, its properties, and chemical reactions, preparing students for careers in research, pharmaceuticals, and environmental analysis.</p>
+
+            <li>BSPHYSICS - Bachelor of Science in Physics</li>
+            <p> -  Focused on the study of matter, energy, and their interactions, this program covers areas such as mechanics, thermodynamics, and quantum physics, preparing students for careers in research, engineering, and academia.</p>
+
+            <li>BSBIO(Bdv) - Bachelor of Science in Biology (Biodiversity)</li>
+            <p> - This program explores the diversity of life forms on Earth, covering taxonomy, conservation, and ecosystem dynamics to understand and preserve biological diversity.</p>
+
+            <li>BSMATH - Bachelor of Science in Mathematics</li>
+            <p> - Students in this program study advanced mathematical concepts and theories, preparing them for careers in finance, data analysis, cryptography, and academia.</p>
+
+            <li>BSBIO(PlBio) - Bachelor of Science in Biology (Plant Biology)</li>
+            <p> - his degree focuses on the study of plants, including their growth, development, and interactions with the environment, preparing students for careers in agriculture, botany, and environmental science.</p>
+
+            <li>BSBIO(Marine Bio) - Bachelor of Science in Marine Biology</li>
+            <p> - Students in this program study marine ecosystems, marine life forms, and oceanic processes, preparing them for careers in marine conservation, aquaculture, and research.</p>
+
+            <li>BSSTAT - Bachelor of Science in Statistics</li>
+            <p> - Focused on the collection, analysis, and interpretation of data, this program equips students with statistical methods and tools for decision-making in fields such as business, healthcare, and social sciences.</p>
+          </ul>
+          <br>
+        </div>
+        <div class="tab-pane fade" id="bordered-justified-CEBA" role="tabpanel" aria-labelledby="CEBA-tab">
+          <h4>&nbsp College of Economics and Business Administration</h4>
+          <br>
+          <ul>
+            <li>BSA - Bachelor of Science in Accountancy</li>
+            <p> - This program prepares students with the knowledge and skills in financial accounting, auditing, taxation, and management accounting, enabling them to pursue careers as accountants or financial analysts in various industries.</p>
+
+            <li>BS HM - Bachelor of Science in Hospitality Management</li>
+            <p> -  Students in this program learn about the management and operations of hotels, restaurants, and tourism establishments, focusing on customer service, marketing, and business administration within the hospitality industry.</p>
+
+            <li>BSBA-MKT MGT - Bachelor of Science in Business Administration (Marketing Management)</li>
+            <p> - This degree emphasizes marketing strategies, consumer behavior, and market research, preparing students for roles in brand management, advertising, and sales.</p>
+
+            <li>BS ENTREP - Bachelor of Science in Entrepreneurship</li>
+            <p> -  Students learn to develop and manage their own businesses, covering topics such as business planning, finance, innovation, and risk management to become successful entrepreneurs.</p>
+
+            <li>BS ECON - Bachelor of Science in Economics</li>
+            <p> - This program delves into economic theories, policies, and analysis, equipping students with skills in data interpretation and economic decision-making for careers in finance, consulting, or government.</p>
+
+            <li>BSBA-B.ECON - Bachelor of Science in Business Administration (Business Economics)</li>
+            <p> - Focused on the intersection of business and economics, this program explores how economic principles affect business decisions, preparing students for roles in market analysis, economic forecasting, and policy analysis.</p>
+
+          </ul>      
+          <br>    
+        </div>
+      </div><!-- End Bordered Tabs Justified -->
+
+    </main>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Function to set the content background based on the active tab
+        function setContentBackgroundColor() {
+          var activeTab = document.querySelector('.nav-tabs .nav-link.active');
+          var contentArea = document.getElementById('borderedTabJustifiedContent');
+          
+          // Map tab IDs to background colors
+          var tabColors = {
+            'COE-tab': '#e39ab2',
+            'CASS-tab': '#9ec29b',
+            'CCS-tab': '#a5cacf',
+            'CED-tab': '#9db3c9',
+            'CHS-tab': '#d3e2e3',
+            'CSM-tab': '#c48282',
+            'CEBA-tab': '#ede39f'
+          };
+    
+          // Get the active tab's ID
+          var activeTabId = activeTab.getAttribute('id');
+    
+          // Set the content area background color based on the active tab
+          if (tabColors[activeTabId]) {
+            contentArea.style.backgroundColor = tabColors[activeTabId];
+          } else {
+            contentArea.style.backgroundColor = 'rgba(0, 0, 0, 0.1)'; // Default fallback
+          }
+        }
+    
+        // Set the initial content background color
+        setContentBackgroundColor();
+    
+        // Update the content background color when a tab is clicked
+        document.querySelectorAll('.nav-tabs .nav-link').forEach(function (tab) {
+          tab.addEventListener('shown.bs.tab', setContentBackgroundColor);
+        });
+      });
+    </script>
+    
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+  <!-- Vendor JS Files -->
+  <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+  <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+  <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+  <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="../static/assets2/js/main.js"></script>
+
+    </body>
+
+</html>

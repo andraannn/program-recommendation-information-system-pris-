@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Print Grade Form</title>
+    <link href="../static/assets2/css/print.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Logo and text in a flex container -->
+        <div class="logo-container">
+            <img src="../static/img/logo.png" alt="logo" style="margin-right: 10px;">
+            <div>
+            <p><b>Republic of the Philippines</b></p>
+            <!-- Title -->
+            <p class="title"><b>ILIGAN INSTITUTE OF TECHNOLOGY</b></p>
+
+            <!-- Subtitle -->
+            <p class="subtitle">of the Mindanao State University </p>
+
+            </div>
+        </div>
+        <p id ="link">www.msuiit.edu.ph </p>
+          <hr>
+            <p id="influencing-text">Influencing the Future</p>
+          <br>
+        <!-- Student Name and auto-generated date -->
+        <div class="student-container">
+            <p class="header-name">Student Name: <u>{{ user['f_name'] }} {{ user['l_name'] }}</u></p>
+            <p id="auto-date" class="header-name">Auto-generated Date Here</p>
+        </div>
+        
+        <!-- SHS Information -->
+        <div class="SHS-container">
+            <p class="header-name">Campus Name: <u>{{ student['name_hs'] }}</u></p>
+            <p class="strand-name">SHS STRAND: <u>{{ student['track'] }}</u></p>
+        </div>
+        
+        <!-- Campus Address -->
+        <p class="header-name">Campus Address: <u>{{ student['address_hs'] }}</u></p>
+  
+        <br>
+      <table>
+        <thead>
+          <tr>
+            <th>Senior High School Subjects</th>
+            <th id="grade-th">Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% if student['track'] == 'STEM' %}
+          <tr>
+            <td>Earth and Life Science</td>
+            <td>{{ grade['earthandlifescience'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Sciences</td>
+            <td>{{ grade['physicalscience'] }}</td>
+          </tr>
+          <tr>
+            <td>Earth Sciences</td>
+            <td>{{ grade['earthscience'] }}</td>
+          </tr>
+          <tr>
+            <td>General Biology 1</td>
+            <td>{{ grade['genbio1'] }}</td>
+          </tr>
+          <tr>
+            <td>General Biology 2</td>
+            <td>{{ grade['genbio2'] }}</td>
+          </tr>
+          <tr>
+            <td>General Physics 1</td>
+            <td>{{ grade['genphysics1'] }}</td>
+          </tr>
+          <tr>
+            <td>General Physics 2</td>
+            <td>{{ grade['genphysics2'] }}</td>
+          </tr>
+          <tr>
+            <td>General Chemistry 1</td>
+            <td>{{ grade['genchem1'] }}</td>
+          </tr>
+          <tr>
+            <td>General Chemistry 2</td>
+            <td>{{ grade['genchem2'] }}</td>
+          </tr>
+          <tr>
+            <td>General Matematics</td>
+            <td>{{ grade['generalmath'] }}</td>
+          </tr>
+          <tr>
+            <td>Statistics and Probability</td>
+            <td>{{ grade['statisticsandprobability'] }}</td>
+          </tr>
+          <tr>
+            <td>Pre Calculus</td>
+            <td>{{ grade['precalculus'] }}</td>
+          </tr>
+          <tr>
+            <td>Basic Calculus</td>
+            <td>{{ grade['basiccalculus'] }}</td>
+          </tr>
+          <tr>
+            <td>Oral Communication</td>
+            <td>{{ grade['oralcommunication'] }}</td>
+          </tr>
+          <tr>
+            <td>Reading and Writing</td>
+            <td>{{ grade['reading_and_writing'] }}</td>
+          </tr>
+          <tr>
+            <td>Media and Information Literacy</td>
+            <td>{{ grade['mediaandinformationliteracy'] }}</td>
+          </tr>
+          <tr>
+            <td>21st Century Literature from the Philippines and the World:</td>
+            <td>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</td>
+          </tr>
+          <tr>
+            <td>Contemporary Philipine Arts from the Regions</td>
+            <td>{{ grade['contemporaryphilippineartsfromtheregions'] }}</td>
+          </tr>
+          <tr>
+            <td>Pagbasa at Pagsusuring ibat-ibang Teksto Tungo sa Pananaliksik</td>
+            <td>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</td>
+          </tr>
+          <tr>
+            <td>Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+            <td>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</td>
+          </tr>
+          <tr>
+            <td>Personal Development</td>
+            <td>{{ grade['personaldevelopment'] }}</td>
+          </tr>
+          <tr>
+            <td>Introduction to the Philosophy of the Human Person</td>
+            <td>{{ grade['introductiontothephilosophyofthehumanperson'] }}</td>
+          </tr>
+          <tr>
+            <td>Understanding Culture, Society, and Politics</td>
+            <td>{{ grade['understandingculturesocietyandpolitics'] }}</td>
+          </tr>
+          <tr>
+            <td>Disaster Readiness and Risk Reduction</td>
+            <td>{{ grade['disasterreadinessandrisk_reduction'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Education and Health</td>
+            <td>{{ grade['physicaleducationandhealth'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Education and Health 2</td>
+            <td>{{ grade['physicaleducationandhealth2'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Education and Health 3</td>
+            <td>{{ grade['physicaleducationandhealth3'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Education and Health 4</td>
+            <td>{{ grade['physicaleducationandhealth4'] }}</td>
+          </tr>
+
+
+          {% elif student['track'] == 'ABM' %}
+          <tr>
+            <td>Earth and Life Science</td>
+            <td>{{ grade['earthandlifescience'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Science</td>
+            <td>{{ grade['physicalscience'] }}</td>
+          </tr>
+          <tr>
+            <td>Earth Science</td>
+            <td>{{ grade['earthscience'] }}</td>
+          </tr>
+          <tr>
+            <td>General Mathematics</td>
+            <td>{{ grade['generalmath'] }}</td>
+          </tr>
+          <tr>
+            <td>Statistics and Probability</td>
+            <td>{{ grade['statisticsandprobability'] }}</td>
+          </tr>
+          <tr>
+            <td>Business Math</td>
+            <td>{{ grade['businessmath'] }}</td>
+          </tr>
+          <tr>
+            <td>Business Finance</td>
+            <td>{{ grade['businessfinance'] }}</td>
+          </tr>
+          <tr>
+            <td>Oral Communication</td>
+            <td>{{ grade['oralcommunication'] }}</td>
+          </tr>
+          <tr>
+            <td>Reading and Writing</td>
+            <td>{{ grade['reading_and_writing'] }}</td>
+          </tr>
+          <tr>
+            <td>Media and Information Literacy</td>
+            <td>{{ grade['mediaandinformationliteracy'] }}</td>
+          </tr>
+          <tr>
+            <td>21st Century Literature from the Philippines and the World</td>
+            <td>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</td>
+          </tr>
+          <tr>
+            <td>Contemporary Philippine Arts from the Regions</td>
+            <td>{{ grade['contemporaryphilippineartsfromtheregions'] }}</td>
+          </tr>
+          <tr>
+            <td>Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</td>
+            <td>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</td>
+          </tr>
+          <tr>
+            <td>Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+            <td>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</td>
+          </tr>
+          <tr>
+            <td>Personal Development</td>
+            <td>{{ grade['personaldevelopment'] }}</td>
+          </tr>
+          <tr>
+            <td>Introduction to the Philosophy of the Human Person</td>
+            <td>{{ grade['introductiontothephilosophyofthehumanperson'] }}</td>
+          </tr>
+          <tr>
+            <td>Understanding Culture Society and Politics</td>
+            <td>{{ grade['understandingculturesocietyandpolitics'] }}</td>
+          </tr>
+          <tr>
+            <td>Disaster Readiness and Risk Reduction</td>
+            <td>{{ grade['disasterreadinessandrisk_reduction'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Education and Health 1</td>
+            <td>{{ grade['physicaleducationandhealth'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Education and Health 2</td>
+            <td>{{ grade['physicaleducationandhealth2'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Education and Health 3</td>
+            <td>{{ grade['physicaleducationandhealth3'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Education and Health 4</td>
+            <td>{{ grade['physicaleducationandhealth4'] }}</td>
+          </tr>
+          <tr>
+            <td>Organization and Management</td>
+            <td>{{ grade['organizationandmanagement'] }}</td>
+          </tr>
+          <tr>
+            <td>Principles of Marketing</td>
+            <td>{{ grade['principlesofmarketing'] }}</td>
+          </tr>
+          <tr>
+            <td>Business Marketing</td>
+            <td>{{ grade['businessmarketing'] }}</td>
+          </tr>
+          <tr>
+            <td>Business Enterprise and Simulation</td>
+            <td>{{ grade['businessenterpriseandsimulation'] }}</td>
+          </tr>
+          <tr>
+            <td>F1 Fundamentals of Accountancy, Business, and Management 1</td>
+            <td>{{ grade['f1_fundamentalsofaccountancybusinessandmanagement1'] }}</td>
+          </tr>
+          <tr>
+            <td>F2 Fundamentals of Accountancy, Business, and Management 2</td>
+            <td>{{ grade['f2_fundamentalsofaccountancybusinessandmanagement2'] }}</td>
+          </tr>
+          <tr>
+            <td>Applied Economics</td>
+            <td>{{ grade['appliedeconomicsbusiness'] }}</td>
+          </tr>
+          <tr>
+            <td>Business Ethics and Responsibility</td>
+            <td>{{ grade['ethicsandsocial_responsibility'] }}</td>
+          </tr>
+
+          {% elif student['track'] == 'HUMSS' %}
+          <tr>
+            <td>Earth and Life Science</td>
+            <td>{{ grade['earthandlifescience'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Science</td>
+            <td>{{ grade['physicalscience'] }}</td>
+          </tr>
+          <td>Earth Science</td>
+            <td>{{ grade['earthscience'] }}</td>
+          </tr>
+          <td>General Mathematics</td>
+            <td>{{ grade['generalmath'] }}</td>
+          </tr>
+          <td>Statistics and Probability</td>
+            <td>{{ grade['statisticsandprobability'] }}</td>
+          </tr>
+          <td>Oral Communication</td>
+            <td>{{ grade['oralcommunication'] }}</td>
+          </tr>
+          <td>Reading and Writing</td>
+            <td>{{ grade['reading_and_writing'] }}</td>
+          </tr>
+          <td>Media and Information Literacy</td>
+            <td>{{ grade['mediaandinformationliteracy'] }}</td>
+          </tr>
+          <td>21st Century Literature from the Philippines and the World</td>
+            <td>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</td>
+          </tr>
+          <td>Contemporary Philippine Arts from the Regions</td>
+            <td>{{ grade['contemporaryphilippineartsfromtheregions'] }}</td>
+          </tr>
+          <td>Creative Non-fiction</td>
+            <td>{{ grade['creativenonfiction'] }}</td>
+          </tr>
+          <td>Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</td>
+            <td>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</td>
+          </tr>
+          <td>Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+            <td>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</td>
+          </tr>
+          <td>Creative Writing / Malikhaing Pagsulat</td>
+            <td>{{ grade['creativewriting_malikhaing_pagsulat'] }}</td>
+          </tr>
+          <td>Personal Development</td>
+            <td>{{ grade['personaldevelopment'] }}</td>
+          </tr>
+          <td>Introduction to the Philosophy of the Human Person</td>
+            <td>{{ grade['introductiontothephilosophyofthehumanperson'] }}</td>
+          </tr>
+          <td>Understanding Culture, Society, and Politics</td>
+            <td>{{ grade['understandingculturesocietyandpolitics'] }}</td>
+          </tr>
+          <td>Disaster Readiness and Risk Reduction</td>
+            <td>{{ grade['disasterreadinessandrisk_reduction'] }}</td>
+          </tr>
+          <td>Physical Education and Health</td>
+            <td>{{ grade['physicaleducationandhealth'] }}</td>
+          </tr>
+          <td>Physical Education and Health 2</td>
+            <td>{{ grade['physicaleducationandhealth2'] }}</td>
+          </tr>
+          <td>Physical Education and Health 3</td>
+            <td>{{ grade['physicaleducationandhealth3'] }}</td>
+          </tr>
+          <td>Physical Education and Health 4</td>
+            <td>{{ grade['physicaleducationandhealth4'] }}</td>
+          </tr>
+          <td>Introduction to World Religions and Belief Systems</td>
+            <td>{{ grade['introductiontoworldreligionsandbeliefsystems'] }}</td>
+          </tr>
+          <td>Community Engagement, Solidarity, and Citizenship</td>
+            <td>{{ grade['community_engagementsolidarityandcitizenship'] }}</td>
+          </tr>
+          <td>Philippine Politics and Governance</td>
+            <td>{{ grade['philippinepoliticsandgovernance'] }}</td>
+          </tr>
+          <td>Disciplines and Ideas in the Social Sciences</td>
+            <td>{{ grade['disciplinesandideasinthesocialsciences'] }}</td>
+          </tr>
+
+          {% elif student['track'] == 'GAS' %}
+          <tr>
+            <td>Earth and Life Science</td>
+            <td>{{ grade['earthandlifescience'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Science</td>
+            <td>{{ grade['physicalscience'] }}</td>
+          </tr>
+          <td>Earth Science</td>
+            <td>{{ grade['earthscience'] }}</td>
+          </tr>
+          <td>General Mathematics</td>
+            <td>{{ grade['generalmath'] }}</td>
+          </tr>
+          <td>Statistics and Probability</td>
+            <td>{{ grade['statisticsandprobability'] }}</td>
+          </tr>
+          <td>Oral Communication</td>
+            <td>{{ grade['oralcommunication'] }}</td>
+          </tr>
+          <td>Reading and Writing</td>
+            <td>{{ grade['reading_and_writing'] }}</td>
+          </tr>
+          <td>Media and Information Literacy</td>
+            <td>{{ grade['mediaandinformationliteracy'] }}</td>
+          </tr>
+          <td>21st Century Literature from the Philippines and the World</td>
+            <td>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</td>
+          </tr>
+          <td>Contemporary Philippine Arts from the Regions</td>
+            <td>{{ grade['contemporaryphilippineartsfromtheregions'] }}</td>
+          </tr>
+          <td>Creative Writing</td>
+            <td>{{ grade['creativewriting'] }}</td>
+          </tr>
+          <td>Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</td>
+            <td>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</td>
+          </tr>
+          <td>Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+            <td>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</td>
+          </tr>
+          <td>Personal Development</td>
+            <td>{{ grade['personaldevelopment'] }}</td>
+          </tr>
+          <td>Introduction to the Philosophy of the Human Person</td>
+            <td>{{ grade['introductiontothephilosophyofthehumanperson'] }}</td>
+          </tr>
+          <td>Understanding Culture, Society, and Politics</td>
+            <td>{{ grade['understandingculturesocietyandpolitics'] }}</td>
+          </tr>
+          <td>Disaster Readiness and Risk Reduction</td>
+            <td>{{ grade['disasterreadinessandrisk_reduction'] }}</td>
+          </tr>
+          <td>Physical Education and Health</td>
+            <td>{{ grade['physicaleducationandhealth'] }}</td>
+          </tr>
+          <td>Physical Education and Health 2</td>
+            <td>{{ grade['physicaleducationandhealth2'] }}</td>
+          </tr>
+          <td>Physical Education and Health 3</td>
+            <td>{{ grade['physicaleducationandhealth3'] }}</td>
+          </tr>
+          <td>Physical Education and Health 4</td>
+            <td>{{ grade['physicaleducationandhealth4'] }}</td>
+          </tr>
+          <td>Humanities 1 Politics</td>
+            <td>{{ grade['humanities1_politics'] }}</td>
+          </tr>
+          <td>Humanities 2 Intro</td>
+            <td>{{ grade['humanities2_intro'] }}</td>
+          </tr>
+          <td>Social Science 1</td>
+            <td>{{ grade['socialscience1'] }}</td>
+          </tr>
+          <td>Organization and Management 2</td>
+            <td>{{ grade['organizationandmanagement'] }}</td>
+          </tr>
+          <td>Applied Economics 2</td>
+            <td>{{ grade['appliedeconomics2'] }}</td>
+          </tr>
+          <td>Intro to World Religions and Sytem Beliefs</td>
+            <td>{{ grade['introductiontoworldreligionsandbeliefsystems'] }}</td>
+          </tr>
+          <td>Philippine Politics and Governance</td>
+            <td>{{ grade['philippinepiliticsandgovernance'] }}</td>
+
+          {% elif student['track'] == 'TVL' %}
+
+          <tr>
+            <td>Earth and Life Science</td>
+            <td>{{ grade['earthandlifescience'] }}</td>
+          </tr>
+          <tr>
+            <td>Physical Science</td>
+            <td>{{ grade['physicalscience'] }}</td>
+          </tr>
+          <td>Earth Science</td>
+            <td>{{ grade['earthscience'] }}</td>
+          </tr>
+          <td>General Mathematics</td>
+            <td>{{ grade['generalmath'] }}</td>
+          </tr>
+          <td>Statistics and Probability</td>
+            <td>{{ grade['statisticsandprobability'] }}</td>
+          </tr>
+          <td>Oral Communication</td>
+            <td>{{ grade['oralcommunication'] }}</td>
+          </tr>
+          <td>Reading and Writing</td>
+            <td>{{ grade['reading_and_writing'] }}</td>
+          </tr>
+          <td>Media and Information Literacy</td>
+            <td>{{ grade['mediaandinformationliteracy'] }}</td>
+          </tr>
+          <td>21st Century Literature from the Philippines and the World</td>
+            <td>{{ grade['t21stcenturyliteraturefromthephilippinesandtheworld'] }}</td>
+          </tr>
+          <td>Contemporary Philippine Arts from the Regions</td>
+            <td>{{ grade['contemporaryphilippineartsfromtheregions'] }}</td>
+          </tr>
+          <td>Creative Writing</td>
+            <td>{{ grade['creativewriting'] }}</td>
+          </tr>
+          <td>Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</td>
+            <td>{{ grade['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'] }}</td>
+          </tr>
+          <td>Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</td>
+            <td>{{ grade['komunikasyonatpananaliksiksawikaatkulturangpilipino'] }}</td>
+          </tr>
+          <td>Personal Development</td>
+            <td>{{ grade['personaldevelopment'] }}</td>
+          </tr>
+          <td>Introduction to the Philosophy of the Human Person</td>
+            <td>{{ grade['introductiontothephilosophyofthehumanperson'] }}</td>
+          </tr>
+          <td>Understanding Culture, Society, and Politics</td>
+            <td>{{ grade['understandingculturesocietyandpolitics'] }}</td>
+          </tr>
+          <td>Disaster Readiness and Risk Reduction</td>
+            <td>{{ grade['disasterreadinessandrisk_reduction'] }}</td>
+          </tr>
+          <td>Physical Education and Health</td>
+            <td>{{ grade['physicaleducationandhealth'] }}</td>
+          </tr>
+          <td>Physical Education and Health 2</td>
+            <td>{{ grade['physicaleducationandhealth2'] }}</td>
+          </tr>
+          <td>Physical Education and Health 3</td>
+            <td>{{ grade['physicaleducationandhealth3'] }}</td>
+          </tr>
+          <td>Physical Education and Health 4</td>
+            <td>{{ grade['physicaleducationandhealth4'] }}</td>
+          </tr>
+          <td>Safety and First Aid</td>
+            <td>{{ grade['safetyandfirstaid'] }}</td>
+          </tr>
+          <td>Human Movement</td>
+            <td>{{ grade['humanmovement'] }}</td>
+          </tr>
+          <td>Fundamentals of Coaching</td>
+            <td>{{ grade['fundamentalsofcoaching'] }}</td>
+        </tr>
+    
+          {% endif %}
+        </tbody>
+    </table>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>Junior High School Subjects</th>
+          <th id="grade-th">Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td>Filipino 9</td>
+          <td>{{ grade_hs['filipino9'] }}</td>
+        </tr>
+        <tr>
+          <td>English 9</td>
+          <td>{{ grade_hs['english9'] }}</td>
+        </tr>
+        <tr>
+          <td>Mathematics 9</td>
+          <td>{{ grade_hs['mathematics9'] }}</td>
+        </tr>
+          <td>Science 9</td>
+          <td>{{ grade_hs['science9'] }}</td>
+        </tr>
+        <tr>
+          <td>Araling Panlipunan 9</td>
+          <td>{{ grade_hs['aralingpanlipunan9'] }}</td>
+        </tr>
+        <tr>
+          <td>Edukasyon sa Pagpapakatao 9</td>
+          <td>{{ grade_hs['edukasyonsapagpapakatao9'] }}</td>
+        </tr>
+        <tr>
+          <td>Music 9</td>
+          <td>{{ grade_hs['music9'] }}</td>
+        </tr>
+        <tr>
+          <td>Arts 9</td>
+          <td>{{ grade_hs['arts9'] }}</td>
+        </tr>
+        <tr>
+          <td>Physical Education 9</td>
+          <td>{{ grade_hs['physicaleducation9'] }}</td>
+        </tr>
+        <tr>
+          <td>Health 9</td>
+          <td>{{ grade_hs['health9'] }}</td>
+        </tr>
+        <tr>
+          <td>Edukasyong Pantahanan at Pangkabuhayan 9</td>
+          <td>{{ grade_hs['edukasyongpantahananatpangkabuhayan9'] }}</td>
+        </tr>
+        <tr>
+          <td>Technology and Livelihood Education 9</td>
+          <td>{{ grade_hs['technologyandlivelihoodeducation9'] }}</td>
+        </tr>
+        <tr>
+          <td>Filipino 10</td>
+          <td>{{ grade_hs['filipino10'] }}</td>
+        </tr>
+        <tr>
+          <td>English 10</td>
+          <td>{{ grade_hs['english10'] }}</td>
+        </tr>
+        <tr>
+          <td>Mathematics 10</td>
+          <td>{{ grade_hs['mathematics10'] }}</td>
+        </tr>
+        <tr>
+          <td>Science 10</td>
+          <td>{{ grade_hs['science10'] }}</td>
+        </tr>
+        <tr>
+          <td>Araling Panlipunan 10</td>
+          <td>{{ grade_hs['aralingpanlipunan10'] }}</td>
+        </tr>
+        <tr>
+          <td>Edukasyon sa Pagpapakatao 10</td>
+          <td>{{ grade_hs['edukasyonsapagpapakatao10'] }}</td>
+        </tr>
+        <tr>
+          <td>Music 10</td>
+          <td>{{ grade_hs['music10'] }}</td>
+        </tr>
+        <tr>
+          <td>Arts 10</td>
+          <td>{{ grade_hs['arts10'] }}</td>
+        </tr>
+        <tr>
+          <td>Physical Education 10</td>
+          <td>{{ grade_hs['physicaleducation10'] }}</td>
+        </tr>
+        <tr>
+          <td>Health 10</td>
+          <td>{{ grade_hs['health10'] }}</td>
+        </tr>
+        <tr>
+          <td>Edukasyong Pantahanan at Pangkabuhayan 10</td>
+          <td>{{ grade_hs['edukasyongpantahananatpangkabuhayan10'] }}</td>
+        </tr>
+        <tr>
+          <td>Technology and Livelihood Education 10</td>
+          <td>{{ grade_hs['technologyandlivelihoodeducation10'] }}</td>
+        </tr>
+        <tr>
+      </tbody>
+  </table>
+  <br>
+    <!-- Adviser & Principal's Name with Underlines -->
+    <p id="grade-accurate"><center>"We, the undersigned, hereby certify that the grades of <u><b>{{ user['f_name'] }} {{ user['l_name'] }}</b></u>, as listed in the accompanying transcript, are accurate and reflect his/her true performance throughout the academic term. These grades have been meticulously reviewed and verified by the relevant faculty members and academic authorities."</center></p>
+    <br>
+
+    <div class="adviser-principal-name">
+        <div class="adviser-name"><b>_______________________________</b></div>
+        <div class="principals-name"><b>________________________________</b></div>
+      </div>
+  <div class="adviser-principal-name">
+    <div class="adviser-name">Adviser's Signature over Printed Name</div>
+    <div class="principals-name">Principal's Signature over Printed Name</div>
+  </div>
+  <br>
+  <br>
+  <br>
+
+  <div class="address-container">
+    <p id="address1">MSU-Iligan Institute of Technology</p>
+    <p id="address2">Andres Bonifacio Avenue, Tibanga, Iligan City, 9200</p>
+</div>
+
+
+  <hr> 
+  <!-- End of Names with Underlines -->
+
+    <script src="../static/assets2/js/main.js"></script>
+
+    <script>
+      // Print the page once the content is loaded
+      window.onload = function () {
+        window.print();
+      };
+    </script>
+
+    <script>
+        // Function to format the current date as "Month Day, Year"
+        function formatDate() {
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          const today = new Date();
+          return today.toLocaleDateString('en-US', options);
+        }
+    
+        // Insert formatted date into the paragraph with id "auto-date"
+        document.addEventListener('DOMContentLoaded', function() {
+          const autoDateElement = document.getElementById('auto-date');
+          if (autoDateElement) {
+            autoDateElement.textContent = formatDate();
+          }
+        });
+      </script>
+
+  </body>
+</html>

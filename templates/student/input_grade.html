@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon">
+    <link href="../static/img/logo.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Droid+Sans:wght@400;700&display=swap" 
+        rel="stylesheet">
+
+      <!-- Vendor CSS Files -->
+      <link href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/quill/quill.snow.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/quill/quill.bubble.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/remixicon/remixicon.css" rel="stylesheet">
+      <link href="../static/assets2/vendor/simple-datatables/style.css" rel="stylesheet">
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+ 
+
+    <!-- Template Main CSS File -->
+
+    <link href="../static/assets2/css/input_grade.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/student/input" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+      </a>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        </li><!-- End Search Icon-->
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-user-large"></i>
+          <span class="dropdown-toggle ps-2">Account</span>
+          </a>
+          <!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ f_name }} {{ l_name }}</h6>
+              <span>{{ role }}</span>
+            </li>
+
+              <hr class="dropdown-divider">
+            <li>
+              <a class="dropdown-item d-flex align-items-center transition-link" href="{{ url_for('logout') }}">
+                <i class="bi bi-box-arrow-right transition-link"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+
+  <div class="main">
+
+
+    <div class="card-input-form mt-5 col-lg-6">
+    <div class="card-body">
+
+      <div class="progress-container">
+
+        <hr class="progress-bar-back">
+        <hr class="progress-bar-front">
+
+        <div class="step checked" data-step="1">
+            <i class="fas fa-1"></i>
+        </div>
+        <div class="step checked" data-step="2">
+            <i class="fas fa-2"></i>
+        </div>
+        <div class="step checked" data-step="3">
+          <i class="fas fa-3"></i>
+        </div>
+
+    </div>
+    <br>
+
+    <div class="form-container">
+      <div class="form">
+          <h3 class="form_title">Senior High School Grade</h3>
+          <br>
+          <div class="note-box">
+            <p>Please input your grades. The entered grades will later be printed for verification. Leave the field blank if you have not taken the subject.</p>
+            <p>In case of sequential courses, kindly input the <b>Average Grade.</b></p>
+          </div>
+
+          <div class="divider" style="margin-top: 5%;">
+            <span><b>{{ track['track'] }}</b> Subjects List</span>
+          </div>
+
+          {% if track['track'] == 'STEM' %}
+          <form method="POST" action="{{ url_for('input_grade')}}">
+
+              <!-- Input fields for STEM track -->
+               <div class="form-grid">
+                <div class="form-group">
+                  <label class="form_1" for="earthandlifescience">Earth and Life Science</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="earthandlifescience" id="earthandlifescience" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="physicalscience">Physical Science</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="physicalscience" id="physicalscience" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="earthscience">Earth Science</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="earthscience" id="earthscience" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="genbio1">General Biology 1</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="genbio1" id="genbio1" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="genbio2">General Biology 2</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="genbio2" id="genbio2" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="genphysics1">General Physics 1</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="genphysics1" id="genphysics1" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="genphysics2">General Physics 2</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="genphysics2" id="genphysics2" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="genchem1">General Chemistry 1</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="genchem1" id="genchem1" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form_1" for="genchem2">General Chemistry 2</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="genchem2" id="genchem2" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="generalmath">General Mathematics</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="generalmath" id="generalmath" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="statisticsandprobability">Statistics and Probability</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="statisticsandprobability" id="statisticsandprobability" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="precalculus">Pre Calculus</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="precalculus" id="precalculus" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="basiccalculus">Basic Calculus</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="basiccalculus" id="basiccalculus" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="oralcommunication">Oral Communication</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="oralcommunication" id="oralcommunication" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="reading_and_writing">Reading and Writing</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="reading_and_writing" id="reading_and_writing" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="mediaandinformationliteracy">Media and Information Literacy</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="mediaandinformationliteracy" id="mediaandinformationliteracy" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="t21stcenturyliteraturefromthephilippinesandtheworld">21st Century Literature from the Philippines and the World,</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="t21stcenturyliteraturefromthephilippinesandtheworld" id="t21stcenturyliteraturefromthephilippinesandtheworld" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="contemporaryphilippineartsfromtheregions">Contemporary Philippine Arts from the Regions</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="contemporaryphilippineartsfromtheregions" id="contemporaryphilippineartsfromtheregions" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="pagbasaatpagsusuringibatibangtekstotungosapananaliksik">Pagbasa at Pagsusuring ibat-ibang Teksto Tungo sa Pananaliksik</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" id="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="komunikasyonatpananaliksiksawikaatkulturangpilipino">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="komunikasyonatpananaliksiksawikaatkulturangpilipino" id="komunikasyonatpananaliksiksawikaatkulturangpilipino" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="personaldevelopment">Personal Development</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="personaldevelopment" id="personaldevelopment" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="introductiontothephilosophyofthehumanperson">Introduction to the Philosophy of the Human Person</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="introductiontothephilosophyofthehumanperson" id="introductiontothephilosophyofthehumanperson" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="understandingculturesocietyandpolitics">Understanding Culture, Society, and Politics</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="understandingculturesocietyandpolitics" id="understandingculturesocietyandpolitics" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="disasterreadinessandrisk_reduction">Disaster Readiness and Risk Reduction</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="disasterreadinessandrisk_reduction" id="disasterreadinessandrisk_reduction" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="physicaleducationandhealth">Physical Education and Health</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth" id="physicaleducationandhealth" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="physicaleducationandhealth2">Physical Education and Health 2</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth2" id="physicaleducationandhealth2" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+  
+                <div class="form-group">
+                  <label class="form_1" for="physicaleducationandhealth3">Physical Education and Health 3</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth3" id="physicaleducationandhealth3" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form_1" for="physicaleducationandhealth4"> Physical Education and Health 4</label>
+                  <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth4" id="physicaleducationandhealth4" placeholder="00" max="99" oninput="limitDigits(this)">
+                </div>
+               </div>
+              <hr>
+              <div class="note-box2">
+                <p><b>NOTE: </b></p>
+                <p>Please proceed to the Profile page. Once the grades are all accurate, print the list of grades for authentication by your
+                <span><b>lead adviser</b></span> and <span><b>school principal</b></span>.
+                </p>
+              </div>
+              <hr>
+
+              <center>
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                  Submit
+                </button>
+              </center>
+              
+              <!-- Confirmation Modal -->
+              <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirmModalLabel">Confirm Submission</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure you want to submit your grades?</p>
+                      
+                      <div style="background-color: #f8d7da; padding: 10px; border-radius: 5px;">
+                        <p><b>NOTE:</b><br>Once submitted, the system will generate a partial course recommendation based on the grades you have provided. You will <b>not</b> be able to edit these grades after submission.</p>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+              </div>
+
+          </form>
+  
+          {% elif track['track'] == 'ABM' %}
+          <form method="POST" action="{{ url_for('input_grade')}}">
+            <div class="form-grid">
+            <div class="form-group">
+              <label class="form_1" for="earthandlifescience">Earth and Life Science</label>
+              <input type="number" class="form-control form-control-sm w-50" name="earthandlifescience" id="earthandlifescience" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="physicalscience">Physical Science</label>
+              <input type="number" class="form-control form-control-sm w-50" name="physicalscience" id="physicalscience" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="earthscience">Earth Science</label>
+              <input type="number" class="form-control form-control-sm w-50" name="earthscience" id="earthscience" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="generalmath">General Mathematics</label>
+              <input type="number" class="form-control form-control-sm w-50" name="generalmath" id="generalmath" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="statisticsandprobability">Statistics and Probability</label>
+              <input type="number" class="form-control form-control-sm w-50" name="statisticsandprobability" id="statisticsandprobability" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="businessmath">Business Math</label>
+              <input type="number" class="form-control form-control-sm w-50" name="businessmath" id="businessmath" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="businessfinance">Business Finance</label>
+              <input type="number" class="form-control form-control-sm w-50" name="businessfinance" id="businessfinance" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="oralcommunication">Oral Communication</label>
+              <input type="number" class="form-control form-control-sm w-50" name="oralcommunication" id="oralcommunication" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="reading_and_writing">Reading and Writing</label>
+              <input type="number" class="form-control form-control-sm w-50" name="reading_and_writing" id="reading_and_writing" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="mediaandinformationliteracy">Media and Information Literacy</label>
+              <input type="number" class="form-control form-control-sm w-50" name="mediaandinformationliteracy" id="mediaandinformationliteracy" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="t21stcenturyliteraturefromthephilippinesandtheworld">21st Century Literature from the Philippines and the World</label>
+              <input type="number" class="form-control form-control-sm w-50" name="t21stcenturyliteraturefromthephilippinesandtheworld" id="t21stcenturyliteraturefromthephilippinesandtheworld" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="contemporaryphilippineartsfromtheregions">Contemporary Philippine Arts from the Regions</label>
+              <input type="number" class="form-control form-control-sm w-50" name="contemporaryphilippineartsfromtheregions" id="contemporaryphilippineartsfromtheregions" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="pagbasaatpagsusuringibatibangtekstotungosapananaliksik">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</label>
+              <input type="number" class="form-control form-control-sm w-50" name="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" id="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="komunikasyonatpananaliksiksawikaatkulturangpilipino">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</label>
+              <input type="number" class="form-control form-control-sm w-50" name="komunikasyonatpananaliksiksawikaatkulturangpilipino" id="komunikasyonatpananaliksiksawikaatkulturangpilipino" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="personaldevelopment">Personal Development</label>
+              <input type="number" class="form-control form-control-sm w-50" name="personaldevelopment" id="personaldevelopment" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="introductiontothephilosophyofthehumanperson">Introduction to the Philosophy of the Human Person</label>
+              <input type="number" class="form-control form-control-sm w-50" name="introductiontothephilosophyofthehumanperson" id="introductiontothephilosophyofthehumanperson" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="understandingculturesocietyandpolitics">Understanding Culture Society and Politics</label>
+              <input type="number" class="form-control form-control-sm w-50" name="understandingculturesocietyandpolitics" id="understandingculturesocietyandpolitics" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="disasterreadinessandrisk_reduction">Disaster Readiness and Risk Reduction</label>
+              <input type="number" class="form-control form-control-sm w-50" name="disasterreadinessandrisk_reduction" id="disasterreadinessandrisk_reduction" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="physicaleducationandhealth"> Physical Education and Health </label>
+              <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth" id="physicaleducationandhealth" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="physicaleducationandhealth2"> Physical Education and Health 2</label>
+              <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth2" id="physicaleducationandhealth2" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="physicaleducationandhealth3"> Physical Education and Health 3</label>
+              <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth3" id="physicaleducationandhealth3" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="physicaleducationandhealth4"> Physical Education and Health 4</label>
+              <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth4" id="physicaleducationandhealth4" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="organizationandmanagement">Organization and Management</label>
+              <input type="number" class="form-control form-control-sm w-50" name="organizationandmanagement" id="organizationandmanagement" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="principlesofmarketing">Principles of Marketing</label>
+              <input type="number" class="form-control form-control-sm w-50" name="principlesofmarketing" id="principlesofmarketing" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="businessmarketing">Business Marketing</label>
+              <input type="number" class="form-control form-control-sm w-50" name="businessmarketing" id="businessmarketing" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="businessenterpriseandsimulation">Business Enterprise and Simulation</label>
+              <input type="number" class="form-control form-control-sm w-50" name="businessenterpriseandsimulation" id="businessenterpriseandsimulation" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="f1_fundamentalsofaccountancybusinessandmanagement1">F1 Fundamentals of Accountancy, Business, and Management 1</label>
+              <input type="number" class="form-control form-control-sm w-50" name="f1_fundamentalsofaccountancybusinessandmanagement1" id="f1_fundamentalsofaccountancybusinessandmanagement1" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="f2_fundamentalsofaccountancybusinessandmanagement2">F2 Fundamentals of Accountancy, Business, and Management2</label>
+              <input type="number" class="form-control form-control-sm w-50" name="f2_fundamentalsofaccountancybusinessandmanagement2" id="f2_fundamentalsofaccountancybusinessandmanagement2" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+
+            <div class="form-group">
+              <label class="form_1" for="appliedeconomicsbusiness">Applied Economics</label>
+              <input type="number" class="form-control form-control-sm w-50" name="appliedeconomicsbusiness" id="appliedeconomicsbusiness" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+
+            <div class="form-group">
+              <label class="form_1" for="ethicsandsocial_responsibility">Business Ethics and Social Responsibility</label>
+              <input type="number" class="form-control form-control-sm w-50" name="ethicsandsocial_responsibility" id="ethicsandsocial_responsibility" placeholder="00" max="99" oninput="limitDigits(this)">
+            </div>
+            </div>
+            <hr>
+            <div class="note-box2">
+              <p><b>NOTE: </b></p>
+              <p>Please proceed to the Profile page. Once the grades are all accurate, print the list of grades for authentication by your
+              <span><b>lead adviser</b></span> and <span><b>school principal</b></span>.
+              </p>
+            </div>
+            <hr>
+
+            <center>
+              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                Submit
+              </button>
+            </center>
+            
+            <!-- Confirmation Modal -->
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirm Submission</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to submit your grades?</p>
+                    
+                    <div style="background-color: #f8d7da; padding: 10px; border-radius: 5px;">
+                      <p><b>NOTE:</b><br>Once submitted, the system will generate a partial course recommendation based on the grades you have provided. You will <b>not</b> be able to edit these grades after submission.</p>
+                    </div>         
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+              </div>
+            </div>
+
+          </form>
+
+          {% elif track['track'] == 'HUMSS' %}
+          <form method="POST" action="{{ url_for('input_grade')}}">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form_1" for="earthandlifescience">Earth and Life Science</label>
+                <input type="number" class="form-control form-control-sm w-50" name="earthandlifescience" id="earthandlifescience" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicalscience">Physical Science</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicalscience" id="physicalscience" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="earthscience">Earth Science</label>
+                <input type="number" class="form-control form-control-sm w-50" name="earthscience" id="earthscience" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="generalmath">General Mathematics</label>
+                <input type="number" class="form-control form-control-sm w-50" name="generalmath" id="generalmath" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="statisticsandprobability">Statistics and Probability</label>
+                <input type="number" class="form-control form-control-sm w-50" name="statisticsandprobability" id="statisticsandprobability" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="oralcommunication">Oral Communication</label>
+                <input type="number" class="form-control form-control-sm w-50" name="oralcommunication" id="oralcommunication" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="reading_and_writing">Reading and Writing</label>
+                <input type="number" class="form-control form-control-sm w-50" name="reading_and_writing" id="reading_and_writing" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="mediaandinformationliteracy">Media and Information Literacy</label>
+                <input type="number" class="form-control form-control-sm w-50" name="mediaandinformationliteracy" id="mediaandinformationliteracy" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="t21stcenturyliteraturefromthephilippinesandtheworld">21st Century Literature from the Philippines and the World</label>
+                <input type="number" class="form-control form-control-sm w-50" name="t21stcenturyliteraturefromthephilippinesandtheworld" id="t21stcenturyliteraturefromthephilippinesandtheworld" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="contemporaryphilippineartsfromtheregions">Contemporary Philippine Arts from the Regions</label>
+                <input type="number" class="form-control form-control-sm w-50" name="contemporaryphilippineartsfromtheregions" id="contemporaryphilippineartsfromtheregions" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="creativenonfiction">Creative Non-fiction</label>
+                <input type="number" class="form-control form-control-sm w-50" name="creativenonfiction" id="creativenonfiction" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="pagbasaatpagsusuringibatibangtekstotungosapananaliksik">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</label>
+                <input type="number" class="form-control form-control-sm w-50" name="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" id="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="komunikasyonatpananaliksiksawikaatkulturangpilipino">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</label>
+                <input type="number" class="form-control form-control-sm w-50" name="komunikasyonatpananaliksiksawikaatkulturangpilipino" id="komunikasyonatpananaliksiksawikaatkulturangpilipino" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="creativewriting_malikhaing_pagsulat">Creative Writing / Malikhaing Pagsulat</label>
+                <input type="number" class="form-control form-control-sm w-50" name="creativewriting_malikhaing_pagsulat" id="creativewriting_malikhaing_pagsulat" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="personaldevelopment">Personal Development</label>
+                <input type="number" class="form-control form-control-sm w-50" name="personaldevelopment" id="personaldevelopment" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="introductiontothephilosophyofthehumanperson">Introduction to the Philosophy of the Human Person</label>
+                <input type="number" class="form-control form-control-sm w-50" name="introductiontothephilosophyofthehumanperson" id="introductiontothephilosophyofthehumanperson" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="understandingculturesocietyandpolitics">Understanding Culture, Society, and Politics</label>
+                <input type="number" class="form-control form-control-sm w-50" name="understandingculturesocietyandpolitics" id="understandingculturesocietyandpolitics" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="disasterreadinessandrisk_reduction">Disaster Readiness and Risk Reduction</label>
+                <input type="number" class="form-control form-control-sm w-50" name="disasterreadinessandrisk_reduction" id="disasterreadinessandrisk_reduction" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth">Physical Education and Health</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth" id="physicaleducationandhealth" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth2">Physical Education and Health 2</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth2" id="physicaleducationandhealth2" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth3">Physical Education and Health 3</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth3" id="physicaleducationandhealth3" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth4">Physical Education and Health 4</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth4" id="physicaleducationandhealth4" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="introductiontoworldreligionsandbeliefsystems">Introduction to World Religions and Belief Systems</label>
+                <input type="number" class="form-control form-control-sm w-50" name="introductiontoworldreligionsandbeliefsystems" id="introductiontoworldreligionsandbeliefsystems" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="community_engagementsolidarityandcitizenship">Community Engagement, Solidarity, and Citizenship</label>
+                <input type="number" class="form-control form-control-sm w-50" name="community_engagementsolidarityandcitizenship" id="community_engagementsolidarityandcitizenship" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="philippinepoliticsandgovernance">Philippine Politics and Governance</label>
+                <input type="number" class="form-control form-control-sm w-50" name="philippinepoliticsandgovernance" id="philippinepoliticsandgovernance" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="disciplinesandideasinthesocialsciences">Disciplines and Ideas in the Social Sciences</label>
+                <input type="number" class="form-control form-control-sm w-50" name="disciplinesandideasinthesocialsciences" id="disciplinesandideasinthesocialsciences" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+            </div>
+            <hr>
+            <div class="note-box2">
+              <p><b>NOTE: </b></p>
+              <p>Please proceed to the Profile page. Once the grades are all accurate, print the list of grades for authentication by your
+              <span><b>lead adviser</b></span> and <span><b>school principal</b></span>.
+              </p>
+            </div>
+            <hr>
+          
+            <center>
+              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                Submit
+              </button>
+            </center>
+            
+            <!-- Confirmation Modal -->
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirm Submission</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to submit your grades?</p>
+                    
+                    <div style="background-color: #f8d7da; padding: 10px; border-radius: 5px;">
+                      <p><b>NOTE:</b><br>Once submitted, the system will generate a partial course recommendation based on the grades you have provided. You will <b>not</b> be able to edit these grades after submission.</p>
+                    </div>         
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+              </div>
+            </div>
+
+          </form>
+
+          {% elif track['track'] == 'GAS' %}
+          <form method="POST" action="{{ url_for('input_grade')}}">
+            <div class="form-grid">
+              <!-- Input fields for GAS track -->
+              <div class="form-group">
+                <label class="form_1" for="earthandlifescience">Earth and Life Science</label>
+                <input type="number" class="form-control form-control-sm w-50" name="earthandlifescience" id="earthandlifescience" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+              
+              <div class="form-group">
+                <label class="form_1" for="physicalscience">Physical Science</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicalscience" id="physicalscience" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="earthscience">Earth Science</label>
+                <input type="number" class="form-control form-control-sm w-50" name="earthscience" id="earthscience" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="generalmath">General Mathematics</label>
+                <input type="number" class="form-control form-control-sm w-50" name="generalmath" id="generalmath" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="statisticsandprobability">Statistics and Probability</label>
+                <input type="number" class="form-control form-control-sm w-50" name="statisticsandprobability" id="statisticsandprobability" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="oralcommunication">Oral Communication</label>
+                <input type="number" class="form-control form-control-sm w-50" name="oralcommunication" id="oralcommunication" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="reading_and_writing">Reading and writing</label>
+                <input type="number" class="form-control form-control-sm w-50" name="reading_and_writing" id="reading_and_writing" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="mediaandinformationliteracy">Media and Information Literacy</label>
+                <input type="number" class="form-control form-control-sm w-50" name="mediaandinformationliteracy" id="mediaandinformationliteracy" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="t21stcenturyliteraturefromthephilippinesandtheworld">21st Century Literature from the Philippines and the World</label>
+                <input type="number" class="form-control form-control-sm w-50" name="t21stcenturyliteraturefromthephilippinesandtheworld" id="t21stcenturyliteraturefromthephilippinesandtheworld" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="contemporaryphilippineartsfromtheregions">Contemporary Philippine Arts from the Regions</label>
+                <input type="number" class="form-control form-control-sm w-50" name="contemporaryphilippineartsfromtheregions" id="contemporaryphilippineartsfromtheregions" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="creativewriting">Creative Writing</label>
+                <input type="number" class="form-control form-control-sm w-50" name="creativewriting" id="creativewriting" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="pagbasaatpagsusuringibatibangtekstotungosapananaliksik">Pagbasa at Pagsusuri ng ibat-ibang Teksto Tungo sa Pananaliksik</label>
+                <input type="number" class="form-control form-control-sm w-50" name="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" id="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="komunikasyonatpananaliksiksawikaatkulturangpilipino">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</label>
+                <input type="number" class="form-control form-control-sm w-50" name="komunikasyonatpananaliksiksawikaatkulturangpilipino" id="komunikasyonatpananaliksiksawikaatkulturangpilipino" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="personaldevelopment">Personal Development</label>
+                <input type="number" class="form-control form-control-sm w-50" name="personaldevelopment" id="personaldevelopment" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="introductiontothephilosophyofthehumanperson">Introduction to the Philosophy of the Human Person</label>
+                <input type="number" class="form-control form-control-sm w-50" name="introductiontothephilosophyofthehumanperson" id="introductiontothephilosophyofthehumanperson" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="understandingculturesocietyandpolitics">Understanding Culture, Society, and Politics</label>
+                <input type="number" class="form-control form-control-sm w-50" name="understandingculturesocietyandpolitics" id="understandingculturesocietyandpolitics" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="disasterreadinessandrisk_reduction">Disaster Readiness and Risk Reduction</label>
+                <input type="number" class="form-control form-control-sm w-50" name="disasterreadinessandrisk_reduction" id="disasterreadinessandrisk_reduction" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth">Physical Education and Health</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth" id="physicaleducationandhealth" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth2">Physical Education and Health 2</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth2" id="physicaleducationandhealth2" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth3">Physical Education and Health 3</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth3" id="physicaleducationandhealth3" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth4">Physical Education and Health 4</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth4" id="physicaleducationandhealth4" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="humanities1_politics">Humanities 1 Politics</label>
+                <input type="number" class="form-control form-control-sm w-50" name="humanities1_politics" id="humanities1_politics" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="humanities2_intro">Humanities 2 Intro</label>
+                <input type="number" class="form-control form-control-sm w-50" name="humanities2_intro" id="humanities2_intro" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="socialscience1">Social Science 1</label>
+                <input type="number" class="form-control form-control-sm w-50" name="socialscience1" id="socialscience1" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="organizationandmanagement2">Organization and Management 2</label>
+                <input type="number" class="form-control form-control-sm w-50" name="organizationandmanagement2" id="organizationandmanagement2" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="appliedeconomics2">Applied Economics 2</label>
+                <input type="number" class="form-control form-control-sm w-50" name="appliedeconomics2" id="appliedeconomics2" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="introtoworldreligionsandsytembeliefs">Intro to World Religions and Sytem Beliefs</label>
+                <input type="number" class="form-control form-control-sm w-50" name="introtoworldreligionsandsytembeliefs" id="introtoworldreligionsandsytembeliefs" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="philippinepiliticsandgovernance">Philippine Politics and Governance</label>
+                <input type="number" class="form-control form-control-sm w-50" name="philippinepiliticsandgovernance" id="philippinepiliticsandgovernance" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+            </div>
+              <hr>
+              <div class="note-box2">
+                <p><b>NOTE: </b></p>
+                <p>Please proceed to the Profile page. Once the grades are all accurate, print the list of grades for authentication by your
+                <span><b>lead adviser</b></span> and <span><b>school principal</b></span>.
+                </p>
+              </div>
+              <hr>
+             
+              <center>
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                  Submit
+                </button>
+              </center>
+              
+              <!-- Confirmation Modal -->
+              <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirmModalLabel">Confirm Submission</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure you want to submit your grades?</p>
+                      
+                      <div style="background-color: #f8d7da; padding: 10px; border-radius: 5px;">
+                        <p><b>NOTE:</b><br>Once submitted, the system will generate a partial course recommendation based on the grades you have provided. You will <b>not</b> be able to edit these grades after submission.</p>
+                      </div>         
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+              </div>
+
+          </form>
+
+          {% elif track['track'] == 'TVL' %}
+
+          <form method="POST" action="{{ url_for('input_grade')}}">
+            <div class="form-grid">
+              <!-- Input fields for TVL track -->
+              <div class="form-group">
+                <label class="form_1" for="earthandlifescience">Earth and Life Science</label>
+                <input type="number" class="form-control form-control-sm w-50" name="earthandlifescience" id="earthandlifescience" placeholder="00" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicalscience">Physical Science</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicalscience" id="physicalscience" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="earthscience">Earth Science</label>
+                <input type="number" class="form-control form-control-sm w-50" name="earthscience" id="earthscience" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="generalmath">General Mathematics</label>
+                <input type="number" class="form-control form-control-sm w-50" name="generalmath" id="generalmath" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="statisticsandprobability">Statistics and Probability</label>
+                <input type="number" class="form-control form-control-sm w-50" name="statisticsandprobability" id="statisticsandprobability" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="oralcommunication">Oral Communication</label>
+                <input type="number" class="form-control form-control-sm w-50" name="oralcommunication" id="oralcommunication" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="reading_and_writing">Reading and Writing</label>
+                <input type="number" class="form-control form-control-sm w-50" name="reading_and_writing" id="reading_and_writing" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="mediaandinformationliteracy">Media and Information Literacy</label>
+                <input type="number" class="form-control form-control-sm w-50" name="mediaandinformationliteracy" id="mediaandinformationliteracy" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="t21stcenturyliteraturefromthephilippinesandtheworld">21st Century Literature from the Philippines and the World</label>
+                <input type="number" class="form-control form-control-sm w-50" name="t21stcenturyliteraturefromthephilippinesandtheworld" id="t21stcenturyliteraturefromthephilippinesandtheworld" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="contemporaryphilippineartsfromtheregions">Contemporary Philippine Arts from the Regions</label>
+                <input type="number" class="form-control form-control-sm w-50" name="contemporaryphilippineartsfromtheregions" id="contemporaryphilippineartsfromtheregions" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="creativewriting">Creative Writing</label>
+                <input type="number" class="form-control form-control-sm w-50" name="creativewriting" id="creativewriting" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="pagbasaatpagsusuringibatibangtekstotungosapananaliksik">Pagbasa at Pagsusuri ng iba't-ibang Teksto Tungo sa Pananaliksik</label>
+                <input type="number" class="form-control form-control-sm w-50" name="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" id="pagbasaatpagsusuringibatibangtekstotungosapananaliksik" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="komunikasyonatpananaliksiksawikaatkulturangpilipino">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</label>
+                <input type="number" class="form-control form-control-sm w-50" name="komunikasyonatpananaliksiksawikaatkulturangpilipino" id="komunikasyonatpananaliksiksawikaatkulturangpilipino" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="personaldevelopment">Personal Development</label>
+                <input type="number" class="form-control form-control-sm w-50" name="personaldevelopment" id="personaldevelopment" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="introductiontothephilosophyofthehumanperson">Introduction to the Philosophy of the Human Person</label>
+                <input type="number" class="form-control form-control-sm w-50" name="introductiontothephilosophyofthehumanperson" id="introductiontothephilosophyofthehumanperson" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="understandingculturesocietyandpolitics">Understanding Culture, Society and Politics</label>
+                <input type="number" class="form-control form-control-sm w-50" name="understandingculturesocietyandpolitics" id="understandingculturesocietyandpolitics" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="disasterreadinessandrisk_reduction">Disaster Readiness and Risk Reduction</label>
+                <input type="number" class="form-control form-control-sm w-50" name="disasterreadinessandrisk_reduction" id="disasterreadinessandrisk_reduction" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth">Physical Education and Health</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth" id="physicaleducationandhealth" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth2">Physical Education and Health 2</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth2" id="physicaleducationandhealth2" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth3">Physical Education and Health 3</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth3" id="physicaleducationandhealth3" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="physicaleducationandhealth4">Physical Education and Health 4</label>
+                <input type="number" class="form-control form-control-sm w-50" name="physicaleducationandhealth4" id="physicaleducationandhealth4" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="safetyandfirstaid">Safety and First Aid</label>
+                <input type="number" class="form-control form-control-sm w-50" name="safetyandfirstaid" id="safetyandfirstaid" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="humanmovement">Human Movement</label>
+                <input type="number" class="form-control form-control-sm w-50" name="humanmovement" id="humanmovement" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+              <div class="form-group">
+                <label class="form_1" for="fundamentalsofcoaching">Fundamentals of Coaching</label>
+                <input type="number" class="form-control form-control-sm w-50" name="fundamentalsofcoaching" id="fundamentalsofcoaching" placeholder="00" max="99" oninput="limitDigits(this)">
+              </div>
+
+            </div>
+
+              <hr>
+              <br>
+              <div class="note-box2">
+                <p class="new_font"><b>NOTE: </b></p>
+                <p class="new_font">Please proceed to the Profile page. Once the grades are all accurate, print the list of grades for authentication by your
+                <span><b>lead adviser</b></span> and <span><b>school principal</b></span>.
+                </p>
+              </div>
+              <hr>
+
+              <center>
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                  Submit
+                </button>
+              </center>
+              
+              <!-- Confirmation Modal -->
+              <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirmModalLabel">Confirm Submission</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Are you sure you want to submit your grades?</p>
+                      
+                      <div style="background-color: #f8d7da; padding: 10px; border-radius: 5px;">
+                        <p><b>NOTE:</b><br>Once submitted, the system will generate a partial course recommendation based on the grades you have provided. You will <b>not</b> be able to edit these grades after submission.</p>
+                      </div>         
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+              </div>
+          </form>
+
+          {% endif %}
+      </div>
+  </div>
+      
+    </div>
+</div>
+</div>
+
+
+</main>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+  <!-- Vendor JS Files -->
+  <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+  <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+  <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+  <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="../static/assets2/js/main.js"></script>
+    <script src="../static/assets2/js/input.js"></script>
+
+    <script>
+      function limitDigits(input) {
+        if (input.value.length > 2) {
+          input.value = input.value.slice(0, 2);
+        }
+      }
+    </script>
+
+    <!-- <script>
+      function validateInput(input) {
+          // Allow only numbers or 'n/a'
+          const value = input.value;
+          if (/^n\/a$/.test(value.toLowerCase())) {
+              return; // valid input
+          }
+          
+          // Check if the input is a valid number and within the 0-99 range
+          const numberPattern = /^\d{0,2}$/; // up to 2 digits
+          if (!numberPattern.test(value)) {
+              input.value = value.slice(0, 2); // restrict to 2 digits
+          }
+      }
+      </script> -->
+
+    </body>
+</html>

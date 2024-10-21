@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSU-IIT | Course Recommendation System</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../static/img/logo.png" rel="icon">
+    <link href="../static/img/logo.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Dosis:300,400,500,,600,700,700i|Lato:300,300i,400,400i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../static/assets2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../static/assets2/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>    
+
+    <!-- Template Main CSS File -->
+    <link href="../static/assets2/css/style.css" rel="stylesheet">
+    <link href="../static/assets2/css/student_about.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/student/dashboard" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block">MSU-IIT CRIS</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        </li><!-- End Search Icon-->
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <i class="fa-solid fa-user-large"></i>
+          <span class="dropdown-toggle ps-2">Account</span>
+          </a>
+          <!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ f_name }} {{ l_name }}</h6>
+              <span>{{ role }}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+                <a class="dropdown-item d-flex align-items-center transition-link" href="/student/profile">
+                  <span>Profile</span>
+                </a>
+              </li>
+              <hr class="dropdown-divider">
+            <li>
+              <a class="dropdown-item d-flex align-items-center transition-link" href="{{ url_for('logout') }}">
+                <i class="bi bi-box-arrow-right transition-link"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+      <ul class="sidebar-nav" id="sidebar-nav">
+  
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/dashboard' else '' }}" href="/student/dashboard">
+                  <i class="bx bxs-dashboard"></i>
+                  <span>Dashboard</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/profile' else '' }}" href="/student/profile">
+                  <i class="ri-contacts-line"></i>
+                  <span>Profile</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/grades' else '' }}" href="/student/grades">
+                  <i class="ri-book-open-line"></i>
+                  <span>Grades</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/recommendation' else '' }}" href="/student/recommendation">
+                  <i class="ri-briefcase-fill"></i>
+                  <span>Recommendation</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/courses' else '' }}" href="/student/courses">
+                  <i class="ri-service-fill"></i>
+                  <span>Courses</span>
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link collapsed {{ 'active' if request.path == '/student/about' else '' }}" href="/student/about">
+                  <i class="bx bxs-business"></i>
+                  <span>About</span>
+              </a>
+          </li>
+  
+      </ul>
+  
+    </aside><!-- End Sidebar-->
+
+    <!-- Main Body -->
+    <main id="main" class="main">
+             <section id="about" class="about">
+              <div class="container">
+
+                <div class="row">
+                    <div
+                        class="col-xl-5 col-lg-6 d-flex justify-content-center video-box align-items-stretch position-relative">
+                        <img src="../static/assets/img/about.jpg" style="border-radius: 20px; box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);" class="img-fluid" alt="">
+                    </div>
+
+                    <div
+                        class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
+                        <h3>MSU-Iligan Institute of Technology Course Recommendation Information System</h3>
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bx-list-check"></i></div>
+                            <h4 class="title"><a href="">Course offering</a></h4>
+                            <p class="description">The Course Recommendation Information System (CRIS) stands at the
+                                forefront of academic assistance, offering students a sophisticated platform to navigate
+                                their educational paths. </p>
+                        </div>
+
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bxs-cog"></i></div>
+                            <h4 class="title"><a href=""></a>Advanced algorithms for course recommendations</h4>
+                            <p class="description">Powered by advanced algorithms. CRIS provides personalized course
+                                recommendations based on individual performance and academic strengths</p>
+                        </div>
+
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bxs-happy"></i></div>
+                            <h4 class="title"><a href="">User Friendly</a></h4>
+                            <p class="description">A straightforward approach on how SASE passers input their data. Easy
+                                to use.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <br>
+        <br>
+
+        <h3>University Buildings</h3>
+
+        <br>
+
+
+        <div class="card-container d-flex flex-row flex-wrap justify-content-start">
+
+
+            <a href="https://www.msuiit.edu.ph/admissions/" target="_blank">
+            <div class="card m-3" style="width: 18rem; height: 26rem;" >
+              <img src="../static/assets/img/untitled.png" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title"><center> Admission </center></h5>
+                <p class="card-text"> <center> Office of the Admission </center> </p>
+                <p><i class="ri-mail-line" style="font-size:12px"></i><span style="font-size:10px"> admissions@g.msuiit.edu.ph </span></p>
+                <p><i class="ri-phone-fill" style="font-size:12px"></i><span style="font-size:10px"> +63 (063) 223 8641</span></p>
+              </div>
+            </div>
+          </a>
+
+        <a href="https://www.msuiit.edu.ph/academics/colleges/coe/index.php" target="_blank">
+        <div class="card m-3" style="width: 18rem; height: 26rem;">
+          <img src="../static/assets/img/coe.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><center> COE </center></h5>
+            <p class="card-text"> <center> College of Engineering </center> </p>
+            <p><i class="ri-mail-line"  style="font-size:12px"></i> <span style="font-size:10px">coe.dean@g.msuiit.edu.ph</span> </p>
+            <p><i class="ri-facebook-circle-fill" style="font-size:12px"></i><span style="font-size:10px">https://www.facebook.com/MSUIITPHCOET</span></p>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.msuiit.edu.ph/academics/colleges/ccs/index.php" target="_blank">
+        <div class="card m-3" style="width: 18rem; height: 26rem;" > 
+          <img src="../static/assets/img/ccs.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><center> CCS </center></h5>
+            <p class="card-text"> <center> College of Computer Studies</center> </p>
+            <p><i class="ri-mail-line"  style="font-size:12px"></i> <span style="font-size:10px">scs.dean@g.msuiit.edu.ph</span> </p>
+            <p><i class="ri-facebook-circle-fill" style="font-size:12px"></i><span style="font-size:10px">https://www.facebook.com/MSUIITPHCCS</span></p>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.msuiit.edu.ph/academics/colleges/csm/index.php" target="_blank">
+        <div class="card m-3" style="width: 18rem; height: 26rem;">
+          <img src="../static/assets/img/csm.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><center> CSM </center></h5>
+            <p class="card-text"> <center> College of Science and Mathematics</center> </p>
+            <p><i class="ri-mail-line"  style="font-size:12px"></i> <span style="font-size:10px">csm.dean@g.msuiit.edu.ph</span> </p>
+            <p><i class="ri-facebook-circle-fill" style="font-size:12px"></i><span style="font-size:10px">https://www.facebook.com/MSUIITPHCSM</span></p>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.msuiit.edu.ph/academics/colleges/nursing/about/history.php" target="_blank">
+        <div class="card m-3" style="width: 18rem; height: 26rem;">
+          <img src="../static/assets/img/chs.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><center> CHS </center></h5>
+            <p class="card-text"> <center> College of Health Sciences </center> </p>
+            <p><i class="ri-mail-line"  style="font-size:12px"></i> <span style="font-size:10px">con.dean@g.msuiit.edu.ph</span> </p>
+            <p><i class="ri-facebook-circle-fill" style="font-size:12px"></i><span style="font-size:10px">https://www.facebook.com/MSUIITPHCHS</span></p>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.msuiit.edu.ph/academics/colleges/cbaa/index.php" target="_blank">
+        <div class="card m-3" style="width: 18rem; height: 26rem;">
+          <img src="../static/assets/img/ceba.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><center> CEBA </center></h5>
+            <p class="card-text"> <center> College of Economics and Business Administration </center> </p>
+            <p><i class="ri-mail-line"  style="font-size:12px"></i> <span style="font-size:10px">cbaa.dean@g.msuiit.edu.ph</span> </p>
+            <p><i class="ri-facebook-circle-fill" style="font-size:12px"></i><span style="font-size:10px">https://www.facebook.com/MSUIITPHCEBA</span></p>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.msuiit.edu.ph/academics/colleges/ced/index.php" target="_blank">
+        <div class="card m-3" style="width: 18rem; height: 26rem;">
+          <img src="../static/assets/img/ced.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><center> CED </center></h5>
+            <p class="card-text"> <center> College of Education </center> </p>
+            <p><i class="ri-mail-line"  style="font-size:12px"></i> <span style="font-size:10px">ced.dean@g.msuiit.edu.ph</span> </p>
+            <p><i class="ri-facebook-circle-fill" style="font-size:12px"></i><span style="font-size:10px">https://www.facebook.com/MSUIITPHCED</span></p>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.msuiit.edu.ph/academics/colleges/cass/index.php" target="_blank">
+        <div class="card m-3" style="width: 18rem; height: 26rem;">
+          <img src="../static/assets/img/cass.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><center> CASS </center></h5>
+            <p class="card-text"> <center> College of Arts and Social Sciences </center> </p>
+            <p><i class="ri-mail-line"  style="font-size:12px"></i> <span style="font-size:10px">cass.dean@g.msuiit.edu.ph</span> </p>
+            <p><i class="ri-facebook-circle-fill" style="font-size:12px"></i><span style="font-size:10px">https://www.facebook.com/MSUIITPHCASS</span></p>
+          </div>
+        </div>
+      </a>
+
+      </div>
+    </main>
+    
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+  <!-- Vendor JS Files -->
+  <script src="../static/assets2/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../static/assets2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets2/vendor/chart.js/chart.umd.js"></script>
+  <script src="../static/assets2/vendor/echarts/echarts.min.js"></script>
+  <script src="../static/assets2/vendor/quill/quill.min.js"></script>
+  <script src="../static/assets2/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../static/assets2/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../static/assets2/vendor/php-email-form/validate.js"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="../static/assets2/js/main.js"></script>
+
+    </body>
+
+</html>
