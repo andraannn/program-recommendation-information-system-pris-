@@ -47,6 +47,11 @@
       href="../static/assets2/vendor/simple-datatables/style.css"
       rel="stylesheet"
     />
+    <link 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"  
+    />
+
 
     <!-- Template Main CSS File -->
     <link href="../static/assets2/css/style.css" rel="stylesheet" />
@@ -349,14 +354,12 @@
                   <td>{{ row['email']}}</td>
                   <td>
 
-                    <a
-                      href="/view_unverified/{{ row['u_id'] }}"
-                      class="btn btn-primary btn-sm"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="top"
-                      title="View Student"
-                    >
-                      👁️
+                    <a href="/view_unverified/{{ row['u_id'] }}"
+                        class="btn btn-primary btn-sm"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="View Student">
+                        <i class="fas fa-eye" style="color: black;"></i>
                     </a>
 
                     <!-- Confirmation Modal -->
@@ -461,7 +464,7 @@
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
                         title="View Student">
-                        👁️
+                        <i class="fas fa-eye" style="color: black;"></i>
                       </a>
 
                       <!-- Conditional Verification Modal Button -->
@@ -470,7 +473,7 @@
                               class="btn btn-warning btn-sm"
                               data-bs-toggle="modal"
                               data-bs-target="#confirmModal{{ row['u_id'] }}">
-                          ✔️
+                            <i class="fa-solid fa-check"></i>
                       </button>
 
                       <div class="modal fade" id="confirmModal{{ row['u_id'] }}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel{{ row['u_id'] }}" aria-hidden="true">
