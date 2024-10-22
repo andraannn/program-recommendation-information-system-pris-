@@ -1562,46 +1562,129 @@ def update_SHS_grades():
             # Get the track value from the track dictionary
             track_value = track['track']
 
+            def get_form_value(field):
+                return request.form.get(field) or None
+
             if track_value == 'STEM':
-            # Insert grades for STEM track, set others to NULL
+                # Insert grades for STEM track, set others to NULL
                 cursor.execute("""
-                UPDATE student_grade_shs SET earthandlifescience = %s, physicalscience = %s, earthscience = %s, genbio1 = %s, genbio2 = %s, genphysics1 = %s, genphysics2 = %s, genchem1 = %s, genchem2 = %s, generalmath = %s, statisticsandprobability = %s, precalculus = %s, basiccalculus = %s, oralcommunication = %s, reading_and_writing = %s, mediaandinformationliteracy = %s, t21stcenturyliteraturefromthephilippinesandtheworld = %s, contemporaryphilippineartsfromtheregions = %s, pagbasaatpagsusuringibatibangtekstotungosapananaliksik = %s, komunikasyonatpananaliksiksawikaatkulturangpilipino = %s, personaldevelopment = %s, introductiontothephilosophyofthehumanperson = %s, understandingculturesocietyandpolitics = %s, disasterreadinessandrisk_reduction = %s, physicaleducationandhealth = %s, physicaleducationandhealth2 = %s, physicaleducationandhealth3 = %s, physicaleducationandhealth4 = %s
-                WHERE g_shs_id = %s
-                """, ( request.form['earthandlifescience'], request.form['physicalscience'], request.form['earthscience'], request.form['genbio1'], request.form['genbio2'], request.form['genphysics1'], request.form['genphysics2'], request.form['genchem1'], request.form['genchem2'], request.form['generalmath'], request.form['statisticsandprobability'], request.form['precalculus'], request.form['basiccalculus'], request.form['oralcommunication'], request.form['reading_and_writing'], request.form['mediaandinformationliteracy'], request.form['t21stcenturyliteraturefromthephilippinesandtheworld'], request.form['contemporaryphilippineartsfromtheregions'], request.form['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'], request.form['komunikasyonatpananaliksiksawikaatkulturangpilipino'], request.form['personaldevelopment'], request.form['introductiontothephilosophyofthehumanperson'], request.form['understandingculturesocietyandpolitics'], request.form['disasterreadinessandrisk_reduction'], request.form['physicaleducationandhealth'], request.form['physicaleducationandhealth2'], request.form['physicaleducationandhealth3'], request.form['physicaleducationandhealth4'], u_id ))
+                    UPDATE student_grade_shs SET earthandlifescience = %s, physicalscience = %s, earthscience = %s, genbio1 = %s, genbio2 = %s, genphysics1 = %s, genphysics2 = %s, genchem1 = %s, genchem2 = %s, generalmath = %s, statisticsandprobability = %s, precalculus = %s, basiccalculus = %s, oralcommunication = %s, reading_and_writing = %s, mediaandinformationliteracy = %s, t21stcenturyliteraturefromthephilippinesandtheworld = %s, contemporaryphilippineartsfromtheregions = %s, pagbasaatpagsusuringibatibangtekstotungosapananaliksik = %s, komunikasyonatpananaliksiksawikaatkulturangpilipino = %s, personaldevelopment = %s, introductiontothephilosophyofthehumanperson = %s, understandingculturesocietyandpolitics = %s, disasterreadinessandrisk_reduction = %s, physicaleducationandhealth = %s, physicaleducationandhealth2 = %s, physicaleducationandhealth3 = %s, physicaleducationandhealth4 = %s
+                    WHERE g_shs_id = %s
+                """, (get_form_value('earthandlifescience'), get_form_value('physicalscience'), get_form_value('earthscience'),
+                    get_form_value('genbio1'), get_form_value('genbio2'), get_form_value('genphysics1'), get_form_value('genphysics2'),
+                    get_form_value('genchem1'), get_form_value('genchem2'), get_form_value('generalmath'), get_form_value('statisticsandprobability'),
+                    get_form_value('precalculus'), get_form_value('basiccalculus'), get_form_value('oralcommunication'), get_form_value('reading_and_writing'),
+                    get_form_value('mediaandinformationliteracy'), get_form_value('t21stcenturyliteraturefromthephilippinesandtheworld'),
+                    get_form_value('contemporaryphilippineartsfromtheregions'), get_form_value('pagbasaatpagsusuringibatibangtekstotungosapananaliksik'),
+                    get_form_value('komunikasyonatpananaliksiksawikaatkulturangpilipino'), get_form_value('personaldevelopment'),
+                    get_form_value('introductiontothephilosophyofthehumanperson'), get_form_value('understandingculturesocietyandpolitics'),
+                    get_form_value('disasterreadinessandrisk_reduction'), get_form_value('physicaleducationandhealth'),
+                    get_form_value('physicaleducationandhealth2'), get_form_value('physicaleducationandhealth3'), get_form_value('physicaleducationandhealth4'), u_id))
                 conn.commit()
                 return redirect(url_for('student_grades'))
         
             elif track_value == 'ABM':
-            # Update grades for ABM track, set others to NULL
-                cursor.execute(""" UPDATE student_grade_shs SET earthandlifescience = %s, physicalscience = %s, earthscience = %s, generalmath = %s, statisticsandprobability = %s, businessmath = %s, businessfinance = %s, oralcommunication = %s, reading_and_writing = %s, mediaandinformationliteracy = %s, t21stcenturyliteraturefromthephilippinesandtheworld = %s, contemporaryphilippineartsfromtheregions = %s, pagbasaatpagsusuringibatibangtekstotungosapananaliksik = %s, komunikasyonatpananaliksiksawikaatkulturangpilipino = %s, personaldevelopment = %s, introductiontothephilosophyofthehumanperson = %s, understandingculturesocietyandpolitics = %s, disasterreadinessandrisk_reduction = %s, physicaleducationandhealth = %s, physicaleducationandhealth2 = %s, physicaleducationandhealth3 = %s, physicaleducationandhealth4 = %s, organizationandmanagement = %s, principlesofmarketing = %s, businessmarketing = %s, businessenterpriseandsimulation = %s, f1_fundamentalsofaccountancybusinessandmanagement1 = %s, f2_fundamentalsofaccountancybusinessandmanagement2 = %s, appliedeconomicsbusiness = %s, ethicsandsocial_responsibility = %s
-                WHERE g_shs_id = %s
-                """, ( request.form['earthandlifescience'], request.form['physicalscience'], request.form['earthscience'], request.form['generalmath'], request.form['statisticsandprobability'], request.form['businessmath'], request.form['businessfinance'], request.form['oralcommunication'], request.form['reading_and_writing'], request.form['mediaandinformationliteracy'], request.form['t21stcenturyliteraturefromthephilippinesandtheworld'], request.form['contemporaryphilippineartsfromtheregions'], request.form['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'], request.form['komunikasyonatpananaliksiksawikaatkulturangpilipino'], request.form['personaldevelopment'], request.form['introductiontothephilosophyofthehumanperson'], request.form['understandingculturesocietyandpolitics'], request.form['disasterreadinessandrisk_reduction'], request.form['physicaleducationandhealth'], request.form['physicaleducationandhealth2'], request.form['physicaleducationandhealth3'], request.form['physicaleducationandhealth4'], request.form['organizationandmanagement'], request.form['principlesofmarketing'], request.form['businessmarketing'], request.form['businessenterpriseandsimulation'], request.form['f1_fundamentalsofaccountancybusinessandmanagement1'], request.form['f2_fundamentalsofaccountancybusinessandmanagement2'], request.form['appliedeconomicsbusiness'], request.form['ethicsandsocial_responsibility'], u_id ))
+                # Update grades for ABM track, set others to NULL
+                cursor.execute("""
+                    UPDATE student_grade_shs SET earthandlifescience = %s, physicalscience = %s, earthscience = %s, generalmath = %s, statisticsandprobability = %s, businessmath = %s, businessfinance = %s, oralcommunication = %s, reading_and_writing = %s, mediaandinformationliteracy = %s, t21stcenturyliteraturefromthephilippinesandtheworld = %s, contemporaryphilippineartsfromtheregions = %s, pagbasaatpagsusuringibatibangtekstotungosapananaliksik = %s, komunikasyonatpananaliksiksawikaatkulturangpilipino = %s, personaldevelopment = %s, introductiontothephilosophyofthehumanperson = %s, understandingculturesocietyandpolitics = %s, disasterreadinessandrisk_reduction = %s, physicaleducationandhealth = %s, physicaleducationandhealth2 = %s, physicaleducationandhealth3 = %s, physicaleducationandhealth4 = %s, organizationandmanagement = %s, principlesofmarketing = %s, businessmarketing = %s, businessenterpriseandsimulation = %s, f1_fundamentalsofaccountancybusinessandmanagement1 = %s, f2_fundamentalsofaccountancybusinessandmanagement2 = %s, appliedeconomicsbusiness = %s, ethicsandsocial_responsibility = %s
+                    WHERE g_shs_id = %s
+                """, (get_form_value('earthandlifescience'), get_form_value('physicalscience'), get_form_value('earthscience'),
+                    get_form_value('generalmath'), get_form_value('statisticsandprobability'), get_form_value('businessmath'),
+                    get_form_value('businessfinance'), get_form_value('oralcommunication'), get_form_value('reading_and_writing'),
+                    get_form_value('mediaandinformationliteracy'), get_form_value('t21stcenturyliteraturefromthephilippinesandtheworld'),
+                    get_form_value('contemporaryphilippineartsfromtheregions'), get_form_value('pagbasaatpagsusuringibatibangtekstotungosapananaliksik'),
+                    get_form_value('komunikasyonatpananaliksiksawikaatkulturangpilipino'), get_form_value('personaldevelopment'),
+                    get_form_value('introductiontothephilosophyofthehumanperson'), get_form_value('understandingculturesocietyandpolitics'),
+                    get_form_value('disasterreadinessandrisk_reduction'), get_form_value('physicaleducationandhealth'),
+                    get_form_value('physicaleducationandhealth2'), get_form_value('physicaleducationandhealth3'), get_form_value('physicaleducationandhealth4'),
+                    get_form_value('organizationandmanagement'), get_form_value('principlesofmarketing'), get_form_value('businessmarketing'),
+                    get_form_value('businessenterpriseandsimulation'), get_form_value('f1_fundamentalsofaccountancybusinessandmanagement1'),
+                    get_form_value('f2_fundamentalsofaccountancybusinessandmanagement2'), get_form_value('appliedeconomicsbusiness'),
+                    get_form_value('ethicsandsocial_responsibility'), u_id))
                 conn.commit()
                 return redirect(url_for('student_grades'))
             
             elif track_value == 'HUMSS':
-            # Update grades for HUMSS track, set others to NULL
-                cursor.execute(""" UPDATE student_grade_shs SET earthandlifescience = %s, physicalscience = %s, earthscience = %s, generalmath = %s, statisticsandprobability = %s, oralcommunication = %s, reading_and_writing = %s, mediaandinformationliteracy = %s, t21stcenturyliteraturefromthephilippinesandtheworld = %s, contemporaryphilippineartsfromtheregions = %s, creativenonfiction = %s, pagbasaatpagsusuringibatibangtekstotungosapananaliksik = %s, komunikasyonatpananaliksiksawikaatkulturangpilipino = %s, creativewriting_malikhaing_pagsulat = %s, personaldevelopment = %s, introductiontothephilosophyofthehumanperson = %s, understandingculturesocietyandpolitics = %s, disasterreadinessandrisk_reduction = %s, physicaleducationandhealth = %s, physicaleducationandhealth2 = %s, physicaleducationandhealth3 = %s, physicaleducationandhealth4 = %s, introductiontoworldreligionsandbeliefsystems = %s, community_engagementsolidarityandcitizenship = %s, philippinepoliticsandgovernance = %s, disciplinesandideasinthesocialsciences = %s
-                WHERE g_shs_id = %s
-                """, ( request.form['earthandlifescience'], request.form['physicalscience'], request.form['earthscience'], request.form['generalmath'], request.form['statisticsandprobability'], request.form['oralcommunication'], request.form['reading_and_writing'], request.form['mediaandinformationliteracy'], request.form['t21stcenturyliteraturefromthephilippinesandtheworld'], request.form['contemporaryphilippineartsfromtheregions'], request.form['creativenonfiction'], request.form['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'], request.form['komunikasyonatpananaliksiksawikaatkulturangpilipino'], request.form['creativewriting_malikhaing_pagsulat'], request.form['personaldevelopment'], request.form['introductiontothephilosophyofthehumanperson'], request.form['understandingculturesocietyandpolitics'], request.form['disasterreadinessandrisk_reduction'], request.form['physicaleducationandhealth'], request.form['physicaleducationandhealth2'], request.form['physicaleducationandhealth3'], request.form['physicaleducationandhealth4'], request.form['introductiontoworldreligionsandbeliefsystems'], request.form['community_engagementsolidarityandcitizenship'], request.form['philippinepoliticsandgovernance'], request.form['disciplinesandideasinthesocialsciences'], u_id ))
+                # Update grades for HUMSS track, set others to NULL
+                cursor.execute("""
+                    UPDATE student_grade_shs SET earthandlifescience = %s, physicalscience = %s, earthscience = %s, generalmath = %s, 
+                    statisticsandprobability = %s, oralcommunication = %s, reading_and_writing = %s, mediaandinformationliteracy = %s, 
+                    t21stcenturyliteraturefromthephilippinesandtheworld = %s, contemporaryphilippineartsfromtheregions = %s, creativenonfiction = %s, 
+                    pagbasaatpagsusuringibatibangtekstotungosapananaliksik = %s, komunikasyonatpananaliksiksawikaatkulturangpilipino = %s, 
+                    creativewriting_malikhaing_pagsulat = %s, personaldevelopment = %s, introductiontothephilosophyofthehumanperson = %s, 
+                    understandingculturesocietyandpolitics = %s, disasterreadinessandrisk_reduction = %s, physicaleducationandhealth = %s, 
+                    physicaleducationandhealth2 = %s, physicaleducationandhealth3 = %s, physicaleducationandhealth4 = %s, 
+                    introductiontoworldreligionsandbeliefsystems = %s, community_engagementsolidarityandcitizenship = %s, 
+                    philippinepoliticsandgovernance = %s, disciplinesandideasinthesocialsciences = %s
+                    WHERE g_shs_id = %s
+                """, (request.form.get('earthandlifescience'), request.form.get('physicalscience'), request.form.get('earthscience'), 
+                    request.form.get('generalmath'), request.form.get('statisticsandprobability'), request.form.get('oralcommunication'), 
+                    request.form.get('reading_and_writing'), request.form.get('mediaandinformationliteracy'), 
+                    request.form.get('t21stcenturyliteraturefromthephilippinesandtheworld'), request.form.get('contemporaryphilippineartsfromtheregions'), 
+                    request.form.get('creativenonfiction'), request.form.get('pagbasaatpagsusuringibatibangtekstotungosapananaliksik'), 
+                    request.form.get('komunikasyonatpananaliksiksawikaatkulturangpilipino'), request.form.get('creativewriting_malikhaing_pagsulat'), 
+                    request.form.get('personaldevelopment'), request.form.get('introductiontothephilosophyofthehumanperson'), 
+                    request.form.get('understandingculturesocietyandpolitics'), request.form.get('disasterreadinessandrisk_reduction'), 
+                    request.form.get('physicaleducationandhealth'), request.form.get('physicaleducationandhealth2'), 
+                    request.form.get('physicaleducationandhealth3'), request.form.get('physicaleducationandhealth4'), 
+                    request.form.get('introductiontoworldreligionsandbeliefsystems'), request.form.get('community_engagementsolidarityandcitizenship'), 
+                    request.form.get('philippinepoliticsandgovernance'), request.form.get('disciplinesandideasinthesocialsciences'), u_id))
                 conn.commit()
                 return redirect(url_for('student_grades'))
             
             elif track_value == 'GAS':
                 # Update grades for GAS track, set others to NULL
-                cursor.execute(""" UPDATE student_grade_shs SET earthandlifescience = %s, physicalscience = %s, earthscience = %s, generalmath = %s, statisticsandprobability = %s, oralcommunication = %s, reading_and_writing = %s, mediaandinformationliteracy = %s, t21stcenturyliteraturefromthephilippinesandtheworld = %s, contemporaryphilippineartsfromtheregions = %s, creativewriting = %s, pagbasaatpagsusuringibatibangtekstotungosapananaliksik = %s, komunikasyonatpananaliksiksawikaatkulturangpilipino = %s, personaldevelopment = %s, introductiontothephilosophyofthehumanperson = %s, understandingculturesocietyandpolitics = %s, disasterreadinessandrisk_reduction = %s, physicaleducationandhealth = %s, physicaleducationandhealth2 = %s, physicaleducationandhealth3 = %s, physicaleducationandhealth4 = %s, humanities1_politics = %s, humanities2_intro = %s, socialscience1 = %s, organizationandmanagement2 = %s, appliedeconomics2 = %s, introtoworldreligionsandsytembeliefs = %s, philippinepiliticsandgovernance = %s 
-                WHERE g_shs_id = %s
-                """, ( request.form['earthandlifescience'], request.form['physicalscience'], request.form['earthscience'], request.form['generalmath'], request.form['statisticsandprobability'], request.form['oralcommunication'], request.form['reading_and_writing'], request.form['mediaandinformationliteracy'], request.form['t21stcenturyliteraturefromthephilippinesandtheworld'], request.form['contemporaryphilippineartsfromtheregions'], request.form['creativewriting'], request.form['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'], request.form['komunikasyonatpananaliksiksawikaatkulturangpilipino'], request.form['personaldevelopment'], request.form['introductiontothephilosophyofthehumanperson'], request.form['understandingculturesocietyandpolitics'], request.form['disasterreadinessandrisk_reduction'], request.form['physicaleducationandhealth'], request.form['physicaleducationandhealth2'], request.form['physicaleducationandhealth3'], request.form['physicaleducationandhealth4'], request.form['humanities1_politics'], request.form['humanities2_intro'], request.form['socialscience1'], request.form['organizationandmanagement2'], request.form['appliedeconomics2'], request.form['introtoworldreligionsandsytembeliefs'], request.form['philippinepiliticsandgovernance'], u_id ))
+                cursor.execute("""
+                    UPDATE student_grade_shs SET earthandlifescience = %s, physicalscience = %s, earthscience = %s, generalmath = %s, 
+                    statisticsandprobability = %s, oralcommunication = %s, reading_and_writing = %s, mediaandinformationliteracy = %s, 
+                    t21stcenturyliteraturefromthephilippinesandtheworld = %s, contemporaryphilippineartsfromtheregions = %s, creativewriting = %s, 
+                    pagbasaatpagsusuringibatibangtekstotungosapananaliksik = %s, komunikasyonatpananaliksiksawikaatkulturangpilipino = %s, 
+                    personaldevelopment = %s, introductiontothephilosophyofthehumanperson = %s, understandingculturesocietyandpolitics = %s, 
+                    disasterreadinessandrisk_reduction = %s, physicaleducationandhealth = %s, physicaleducationandhealth2 = %s, 
+                    physicaleducationandhealth3 = %s, physicaleducationandhealth4 = %s, humanities1_politics = %s, humanities2_intro = %s, 
+                    socialscience1 = %s, organizationandmanagement2 = %s, appliedeconomics2 = %s, introtoworldreligionsandsytembeliefs = %s, 
+                    philippinepiliticsandgovernance = %s 
+                    WHERE g_shs_id = %s
+                """, (request.form.get('earthandlifescience'), request.form.get('physicalscience'), request.form.get('earthscience'), 
+                    request.form.get('generalmath'), request.form.get('statisticsandprobability'), request.form.get('oralcommunication'), 
+                    request.form.get('reading_and_writing'), request.form.get('mediaandinformationliteracy'), 
+                    request.form.get('t21stcenturyliteraturefromthephilippinesandtheworld'), request.form.get('contemporaryphilippineartsfromtheregions'), 
+                    request.form.get('creativewriting'), request.form.get('pagbasaatpagsusuringibatibangtekstotungosapananaliksik'), 
+                    request.form.get('komunikasyonatpananaliksiksawikaatkulturangpilipino'), request.form.get('personaldevelopment'), 
+                    request.form.get('introductiontothephilosophyofthehumanperson'), request.form.get('understandingculturesocietyandpolitics'), 
+                    request.form.get('disasterreadinessandrisk_reduction'), request.form.get('physicaleducationandhealth'), 
+                    request.form.get('physicaleducationandhealth2'), request.form.get('physicaleducationandhealth3'), 
+                    request.form.get('physicaleducationandhealth4'), request.form.get('humanities1_politics'), request.form.get('humanities2_intro'), 
+                    request.form.get('socialscience1'), request.form.get('organizationandmanagement2'), request.form.get('appliedeconomics2'), 
+                    request.form.get('introtoworldreligionsandsytembeliefs'), request.form.get('philippinepiliticsandgovernance'), u_id))
                 conn.commit()
                 return redirect(url_for('student_grades'))
 
             ### TVL Track:
             elif track_value == 'TVL':
                 # Update grades for TVL track, set others to NULL
-                cursor.execute(""" UPDATE student_grade_shs SET earthandlifescience = %s, physicalscience = %s, earthscience = %s, generalmath = %s, statisticsandprobability = %s, oralcommunication = %s, reading_and_writing = %s, mediaandinformationliteracy = %s, t21stcenturyliteraturefromthephilippinesandtheworld = %s, contemporaryphilippineartsfromtheregions = %s, creativewriting = %s, pagbasaatpagsusuringibatibangtekstotungosapananaliksik = %s, komunikasyonatpananaliksiksawikaatkulturangpilipino = %s, personaldevelopment = %s, introductiontothephilosophyofthehumanperson = %s, understandingculturesocietyandpolitics = %s, disasterreadinessandrisk_reduction = %s, physicaleducationandhealth = %s, physicaleducationandhealth2 = %s, physicaleducationandhealth3 = %s, physicaleducationandhealth4 = %s, safetyandfirstaid = %s, humanmovement = %s, fundamentalsofcoaching = %s
-                WHERE g_shs_id = %s
-                """, ( request.form['earthandlifescience'], request.form['physicalscience'], request.form['earthscience'], request.form['generalmath'], request.form['statisticsandprobability'], request.form['oralcommunication'], request.form['reading_and_writing'], request.form['mediaandinformationliteracy'], request.form['t21stcenturyliteraturefromthephilippinesandtheworld'], request.form['contemporaryphilippineartsfromtheregions'], request.form['creativewriting'], request.form['pagbasaatpagsusuringibatibangtekstotungosapananaliksik'], request.form['komunikasyonatpananaliksiksawikaatkulturangpilipino'], request.form['personaldevelopment'], request.form['introductiontothephilosophyofthehumanperson'], request.form['understandingculturesocietyandpolitics'], request.form['disasterreadinessandrisk_reduction'], request.form['physicaleducationandhealth'], request.form['physicaleducationandhealth2'], request.form['physicaleducationandhealth3'], request.form['physicaleducationandhealth4'], request.form['safetyandfirstaid'], request.form['humanmovement'], request.form['fundamentalsofcoaching'], u_id))
-                conn.commit             
+                cursor.execute("""
+                    UPDATE student_grade_shs SET earthandlifescience = %s, physicalscience = %s, earthscience = %s, generalmath = %s, 
+                    statisticsandprobability = %s, oralcommunication = %s, reading_and_writing = %s, mediaandinformationliteracy = %s, 
+                    t21stcenturyliteraturefromthephilippinesandtheworld = %s, contemporaryphilippineartsfromtheregions = %s, creativewriting = %s, 
+                    pagbasaatpagsusuringibatibangtekstotungosapananaliksik = %s, komunikasyonatpananaliksiksawikaatkulturangpilipino = %s, 
+                    personaldevelopment = %s, introductiontothephilosophyofthehumanperson = %s, understandingculturesocietyandpolitics = %s, 
+                    disasterreadinessandrisk_reduction = %s, physicaleducationandhealth = %s, physicaleducationandhealth2 = %s, 
+                    physicaleducationandhealth3 = %s, physicaleducationandhealth4 = %s, safetyandfirstaid = %s, humanmovement = %s, 
+                    fundamentalsofcoaching = %s
+                    WHERE g_shs_id = %s
+                """, (request.form.get('earthandlifescience'), request.form.get('physicalscience'), request.form.get('earthscience'), 
+                    request.form.get('generalmath'), request.form.get('statisticsandprobability'), request.form.get('oralcommunication'), 
+                    request.form.get('reading_and_writing'), request.form.get('mediaandinformationliteracy'), 
+                    request.form.get('t21stcenturyliteraturefromthephilippinesandtheworld'), request.form.get('contemporaryphilippineartsfromtheregions'), 
+                    request.form.get('creativewriting'), request.form.get('pagbasaatpagsusuringibatibangtekstotungosapananaliksik'), 
+                    request.form.get('komunikasyonatpananaliksiksawikaatkulturangpilipino'), request.form.get('personaldevelopment'), 
+                    request.form.get('introductiontothephilosophyofthehumanperson'), request.form.get('understandingculturesocietyandpolitics'), 
+                    request.form.get('disasterreadinessandrisk_reduction'), request.form.get('physicaleducationandhealth'), 
+                    request.form.get('physicaleducationandhealth2'), request.form.get('physicaleducationandhealth3'), 
+                    request.form.get('physicaleducationandhealth4'), request.form.get('safetyandfirstaid'), request.form.get('humanmovement'), 
+                    request.form.get('fundamentalsofcoaching'), u_id))
+                conn.commit()
                 return redirect(url_for('student_grades'))
 
     # If it's not a POST request
