@@ -174,3 +174,57 @@
 .sidebar-nav .nav-link.active .bx.bxs-business {
   color: #A31A23; 
 }
+
+.about_title {
+  font-family: Trebuchet MS, sans-serif;
+  font-weight: 600;
+  color: #6c0607;
+}
+
+.t_span {
+  color: #9c0d0f;
+}
+
+.team-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.team-member {
+  flex-basis: calc(20% - 20px);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.team-member img {
+  width: 150px;
+  height: auto;
+  border-radius: 8px; 
+  border: 2px solid #ccc;
+}
+
+.team-member h3 {
+  margin: 10px 0 5px;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.team-member h4 {
+  margin: 0 0 5px;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.team-member p {
+  margin: 0;
+  font-size: 1em;
+  color: #666;
+}
+
+@media only screen and (max-width: 768px) {
+  .row > .col-md-6:first-child {
+    margin-bottom: 20px;
+  }
+}
