@@ -158,6 +158,11 @@
   box-shadow: 2px 2px 2px rgba(164, 29, 33, 1);
 }
 
+.card-img-top {
+  height: 200px; /* Adjust as needed */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+
 .sidebar-nav .nav-link.active {
   background-color: #F7D953; 
 }

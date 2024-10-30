@@ -1,1 +1,5 @@
-[{"name": "La Salle Academy", "address": "Bro. Raymond Jeffrey Road, Palao, Iligan City"}, {"name": "St. Michael's College", "address": "74 Manuel L. Quezon Ave, Iligan City"}, {"name": "Lyceum of the Philippines University", "address": "Muralla St, Intramuros, Manila, 1002 Metro Manila"}, {"name": "Nord Anglia International School Manila", "address": "Bradco Ave, Aseana Business Park, Para\u00f1aque, 1700 Metro Manila"}]
+[
+    {"name": "La Salle Academy", "address": "Bro. Raymond Jeffrey Road, Palao, Iligan City"}, 
+    {"name": "St. Michael's College", "address": "74 Manuel L. Quezon Ave, Iligan City"}, 
+    {"name": "Lyceum of the Philippines University", "address": "Muralla St, Intramuros, Manila, 1002 Metro Manila"}, 
+    {"name": "Nord Anglia International School Manila", "address": "Bradco Ave, Aseana Business Park, Para\u00f1aque, 1700 Metro Manila"}]

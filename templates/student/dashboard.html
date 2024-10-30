@@ -140,9 +140,8 @@
     <main id="main" class="main">
 
       <div class="card d-flex">
-
         <p id="greeting">{{ f_name }}!</p>
-        
+        <span style="font-size: medium; font-weight: 400; color: white; text-shadow: 2px 2px 4px #000000;">Quote of the Day: <em id="quote"></em></span>
       </div>
       <div class="alert alert-warning alert-dismissible fade show mx-auto" role="alert" style="color:#000; font-size: 15px;">
         <b>NOTE:</b> Students should review their data in the <b>Profile Page</b> and check <b>Recommendation Page</b> to view the recommended courses.
@@ -229,6 +228,54 @@
       } else {
           greetingElement.textContent = "Good evening, " + greetingElement.textContent;
       }
+    </script>
+
+    <script>
+      function fetchAndDisplayQuote() {
+        fetch('https://api.api-ninjas.com/v1/quotes?category=education', {
+          method: 'GET',
+          headers: { 'X-Api-Key': 'r39REi4zN0nZeE5NmGI6+A==t4Pla4yCoR7APkmO' }
+        })
+        .then(response => response.json())
+        .then(data => {
+          const quoteElement = document.getElementById('quote');
+
+          if (data && data.length > 0) {
+            const randomQuote = data[0];
+            const quoteText = `"${randomQuote.quote}" - ${randomQuote.author}`;
+            
+            // Display the quote
+            quoteElement.textContent = quoteText;
+            
+            // Store the quote and current date in localStorage
+            localStorage.setItem('dailyQuote', quoteText);
+            localStorage.setItem('quoteDate', new Date().toDateString());
+          } else {
+            quoteElement.textContent = "No quote available at the moment.";
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          document.getElementById('quote').textContent = "Failed to load quote.";
+        });
+      }
+
+      function displayDailyQuote() {
+        const quoteDate = localStorage.getItem('quoteDate');
+        const today = new Date().toDateString();
+
+        // Check if the stored date is today’s date
+        if (quoteDate === today) {
+          // Display the saved quote from localStorage
+          document.getElementById('quote').textContent = localStorage.getItem('dailyQuote');
+        } else {
+          // Fetch a new quote and update localStorage
+          fetchAndDisplayQuote();
+        }
+      }
+
+      // Call the function to display the daily quote
+      displayDailyQuote();
     </script>
 
     </body>
