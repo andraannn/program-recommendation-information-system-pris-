@@ -1,5 +1,4 @@
 import pandas as pd
-import psycopg2
 from admissions_predictor import prediction_per_program
 from recommendation_logic import recommend_program
 import argparse

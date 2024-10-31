@@ -145,9 +145,9 @@
   
             <div class="card">
               <div class="card-body mt-2">
-                  <h5 class="card-title">Your Preferred Courses</h5>
-                  <p class="custom-bullet">{{student['pref_course1']}}</p>
-                  <p class="custom-bullet_2">{{student['pref_course2']}}</p>
+                  <h5 class="card-title">Your Preferred Programs</h5>
+                  <p><span style="color: #9c0d0f;">&#10148;&nbsp;</span>{{student['pref_course1']}}</p>
+                  <p><span style="color: #9c0d0f;">&#10148;&nbsp;</span>{{student['pref_course2']}}</p>
                   <hr style="border-color: #000">
                   {% if user['status'] != 'verified' %}
                   <div class="alert alert-info" role="alert">
@@ -157,9 +157,9 @@
                     </small>
                   </div>
                   {% endif %}
-                  <h5 class="card-title">College Recommended Courses/Programs</h5>
+                  <h5 class="card-title">College Recommended Programs</h5>
                   
-                  {% if student_rc %}
+                    {% if student_rc %}
                     <!-- Recommended Courses -->
                     <div class="accordion accordion-flush" id="accordionFlushExample">
                         {% for i in range(1, 11) %}
@@ -168,7 +168,7 @@
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="flush-heading{{ i }}">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ i }}" aria-expanded="false" aria-controls="flush-collapse{{ i }}">
-                                            <b class="me-2">{{ i }}.</b> 
+                                            <b class="me-2 program-number">{{ i }}.</b> 
                                             {% set course_definition = get_course_definition(rc) %}
                                             {{ course_definition.display_name }}
                                         </button>

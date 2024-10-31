@@ -9,7 +9,7 @@
   }
 }
 
-.custom-bullet {
+/* .custom-bullet {
   position: relative;
   padding-left: 25px;
   margin-bottom: 10px;
@@ -51,7 +51,7 @@
   line-height: 20px;
   border-radius: 4px;
   font-weight: bold;
-}
+} */
 
 .custom-btn {
   background-color: #a41d21;
@@ -124,6 +124,18 @@
 .sidebar-nav .nav-link.active .ri-service-fill,
 .sidebar-nav .nav-link.active .bx.bxs-business {
   color: #A31A23; 
+}
+
+.program-number {
+  display: inline-block;
+  width: 2.5rem; /* Increase width to fit double digits */
+  text-align: center;
+  font-size: 1rem;
+  color: #f7d953;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #9c0d0f;
 }
 
 @media (max-width: 768px) {
