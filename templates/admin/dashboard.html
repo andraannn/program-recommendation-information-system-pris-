@@ -183,10 +183,9 @@
               <div class="card-body pt-4 d-flex flex-column">
                 <h5 class="card-title">Registered Users</h5>
                 <p class="card-text">
-                  <p><span style="color: green; font-weight: bold;">{{ email_unverified }}%</span> Unverified Emails <span style ="color: blue; font-weight: bold;"> {{ unverified_email_count }}/{{ overall_count }}</span></p>
-
-                  <p> <span style="color: green; font-weight: bold;">{{ student_unverified }}%</span> Students <span style ="color: blue; font-weight: bold;"> {{ unverified_student_count }}/{{overall_count_unv}} </span> </p>
-
+                  <p>Unverified Emails: <span style ="color: blue; font-weight: bold;"> {{ unverified_email_count }} </span><span style="color: green; font-weight: bold;">({{ email_unverified }}%)</span></p>
+                  <p>Students: <span style ="color: blue; font-weight: bold;"> {{ unverified_student_count }} </span> <span style="color: green; font-weight: bold;">({{ student_unverified }}%)</span></p>
+                  <p>Verified Users: <span style ="color: blue; font-weight: bold;"> {{ verified_user_count }} </span> <span style="color: green; font-weight: bold;">({{ user_verified }}%)</span></p>
                 </p>
               </div>
             </div>

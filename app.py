@@ -368,11 +368,11 @@ def logout():
 def admin_dashboard():
     if 'role' in session and session['role'] == 'admin':
        
-        #Function retrieving the data
+        # Function retrieving the data
         cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         
-        # Select user data based on unverified EMails
-        cursor.execute("SELECT * FROM users where email_verified = false and role = 'student' and status = 'unverified'")
+        # Select user data based on unverified Emails
+        cursor.execute("SELECT * FROM users WHERE email_verified = false AND role = 'student' AND status = 'unverified'")
         unverified_emails = cursor.fetchall()
 
         # Count of students who submitted applications but are still pending (not confirmed)
@@ -401,29 +401,35 @@ def admin_dashboard():
         students_applying = cursor.fetchall()
         
         # Select user data based on session u_id
-        cursor.execute("SELECT * FROM users where status = 'unverified' and role = 'student' and email_verified = true ")
+        cursor.execute("SELECT * FROM users WHERE status = 'unverified' AND role = 'student' AND email_verified = true")
         user_data = cursor.fetchall()
         
-        cursor.execute("SELECT count(*) FROM users where status = 'unverified' and email_verified = true and role = 'student' ")
+        cursor.execute("SELECT COUNT(*) FROM users WHERE status = 'unverified' AND email_verified = true AND role = 'student'")
         user_count = cursor.fetchone()[0]
         
-        cursor.execute("SELECT ROUND((COUNT(*) FILTER (WHERE email_verified = false) * 100.0 / COUNT(*)), 2) AS unverified_percentage FROM users where role ='student' ")
+        cursor.execute("SELECT ROUND((COUNT(*) FILTER (WHERE email_verified = false) * 100.0 / COUNT(*)), 2) AS unverified_percentage FROM users WHERE role = 'student'")
         email_unverified = cursor.fetchone()[0]
         
-        cursor.execute("SELECT ROUND((COUNT(*) FILTER (WHERE email_verified = true and status = 'unverified') * 100.0 / COUNT(*)), 2) AS unverified_student FROM users where role = 'student'")
+        cursor.execute("SELECT ROUND((COUNT(*) FILTER (WHERE email_verified = true AND status = 'unverified') * 100.0 / COUNT(*)), 2) AS unverified_student FROM users WHERE role = 'student'")
         student_unverified = cursor.fetchone()[0]
         
-        cursor.execute("SELECT count(*) FROM users where role = 'student' and email_verified = false")
+        cursor.execute("SELECT COUNT(*) FROM users WHERE role = 'student' AND email_verified = false")
         unverified_email_count = cursor.fetchone()[0]
         
-        cursor.execute("SELECT count(*) FROM users where role = 'student' and email_verified = true and status = 'unverified'")
+        cursor.execute("SELECT COUNT(*) FROM users WHERE role = 'student' AND email_verified = true AND status = 'unverified'")
         unverified_student_count = cursor.fetchone()[0]
         
-        cursor.execute("SELECT count(*) FROM users where role = 'student' ")
+        cursor.execute("SELECT COUNT(*) FROM users WHERE role = 'student'")
         overall_count = cursor.fetchone()[0]
         
-        cursor.execute("SELECT count(*) FROM users where role = 'student' and email_verified = true")
+        cursor.execute("SELECT COUNT(*) FROM users WHERE role = 'student' AND email_verified = true")
         overall_count_unv = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT COUNT(*) FROM users WHERE role = 'student' AND status = 'verified'")
+        verified_user_count = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT ROUND((COUNT(*) FILTER (WHERE status = 'verified') * 100.0 / COUNT(*)), 2) AS verified_percentage FROM users WHERE role = 'student'")
+        user_verified = cursor.fetchone()[0]
         
         cursor.execute("""
             SELECT
@@ -475,7 +481,7 @@ def admin_dashboard():
             SELECT u.u_id, u.f_name, u.m_name, u.l_name, u.s_date, u.status, sp.s_id, sp.verified_grades
             FROM users u
             LEFT JOIN student_profile sp ON u.u_id = sp.s_id
-            WHERE sp.verified_grades IS NOT NULL and u.status = 'unverified'
+            WHERE sp.verified_grades IS NOT NULL AND u.status = 'unverified'
         """)
         students_with_verified_grades = cursor.fetchall()
 
@@ -491,7 +497,7 @@ def admin_dashboard():
         conn.commit()
         cursor.close()
 
-        return render_template('admin/dashboard.html', f_name=session['f_name'], m_name=session['m_name'], l_name=session['l_name'], role=session['role'], email=session['email'], students_applying=students_applying, students_applying_count=students_applying_count, student=user_data, count=user_count, unverified_emails = unverified_emails, email_unverified=email_unverified, student_unverified = student_unverified, overall_count=overall_count, unverified_email_count=unverified_email_count, unverified_student_count=unverified_student_count, most_common_pref_course1=most_common_pref_course1, common_pref_course1_percentage=common_pref_course1_percentage, most_common_pref_course2=most_common_pref_course2, common_pref_course2_percentage=common_pref_course2_percentage, students_with_verified_grades=students_with_verified_grades, students_with_verified_grades_count=students_with_verified_grades_count, overall_count_unv=overall_count_unv)
+        return render_template('admin/dashboard.html', f_name=session['f_name'], m_name=session['m_name'], l_name=session['l_name'], role=session['role'], email=session['email'], students_applying=students_applying, students_applying_count=students_applying_count, student=user_data, count=user_count, unverified_emails=unverified_emails, email_unverified=email_unverified, student_unverified=student_unverified, overall_count=overall_count, unverified_email_count=unverified_email_count, unverified_student_count=unverified_student_count, most_common_pref_course1=most_common_pref_course1, common_pref_course1_percentage=common_pref_course1_percentage, most_common_pref_course2=most_common_pref_course2, common_pref_course2_percentage=common_pref_course2_percentage, students_with_verified_grades=students_with_verified_grades, students_with_verified_grades_count=students_with_verified_grades_count, overall_count_unv=overall_count_unv, verified_user_count=verified_user_count, user_verified=user_verified)
     else:
         flash('Unauthorized access, re-login')
         return redirect(url_for('login'))
