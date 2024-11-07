@@ -59,7 +59,7 @@ def about():
     return render_template('about.html')
 
 #courses.html 
-@app.route('/courses')
+@app.route('/programs')
 def courses():
     
     return render_template('courses.html')
