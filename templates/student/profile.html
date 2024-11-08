@@ -180,17 +180,17 @@
                       <br>
 
                       <!-- Button for Printing -->
-                      <button type="button" class="btn btn-secondary mb-2 mb-md-0" onclick="openPrintDialog()">
+                      <button type="button" class="btn btn-secondary mb-2 mb-md-0" style="width: 200px; height: 40px;" onclick="openPrintDialog()">
                         <a href="{{ url_for('print_form') }}" target="_blank" style="color: white; text-decoration: none;">
-                        Print Grade Form ...
+                          <i class="bx bx-printer"></i> Print Grade Form
                       </a>
                       </button>
 
                       <br>
 
                       <!-- Button to trigger modal -->
-                      <button type="button" class="btn btn-danger mb-2 mb-md-0" data-toggle="modal" data-target="#updatePictureModal{{ student['s_id'] }}">
-                        Upload Grade Form 
+                      <button type="button" class="btn btn-danger mb-2 mb-md-0" style="width: 200px; height: 40px;" data-toggle="modal" data-target="#updatePictureModal{{ student['s_id'] }}">
+                        <i class="bi bi-upload"></i> Upload Grade Form
                       </button>
 
                       <br>
