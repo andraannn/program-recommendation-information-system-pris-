@@ -184,6 +184,9 @@ Follow the instruction, codes are provided in each number.
 );
 
 8. Create table for the application. name it "applications"
+        -- NOTE BEFORE ADDING:
+        -- ALTER TABLE student_profile
+        -- ADD CONSTRAINT student_profile_pkey PRIMARY KEY (s_id);
         
         CREATE TABLE applications (
             application_id SERIAL PRIMARY KEY,
