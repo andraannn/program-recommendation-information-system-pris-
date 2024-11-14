@@ -306,7 +306,7 @@ def forgot_password():
             # Send email with password reset link
             send_password_reset_email(email, reset_password_token)
 
-            flash('Password reset email sent. Please check your email.')
+            flash('Password reset email sent! Check your inbox/spam.')
             return redirect(url_for('login'))
         else:
             flash('Email not found. Please try again.')
