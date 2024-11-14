@@ -23,16 +23,16 @@ from course_definition import get_course_definition
 
 
 app = Flask(__name__)
-app.secret_key = 'CRIS'
+app.secret_key = 'PRIS'
  
 # Mail Configuration
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = 'cris.msuiit@gmail.com'
-app.config['MAIL_PASSWORD'] = 'cwas hidp gfai fraa'
-app.config['MAIL_DEFAULT_SENDER'] = 'cris.msuiit@gmail.com'
+app.config['MAIL_USERNAME'] = 'pris.msuiit@gmail.com'
+app.config['MAIL_PASSWORD'] = 'rkuc wbtd fpyp mwog'
+app.config['MAIL_DEFAULT_SENDER'] = 'pris.msuiit@gmail.com'
 
 # UPLOAD FOLDER
 app.config['UPLOAD_FOLDER'] = 'static/student_uploads/'
