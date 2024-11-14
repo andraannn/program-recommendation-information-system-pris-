@@ -194,34 +194,50 @@
           <div class="col-xl-4 d-flex flex-column flex-md-row">
             <div class="card h-100 w-100 mb-4">
                 <div class="card-body pt-4 d-flex flex-column">
-                    <h5 class="card-title">Most Preferred Program 1</h5>
-                    <p class="card-text">
+                    <h5 class="card-title">Most Preferred Programs</h5>
+                      <div>
+                        <h6 class="card-title" style="font-size: medium;"><i>Program 1</i></h6>
                         {% if most_common_pref_course1 is none %}
                             <p>None</p>
                         {% else %}
                             <p>{{ most_common_pref_course1 }}</p>
-                            <p><span style="color: green; font-weight: bold;">{{ common_pref_course1_percentage }}% </span> of the students chose this course </p>
+                            <p><span style="color: green; font-weight: bold;">{{ common_pref_course1_percentage }}% </span> of the students chose this program </p>
                         {% endif %}
-                    </p>
+                        
+                        <h6 class="card-title" style="font-size: medium;"><i>Program 2</i></h6>
+                        {% if most_common_pref_course2 is none %}
+                            <p>None</p>
+                        {% else %}
+                            <p>{{ most_common_pref_course2 }}</p>
+                            <p><span style="color: green; font-weight: bold;">{{ common_pref_course2_percentage }}% </span>of the students chose this program </p>
+                        {% endif %}
+                      </div>
                 </div>
             </div>
         </div>
         
         <div class="col-xl-4 d-flex flex-column flex-md-row">
-          <div class="card h-100 w-100">
+          <div class="card h-100 w-100 mb-4">
               <div class="card-body pt-4 d-flex flex-column">
-                  <h5 class="card-title">Most Preferred Program 2</h5>
-                  <p class="card-text">
-                      {% if most_common_pref_course2 is none %}
-                          <p>None</p>
+                  <h5 class="card-title">Top 5 Most Recommended Programs</h5>
+                  <ul class="list-unstyled">
+                      {% if top_recommended_programs %}
+                          {% for program in top_recommended_programs %}
+                              <li>
+                                  <p>{{ program.program }} -  
+                                      <span style="color: green; font-weight: bold;">
+                                          {{ program.percentage }}%
+                                      </span>
+                                  </p>
+                              </li>
+                          {% endfor %}
                       {% else %}
-                          <p>{{ most_common_pref_course2 }}</p>
-                          <p><span style="color: green; font-weight: bold;">{{ common_pref_course2_percentage }}% </span>of the students chose this course </p>
+                          <li>No recommended programs available.</li>
                       {% endif %}
-                  </p>
+                  </ul>
               </div>
-          </div>
-      </div>
+            </div>
+        </div>
         
       <!-- End Analytics Card -->
 

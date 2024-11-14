@@ -494,10 +494,29 @@ def admin_dashboard():
         """)
         students_with_verified_grades_count = cursor.fetchone()[0]
 
+        # Query to find the top 5 most recommended programs in rc1
+        cursor.execute("""
+            SELECT rc1, COUNT(rc1) AS count
+            FROM recommended_course
+            GROUP BY rc1
+            ORDER BY count DESC
+            LIMIT 5
+        """)
+        top_recommended_programs = cursor.fetchall()
+
+        # Calculate the percentage for each recommended program based on the total student count
+        top_recommended_programs_list = [
+            {
+                'program': row[0],
+                'percentage': round((row[1] / overall_count) * 100, 2)
+            }
+            for row in top_recommended_programs
+        ]
+
         conn.commit()
         cursor.close()
 
-        return render_template('admin/dashboard.html', f_name=session['f_name'], m_name=session['m_name'], l_name=session['l_name'], role=session['role'], email=session['email'], students_applying=students_applying, students_applying_count=students_applying_count, student=user_data, count=user_count, unverified_emails=unverified_emails, email_unverified=email_unverified, student_unverified=student_unverified, overall_count=overall_count, unverified_email_count=unverified_email_count, unverified_student_count=unverified_student_count, most_common_pref_course1=most_common_pref_course1, common_pref_course1_percentage=common_pref_course1_percentage, most_common_pref_course2=most_common_pref_course2, common_pref_course2_percentage=common_pref_course2_percentage, students_with_verified_grades=students_with_verified_grades, students_with_verified_grades_count=students_with_verified_grades_count, overall_count_unv=overall_count_unv, verified_user_count=verified_user_count, user_verified=user_verified)
+        return render_template('admin/dashboard.html', f_name=session['f_name'], m_name=session['m_name'], l_name=session['l_name'], role=session['role'], email=session['email'], students_applying=students_applying, students_applying_count=students_applying_count, student=user_data, count=user_count, unverified_emails=unverified_emails, email_unverified=email_unverified, student_unverified=student_unverified, overall_count=overall_count, unverified_email_count=unverified_email_count, unverified_student_count=unverified_student_count, most_common_pref_course1=most_common_pref_course1, common_pref_course1_percentage=common_pref_course1_percentage, most_common_pref_course2=most_common_pref_course2, common_pref_course2_percentage=common_pref_course2_percentage, students_with_verified_grades=students_with_verified_grades, students_with_verified_grades_count=students_with_verified_grades_count, overall_count_unv=overall_count_unv, verified_user_count=verified_user_count, user_verified=user_verified, top_recommended_programs=top_recommended_programs_list)
     else:
         flash('Unauthorized access, re-login')
         return redirect(url_for('login'))
