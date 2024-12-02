@@ -43,7 +43,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="/student/dashboard" class="logo d-flex align-items-center">
+      <a href="{{ url_for('student_dashboard') }}" class="logo d-flex align-items-center">
         <span class="d-none d-lg-block">MSU-IIT PRIS</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -71,7 +71,7 @@
             </li>
 
             <li>
-                <a class="dropdown-item d-flex align-items-center transition-link" href="/student/profile">
+                <a class="dropdown-item d-flex align-items-center transition-link" href="{{ url_for('student_profile') }}">
                   <span>Profile</span>
                 </a>
               </li>
@@ -96,42 +96,35 @@
       <ul class="sidebar-nav" id="sidebar-nav">
   
           <li class="nav-item">
-              <a class="nav-link collapsed {{ 'active' if request.path == '/student/dashboard' else '' }}" href="/student/dashboard">
+              <a class="nav-link collapsed {{ 'active' if request.path == url_for('student_dashboard') else '' }}" href="{{ url_for('student_dashboard') }}">
                   <i class="bx bxs-dashboard"></i>
                   <span>Dashboard</span>
               </a>
           </li>
           <li class="nav-item">
-              <a class="nav-link collapsed {{ 'active' if request.path == '/student/profile' else '' }}" href="/student/profile">
+              <a class="nav-link collapsed {{ 'active' if request.path == url_for('student_profile') else '' }}" href="{{ url_for('student_profile') }}">
                   <i class="ri-contacts-line"></i>
                   <span>Profile</span>
               </a>
           </li>
           <li class="nav-item">
-              <a class="nav-link collapsed {{ 'active' if request.path == '/student/grades' else '' }}" href="/student/grades">
+              <a class="nav-link collapsed {{ 'active' if request.path == url_for('student_grades') else '' }}" href="{{ url_for('student_grades') }}">
                   <i class="ri-book-open-line"></i>
                   <span>Grades</span>
               </a>
           </li>
           <li class="nav-item">
-              <a class="nav-link collapsed {{ 'active' if request.path == '/student/recommendation' else '' }}" href="/student/recommendation">
+              <a class="nav-link collapsed {{ 'active' if request.path == url_for('student_recommendation') else '' }}" href="{{ url_for('student_recommendation') }}">
                   <i class="ri-briefcase-fill"></i>
                   <span>Recommendation</span>
               </a>
           </li>
-          <!-- <li class="nav-item">
-              <a class="nav-link collapsed {{ 'active' if request.path == '/student/courses' else '' }}" href="/student/courses">
-                  <i class="ri-service-fill"></i>
-                  <span>Courses</span>
-              </a>
-          </li> -->
           <li class="nav-item">
-              <a class="nav-link collapsed {{ 'active' if request.path == '/student/about' else '' }}" href="/student/about">
+              <a class="nav-link collapsed {{ 'active' if request.path == url_for('student_about') else '' }}" href="{{ url_for('student_about') }}">
                   <i class="bx bxs-business"></i>
                   <span>About</span>
               </a>
-          </li>
-  
+          </li>  
       </ul>
   
     </aside><!-- End Sidebar-->
