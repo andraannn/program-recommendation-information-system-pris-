@@ -3,7 +3,7 @@ $(function() {
 
     // Function to load schools from the server
     function loadSchools() {
-        $.getJSON('/load_schools', function(data) {
+        $.getJSON('{{ url_for("load_schools") }}', function(data) { // Use Flask to generate the correct path
             availableSchools = data; // Load the array of school objects
             $("#name_hs").autocomplete({
                 source: availableSchools.map(function(school) {
@@ -37,7 +37,7 @@ $(function() {
             
             $.ajax({
                 type: "POST",
-                url: "/add_school",
+                url: "{{ url_for('add_school') }}", // Use Flask to generate the correct path
                 data: { school_name: schoolName, school_address: schoolAddress }, // Send both name and address
                 success: function(response) {
                     console.log("School added:", response);
