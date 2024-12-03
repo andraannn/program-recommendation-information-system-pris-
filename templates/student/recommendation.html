@@ -90,44 +90,44 @@
     </nav><!-- End Icons Navigation -->
 
   </header>
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
 
-      <ul class="sidebar-nav" id="sidebar-nav">
-  
-          <li class="nav-item">
-              <a class="nav-link collapsed {{ 'active' if request.path == url_for('student_dashboard') else '' }}" href="{{ url_for('student_dashboard') }}">
-                  <i class="bx bxs-dashboard"></i>
-                  <span>Dashboard</span>
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link collapsed {{ 'active' if request.path == url_for('student_profile') else '' }}" href="{{ url_for('student_profile') }}">
-                  <i class="ri-contacts-line"></i>
-                  <span>Profile</span>
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link collapsed {{ 'active' if request.path == url_for('student_grades') else '' }}" href="{{ url_for('student_grades') }}">
-                  <i class="ri-book-open-line"></i>
-                  <span>Grades</span>
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link collapsed {{ 'active' if request.path == url_for('student_recommendation') else '' }}" href="{{ url_for('student_recommendation') }}">
-                  <i class="ri-briefcase-fill"></i>
-                  <span>Recommendation</span>
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link collapsed {{ 'active' if request.path == url_for('student_about') else '' }}" href="{{ url_for('student_about') }}">
-                  <i class="bx bxs-business"></i>
-                  <span>About</span>
-              </a>
-          </li>  
-      </ul>
-  
-    </aside><!-- End Sidebar-->
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.endpoint == 'student_dashboard' else '' }}" href="{{ url_for('student_dashboard') }}">
+                <i class="bx bxs-dashboard"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.endpoint == 'student_profile' else '' }}" href="{{ url_for('student_profile') }}">
+                <i class="ri-contacts-line"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.endpoint == 'student_grades' else '' }}" href="{{ url_for('student_grades') }}">
+                <i class="ri-book-open-line"></i>
+                <span>Grades</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.endpoint == 'student_recommendation' else '' }}" href="{{ url_for('student_recommendation') }}">
+                <i class="ri-briefcase-fill"></i>
+                <span>Recommendation</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.endpoint == 'student_about' else '' }}" href="{{ url_for('student_about') }}">
+                <i class="bx bxs-business"></i>
+                <span>About</span>
+            </a>
+        </li>  
+    </ul>
+
+  </aside><!-- End Sidebar-->
 
     <!-- Main Body -->
     <main id="main" class="main">
