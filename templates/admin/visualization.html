@@ -33,7 +33,7 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
-            <a href="/admin/dashboard" class="logo d-flex align-items-center">
+            <a href="{{ url_for('admin.dashboard') }}" class="logo d-flex align-items-center">
                 <span class="d-none d-lg-block">MSU-IIT PRIS</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -113,27 +113,27 @@
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-item">
-                <a class="nav-link collapsed {{ 'active' if request.path == '/admin/dashboard' else '' }}" href="/admin/dashboard">
-                    <i class="bx bxs-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed {{ 'active' if request.path == '/admin/students' else '' }}" href="/admin/students">
-                    <i class="ri-service-fill"></i>
-                    <span>Verified Students</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed {{ 'active' if request.path == '/admin/visualization' else '' }}" href="/admin/visualization">
-                    <i class="bx bxs-business"></i>
-                    <span>Visualization</span>
-                </a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.path == url_for('admin.dashboard') else '' }}" href="{{ url_for('admin.dashboard') }}">
+              <i class="bx bxs-dashboard"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.path == url_for('admin.students') else '' }}" href="{{ url_for('admin.students') }}">
+              <i class="ri-service-fill"></i>
+              <span>Verified Students</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link collapsed {{ 'active' if request.path == url_for('admin.visualization') else '' }}" href="{{ url_for('admin.visualization') }}">
+              <i class="bx bxs-business"></i>
+              <span>Visualization</span>
+            </a>
+          </li>
         </ul>
-    </aside>
-    <!-- End Sidebar-->
+      </aside>
+      <!-- End Sidebar-->
 
     <!-- Main Body -->
     <main id="main" class="main">
