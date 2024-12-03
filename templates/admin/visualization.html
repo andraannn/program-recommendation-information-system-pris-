@@ -33,7 +33,7 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
-            <a href="{{ url_for('admin.dashboard') }}" class="logo d-flex align-items-center">
+            <a href="{{ url_for('admin_dashboard') }}" class="logo d-flex align-items-center">
                 <span class="d-none d-lg-block">MSU-IIT PRIS</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -53,7 +53,7 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                         <li class="dropdown-header">
                             {{ students_applying_count }} student(s) submitted their application!
-                            <a href="{{ url_for('admin.dashboard') }}">
+                            <a href="{{ url_for('admin_dashboard') }}">
                                 <span class="badge rounded-pill bg-primary p-2 ms-2">View all</span>
                             </a>
                         </li>
@@ -65,7 +65,7 @@
                         {% for row in students_applying if row['application_status'] != 'Confirmed' %}
                         <li class="notification-item">
                             <i class="bi bi-info-circle text-success"></i>
-                            <a href="{{ url_for('admin.view_unverified', user_id=row['u_id']) }}">
+                            <a href="{{ url_for('view_unverified', user_id=row['u_id']) }}">
                                 <div>
                                     <p>
                                         {{ row['f_name'] }} {{ row['m_name'] }} {{ row['l_name'] }}
@@ -126,7 +126,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link collapsed {{ 'active' if request.path == url_for('admin_students') else '' }}" href="{{ url_for('admin_visualization') }}">
+            <a class="nav-link collapsed {{ 'active' if request.path == url_for('admin_visualization') else '' }}" href="{{ url_for('admin_visualization') }}">
               <i class="bx bxs-business"></i>
               <span>Visualization</span>
             </a>
