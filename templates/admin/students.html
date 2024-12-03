@@ -158,19 +158,19 @@
     <aside id="sidebar" class="sidebar">
       <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-          <a class="nav-link collapsed {{ 'active' if request.path == url_for('admin_dashboard') else '' }}" href="{{ url_for('admin_dashboard') }}">
+          <a class="nav-link collapsed {{ 'active' if request.endpoint == 'admin_dashboard' else '' }}" href="{{ url_for('admin_dashboard') }}">
             <i class="bx bxs-dashboard"></i>
             <span>Dashboard</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link collapsed {{ 'active' if request.path == url_for('admin_students') else '' }}" href="{{ url_for('admin_students') }}">
+          <a class="nav-link collapsed {{ 'active' if request.endpoint == 'admin_students' else '' }}" href="{{ url_for('admin_students') }}">
             <i class="ri-service-fill"></i>
             <span>Verified Students</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link collapsed {{ 'active' if request.path == url_for('admin_visualization') else '' }}" href="{{ url_for('admin_visualization') }}">
+          <a class="nav-link collapsed {{ 'active' if request.endpoint == 'admin_visualization' else '' }}" href="{{ url_for('admin_visualization') }}">
             <i class="bx bxs-business"></i>
             <span>Visualization</span>
           </a>
